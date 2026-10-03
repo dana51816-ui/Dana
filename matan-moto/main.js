@@ -171,6 +171,89 @@ const CONFIG = {
     requestAnimationFrame(tick);
   }
 
+  // Odometer: each digit rolls through two full turns into place
+  document.querySelectorAll("[data-odo]").forEach((box) => {
+    const digits = String(CONFIG.basePrice).split("");
+    box.textContent = "";
+    const sr = document.createElement("span");
+    sr.className = "sr-only";
+    sr.textContent = CONFIG.basePrice;
+    box.appendChild(sr);
+    digits.forEach((d, i) => {
+      const col = document.createElement("span");
+      col.className = "odo-col";
+      col.setAttribute("aria-hidden", "true");
+      const strip = document.createElement("span");
+      strip.style.setProperty("--n", 10 + Number(d));
+      strip.style.setProperty("--i", i);
+      for (let k = 0; k < 20; k++) {
+        const n = document.createElement("i");
+        n.textContent = k % 10;
+        strip.appendChild(n);
+      }
+      col.appendChild(strip);
+      box.appendChild(col);
+    });
+  });
+
+  // Live arrival time: "now + ETA", rounded up to 5 minutes
+  const when = document.getElementById("eta-when");
+  function updateWhen() {
+    const mins = parseInt(CONFIG.eta, 10) || 25;
+    const t = new Date(Date.now() + mins * 60000);
+    t.setMinutes(Math.ceil(t.getMinutes() / 5) * 5, 0, 0);
+    const hh = String(t.getHours()).padStart(2, "0");
+    const mm = String(t.getMinutes()).padStart(2, "0");
+    when.innerHTML = 'בסביבות <strong><bdi dir="ltr">' + hh + ":" + mm + "</bdi></strong>";
+  }
+  if (when) { updateWhen(); setInterval(updateWhen, 60000); }
+
+  // Desktop-only flourishes: spotlight that follows the pointer, magnetic CTAs
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const heroEl = document.querySelector(".hero");
+  const spot = document.querySelector(".spot");
+  if (motionOK && finePointer && heroEl && spot) {
+    heroEl.addEventListener("pointermove", (e) => {
+      const r = heroEl.getBoundingClientRect();
+      spot.style.setProperty("--sx", ((e.clientX - r.left) / r.width) * 100 + "%");
+      spot.style.setProperty("--sy", ((e.clientY - r.top) / r.height) * 100 + "%");
+    }, { passive: true });
+  }
+  if (motionOK && finePointer) {
+    document.querySelectorAll(".btn-lg").forEach((btn) => {
+      btn.addEventListener("pointermove", (e) => {
+        const r = btn.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        btn.style.translate = (dx * 0.12).toFixed(1) + "px " + (dy * 0.25).toFixed(1) + "px";
+      });
+      btn.addEventListener("pointerleave", () => { btn.style.translate = ""; });
+    });
+  }
+
+  // Scroll parallax in the hero: the rig drives off, the background chevrons drift
+  const rigWrap = document.querySelector(".hero .rig-wrap");
+  const heroChev = document.querySelector(".hero-chev");
+  const heroCopy = document.querySelector(".hero-copy");
+  if (motionOK && heroEl && rigWrap) {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const h = heroEl.offsetHeight;
+        const p = Math.min(1, Math.max(0, window.scrollY / h));
+        if (p >= 1 && rigWrap.dataset.done) return;
+        rigWrap.dataset.done = p >= 1 ? "1" : "";
+        rigWrap.style.translate = (p * 55).toFixed(2) + "vw 0";
+        if (heroChev) heroChev.style.translate = (p * -140).toFixed(1) + "px 0";
+        if (heroCopy) heroCopy.style.translate = "0 " + (p * -50).toFixed(1) + "px";
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
   const revealEls = document.querySelectorAll("[data-reveal], [data-reveal-only]");
   if (motionOK && "IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
