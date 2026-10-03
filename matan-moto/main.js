@@ -125,6 +125,71 @@ const CONFIG = {
     track(action === "call" ? "call" : "whatsapp", action + ":" + label);
   });
 
+  /* ---------- Motion ---------- */
+  const motionOK = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+
+  // Second rig drives in above the final CTA road
+  const rig = document.getElementById("rig");
+  const finalRoad = document.querySelector(".final-road");
+  if (rig && finalRoad) {
+    const clone = rig.cloneNode(true);
+    clone.removeAttribute("id");
+    finalRoad.prepend(clone);
+    finalRoad.setAttribute("data-reveal-only", "");
+  }
+
+  // Count-up for the numbers bar
+  function countUp(el) {
+    const target = parseInt(el.textContent, 10);
+    if (!target) return;
+    const start = performance.now();
+    const dur = 1100;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  // Delivery dot travels along the map route
+  function driveRoute(map) {
+    const path = map.querySelector(".route");
+    const dot = map.querySelector(".route-dot");
+    if (!path || !dot || !path.getTotalLength) return;
+    const len = path.getTotalLength();
+    const start = performance.now() + 1000;
+    const dur = 1600;
+    const tick = (now) => {
+      const t = Math.max(0, Math.min(1, (now - start) / dur));
+      const e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      const pt = path.getPointAtLength(len * e);
+      dot.setAttribute("cx", pt.x);
+      dot.setAttribute("cy", pt.y);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const revealEls = document.querySelectorAll("[data-reveal], [data-reveal-only]");
+  if (motionOK && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.classList.add("is-in");
+        io.unobserve(el);
+        el.querySelectorAll("[data-count]").forEach(countUp);
+        if (el.classList.contains("map")) driveRoute(el);
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-in"));
+    const dot = document.querySelector(".route-dot");
+    if (dot) { dot.setAttribute("cx", 276); dot.setAttribute("cy", 336); }
+  }
+
   /* Mobile call bar: appears after scrolling past the hero */
   const bar = document.querySelector(".callbar");
   const hero = document.querySelector(".hero");

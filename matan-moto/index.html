@@ -6,8 +6,9 @@
   <title>גרר אופנועים בראשון לציון | מתן מוטו גרר - 330 ₪ מחיר סגור</title>
   <meta name="description" content="גרירה ושינוע רק לאופנועים וקטנועים בראשון לציון, נס ציונה ורחובות. מגיעים תוך כ-25 דקות, מחיר סגור מראש.">
   <meta name="theme-color" content="#00345E">
+  <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Open Graph. TODO: once the domain is live, make og:image and og:url absolute (https://your-domain/assets/og-image.jpg) -->
+  <!-- Open Graph. TODO: once the domain is live, make og:image absolute (https://your-domain/assets/og-image.jpg) -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   <meta property="og:title" content="מתן מוטו גרר - גרירת אופנועים וקטנועים">
@@ -75,12 +76,11 @@
       <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
       <symbol id="i-swap" viewBox="0 0 24 24"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></symbol>
       <symbol id="i-building" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></symbol>
-      <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
-      <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></symbol>
-      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
       <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
       <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
       <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+      <symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol>
     </defs>
   </svg>
 
@@ -92,22 +92,29 @@
       <a href="#top" class="brand" aria-label="מתן מוטו גרר - לראש הדף">
         <img src="assets/logo-320.webp" alt="מתן מוטו גרר - גרירת אופנועים וקטנועים" width="320" height="222">
       </a>
-      <a class="btn btn-call btn-sm" data-action="call" href="tel:0500000000">
-        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
-        <span>התקשרו עכשיו</span>
-      </a>
+      <div class="header-end">
+        <p class="header-live"><span class="dot" aria-hidden="true"></span>זמין עכשיו · <bdi>מגיע תוך כ-<span data-cfg="etaNum">25</span> דק׳</bdi></p>
+        <a class="btn btn-call btn-sm" data-action="call" href="tel:0500000000">
+          <svg class="icon ring" aria-hidden="true"><use href="#i-phone"/></svg>
+          <span>התקשרו עכשיו</span>
+        </a>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <!-- 2. Hero -->
     <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <svg class="hero-chev" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet"><path d="M20 20l80 80-80 80M200 20l80 80-80 80M380 20l80 80-80 80" fill="none" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="badge"><span class="dot" aria-hidden="true"></span>זמין עכשיו</p>
           <h1 id="hero-title" class="hero-title">
-            <span class="l1">תקוע?</span>
-            <span class="l2">מתן בדרך.</span>
+            <span class="mask"><span class="l1">תקוע?</span></span>
+            <span class="mask"><span class="l2">מתן בדרך.</span></span>
           </h1>
           <p class="hero-sub">גרירה ושינוע רק לאופנועים וקטנועים בראשון לציון, נס ציונה ורחובות. מחיר סגור לפני שיוצאים.</p>
         </div>
@@ -115,14 +122,14 @@
         <div class="hero-action">
           <div class="price-tag">
             <p class="price-num"><bdi dir="ltr"><span data-cfg="price">330</span> <span class="cur">₪</span></bdi></p>
-            <p class="price-note">כולל מע״מ · באזור הליבה</p>
+            <p class="price-note">כולל מע״מ<br>באזור הליבה</p>
           </div>
           <div class="cta-pair">
-            <a class="btn btn-call btn-lg" data-action="call" href="tel:0500000000">
-              <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+            <a class="btn btn-call btn-lg btn-shine" data-action="call" href="tel:0500000000">
+              <svg class="icon ring" aria-hidden="true"><use href="#i-phone"/></svg>
               <span>התקשרו עכשיו</span>
             </a>
-            <a class="btn btn-wa btn-lg" data-action="whatsapp" href="https://wa.me/972500000000" target="_blank" rel="noopener">
+            <a class="btn btn-white btn-lg" data-action="whatsapp" href="https://wa.me/972500000000" target="_blank" rel="noopener">
               <svg class="icon" aria-hidden="true"><use href="#i-message"/></svg>
               <span>שלחו מיקום בוואטסאפ</span>
             </a>
@@ -130,58 +137,70 @@
         </div>
       </div>
 
-      <!-- Signature scene: trailer slides in, hazard stripe draws, chevrons flash (once, 1.2s) -->
+      <!-- Signature scene: rig drives in, wheels spin, hazard stripe draws, chevrons flash -->
       <div class="scene" aria-hidden="true">
-        <svg class="rig" viewBox="0 0 640 214" width="640" height="214" focusable="false">
-          <!-- speed chevrons: orange on navy -->
+        <svg class="rig" id="rig" viewBox="0 0 640 214" width="640" height="214" focusable="false">
+          <g class="speed">
+            <path d="M-40 70 H60 M-80 100 H40 M-20 130 H70" stroke-width="5" stroke-linecap="round"/>
+          </g>
           <g class="chevrons">
-            <rect x="0" y="118" width="74" height="34" rx="10" fill="#00345E"/>
-            <path d="M14 126l9 9-9 9M32 126l9 9-9 9M50 126l9 9-9 9" fill="none" stroke="#F86A00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 122l11 11-11 11M36 122l11 11-11 11M58 122l11 11-11 11" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
-          <!-- trailer -->
-          <g fill="#00345E">
-            <rect x="86" y="150" width="440" height="14" rx="4"/>
-            <rect x="96" y="164" width="140" height="8" rx="3"/>
-            <path d="M526 154 L604 172 L604 180 L520 164 Z"/>
-            <circle cx="612" cy="176" r="8"/>
-            <!-- upright + arm -->
-            <rect x="500" y="44" width="12" height="108" rx="3"/>
-            <path d="M504 46 L566 22 L570 32 L510 56 Z"/>
-            <rect x="563" y="22" width="6" height="22" rx="2"/>
-          </g>
-          <path d="M566 44v12a10 10 0 1 1-10 10" fill="none" stroke="#F86A00" stroke-width="6" stroke-linecap="round"/>
-          <!-- marker lights -->
-          <rect x="120" y="155" width="16" height="5" rx="2" fill="#F86A00"/>
-          <rect x="300" y="155" width="16" height="5" rx="2" fill="#F86A00"/>
-          <rect x="460" y="155" width="16" height="5" rx="2" fill="#F86A00"/>
-          <!-- trailer wheel -->
-          <path d="M140 174a40 40 0 0 1 80 0" fill="none" stroke="#00345E" stroke-width="6"/>
-          <circle cx="180" cy="186" r="24" fill="#fff" stroke="#00345E" stroke-width="8"/>
-          <circle cx="180" cy="186" r="7" fill="#00345E"/>
+          <g class="rig-body">
+            <!-- trailer -->
+            <g class="k-fill">
+              <rect x="86" y="150" width="440" height="12" rx="4"/>
+              <rect x="96" y="162" width="140" height="7" rx="3"/>
+              <path d="M526 153 L604 171 L604 178 L520 162 Z"/>
+              <circle cx="612" cy="175" r="8"/>
+              <rect x="500" y="44" width="12" height="108" rx="3"/>
+              <path d="M504 46 L566 22 L570 32 L510 56 Z"/>
+              <rect x="563" y="22" width="6" height="22" rx="2"/>
+            </g>
+            <path class="k-acc hook" d="M566 44v12a10 10 0 1 1-10 10" fill="none" stroke-width="6" stroke-linecap="round"/>
+            <g class="k-acc-fill">
+              <rect x="120" y="154" width="16" height="4" rx="2"/>
+              <rect x="300" y="154" width="16" height="4" rx="2"/>
+              <rect x="460" y="154" width="16" height="4" rx="2"/>
+            </g>
+            <path class="k-line" d="M140 172a40 40 0 0 1 80 0" fill="none" stroke-width="6"/>
+            <g class="wheel">
+              <circle class="k-bg k-line" cx="180" cy="186" r="23" stroke-width="7"/>
+              <path class="k-line" d="M180 172v28M166 186h28" stroke-width="3"/>
+              <circle class="k-fill" cx="180" cy="186" r="6"/>
+            </g>
 
-          <!-- motorcycle (sport bike, facing right = direction of travel) -->
-          <g stroke="#00345E" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M174 114 L268 100" stroke-width="9" fill="none"/>
-            <path d="M372 52 L406 114" stroke-width="8" fill="none"/>
-            <path d="M228 98 L150 84" stroke-width="6" fill="none"/>
-            <path d="M262 86 L320 84 L330 104 L318 124 L268 122 Z" fill="#00345E" stroke-width="4"/>
-            <path d="M128 46 L184 56 L232 60 L250 46 Q284 32 322 40 L346 44 L360 24 Q392 26 414 60 L404 80 L370 92 L342 108 L330 96 L300 82 L262 84 L236 80 L196 74 L150 62 Z" fill="#fff" stroke-width="6"/>
-            <path d="M250 46 Q284 32 322 40 L320 56 Q288 54 262 62 Z" fill="#00345E" stroke-width="3"/>
-            <path d="M360 24 Q392 26 414 60 L404 80 L376 72 L366 46 Z" fill="#00345E" stroke-width="3"/>
-            <path d="M184 56 L232 60" stroke-width="10" fill="none"/>
-            <path d="M322 60 L368 88" stroke-width="3" fill="none"/>
-            <path d="M128 46 L150 62" stroke-width="6" fill="none"/>
-            <circle cx="174" cy="114" r="34" fill="#fff" stroke-width="9"/>
-            <circle cx="174" cy="114" r="19" fill="none" stroke-width="3"/>
-            <circle cx="174" cy="114" r="6" fill="#00345E"/>
-            <circle cx="406" cy="114" r="34" fill="#fff" stroke-width="9"/>
-            <circle cx="406" cy="114" r="19" fill="none" stroke-width="3"/>
-            <circle cx="406" cy="114" r="6" fill="#00345E"/>
-            <path d="M372 76 A40 40 0 0 1 440 90" stroke-width="5" fill="none"/>
+            <!-- motorcycle (sport bike, facing right = direction of travel) -->
+            <g class="k-line" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <path d="M174 114 L268 100" stroke-width="9"/>
+              <path d="M372 52 L406 114" stroke-width="8"/>
+              <path d="M228 98 L150 84" stroke-width="6"/>
+            </g>
+            <path class="k-fill k-line" d="M262 86 L320 84 L330 104 L318 124 L268 122 Z" stroke-width="4" stroke-linejoin="round"/>
+            <path class="k-bg k-line" d="M128 46 L184 56 L232 60 L250 46 Q284 32 322 40 L346 44 L360 24 Q392 26 414 60 L404 80 L370 92 L342 108 L330 96 L300 82 L262 84 L236 80 L196 74 L150 62 Z" stroke-width="6" stroke-linejoin="round"/>
+            <path class="k-fill k-line" d="M250 46 Q284 32 322 40 L320 56 Q288 54 262 62 Z" stroke-width="3" stroke-linejoin="round"/>
+            <path class="k-fill k-line" d="M360 24 Q392 26 414 60 L404 80 L376 72 L366 46 Z" stroke-width="3" stroke-linejoin="round"/>
+            <g class="k-line" stroke-linecap="round" fill="none">
+              <path d="M184 56 L232 60" stroke-width="10"/>
+              <path d="M322 60 L368 88" stroke-width="3"/>
+              <path d="M128 46 L150 62" stroke-width="6"/>
+              <path d="M372 76 A40 40 0 0 1 440 90" stroke-width="5"/>
+            </g>
+            <g class="wheel">
+              <circle class="k-bg k-line" cx="174" cy="114" r="34" stroke-width="9"/>
+              <path class="k-line" d="M174 94v40M154 114h40M160 100l28 28M188 100l-28 28" stroke-width="3"/>
+              <circle class="k-fill" cx="174" cy="114" r="7"/>
+            </g>
+            <g class="wheel">
+              <circle class="k-bg k-line" cx="406" cy="114" r="34" stroke-width="9"/>
+              <path class="k-line" d="M406 94v40M386 114h40M392 100l28 28M420 100l-28 28" stroke-width="3"/>
+              <circle class="k-fill" cx="406" cy="114" r="7"/>
+            </g>
+            <!-- straps on the wheels, not the frame -->
+            <path class="k-acc" d="M150 134 L118 150 M430 134 L466 150" stroke-width="5" stroke-linecap="round"/>
           </g>
-          <!-- straps on the wheels, not the frame -->
-          <path d="M150 134 L118 150 M430 134 L466 150" stroke="#F86A00" stroke-width="5" stroke-linecap="round"/>
         </svg>
+        <div class="road"></div>
         <div class="hazard hazard-draw"></div>
       </div>
     </section>
@@ -189,18 +208,20 @@
     <!-- 3. Numbers bar -->
     <section class="stats" aria-label="במספרים">
       <ul class="wrap stats-list">
-        <li><strong class="stat-num"><bdi><span data-cfg="etaNum">25</span> דק׳</bdi></strong><span>זמן הגעה ממוצע</span></li>
-        <li><strong class="stat-num stat-orange"><bdi dir="ltr"><span data-cfg="price">330</span> <span class="cur">₪</span></bdi></strong><span>מחיר סגור</span></li>
-        <li><strong class="stat-num"><bdi dir="ltr">100%</bdi></strong><span>רק דו-גלגלי</span></li>
+        <li data-reveal><strong class="stat-num"><bdi><span data-cfg="etaNum" data-count>25</span> דק׳</bdi></strong><span class="stat-label">זמן הגעה ממוצע</span></li>
+        <li data-reveal style="--d:.08s"><strong class="stat-num stat-orange"><bdi dir="ltr"><span data-cfg="price" data-count>330</span> <span class="cur">₪</span></bdi></strong><span class="stat-label">מחיר סגור</span></li>
+        <li data-reveal style="--d:.16s"><strong class="stat-num"><bdi dir="ltr"><span data-count>100</span>%</bdi></strong><span class="stat-label">רק דו-גלגלי</span></li>
       </ul>
     </section>
 
     <!-- 4. How it works -->
-    <section class="section" aria-labelledby="how-title">
+    <section class="section how" aria-labelledby="how-title">
       <div class="wrap">
-        <p class="kicker">איך זה עובד</p>
-        <h2 id="how-title" class="h2">שלושה צעדים, ואתם בדרך</h2>
-        <ol class="steps">
+        <header class="sec-head" data-reveal>
+          <p class="kicker">איך זה עובד</p>
+          <h2 id="how-title" class="h2">שלושה צעדים, ואתם בדרך</h2>
+        </header>
+        <ol class="steps" data-reveal>
           <li class="step">
             <span class="step-num" aria-hidden="true">1</span>
             <div>
@@ -229,37 +250,39 @@
     <!-- 5. Services -->
     <section class="section section-alt" aria-labelledby="services-title">
       <div class="wrap">
-        <p class="kicker">שירותים</p>
-        <h2 id="services-title" class="h2">מה מתן עושה</h2>
-        <div class="cards cards-4">
-          <article class="card">
+        <header class="sec-head" data-reveal>
+          <p class="kicker">שירותים</p>
+          <h2 id="services-title" class="h2">מה מתן עושה</h2>
+        </header>
+        <div class="bento">
+          <article class="card card-hero" data-reveal>
             <div class="photo" data-photo="1"><div class="ph"><span class="ph-num">1</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">מעמיס קטנוע על הנגרר, מבט מהצד</span></div></div>
             <div class="card-body">
-              <svg class="icon icon-badge" aria-hidden="true"><use href="#i-truck"/></svg>
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-truck"/></svg></span>
               <h3 class="h3">גרירה מהשטח</h3>
               <p>אופנוע שלא מניע או אחרי תקלה, מהמקום שלך למוסך</p>
             </div>
           </article>
-          <article class="card">
+          <article class="card" data-reveal style="--d:.08s">
             <div class="photo" data-photo="5"><div class="ph"><span class="ph-num">5</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">מסירה ללקוח ליד מוסך</span></div></div>
             <div class="card-body">
-              <svg class="icon icon-badge" aria-hidden="true"><use href="#i-wrench"/></svg>
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg></span>
               <h3 class="h3">שינוע מתוכנן למוסך</h3>
               <p>הלוך וחזור לטיפול, בתיאום מראש</p>
             </div>
           </article>
-          <article class="card">
+          <article class="card" data-reveal style="--d:.16s">
             <div class="photo" data-photo="4"><div class="ph"><span class="ph-num">4</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">אופנוע קשור, מבט מאחור</span></div></div>
             <div class="card-body">
-              <svg class="icon icon-badge" aria-hidden="true"><use href="#i-swap"/></svg>
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-swap"/></svg></span>
               <h3 class="h3">העברה בין קונה למוכר</h3>
               <p>קנית אופנוע שלא נוסע? מביאים אותו אליך</p>
             </div>
           </article>
-          <article class="card">
+          <article class="card card-wide" data-reveal style="--d:.24s">
             <div class="photo" data-photo="6"><div class="ph"><span class="ph-num">6</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">הנגרר ריק ונקי</span></div></div>
             <div class="card-body">
-              <svg class="icon icon-badge" aria-hidden="true"><use href="#i-building"/></svg>
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg></span>
               <h3 class="h3">שירות לעסקים</h3>
               <p>מוסכים, סוכנויות וציי שליחים</p>
             </div>
@@ -268,32 +291,58 @@
       </div>
     </section>
 
+    <!-- Marquee band -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>גרירת אופנועים</span><i></i><span>גרירת קטנועים</span><i></i><span>ראשון לציון</span><i></i><span>נס ציונה</span><i></i><span>רחובות</span><i></i><span>מחיר סגור מראש</span><i></i>
+        <span>גרירת אופנועים</span><i></i><span>גרירת קטנועים</span><i></i><span>ראשון לציון</span><i></i><span>נס ציונה</span><i></i><span>רחובות</span><i></i><span>מחיר סגור מראש</span><i></i>
+      </div>
+    </div>
+
     <!-- 6. Why a rider -->
-    <section class="section" aria-labelledby="rider-title">
+    <section class="section rider-sec" aria-labelledby="rider-title">
       <div class="wrap rider">
-        <div class="rider-copy">
+        <div class="rider-copy" data-reveal>
           <p class="kicker">למה רוכב</p>
-          <h2 id="rider-title" class="h2">הגרר של הרוכבים</h2>
+          <h2 id="rider-title" class="h2 h2-xl">הגרר של <span class="u-draw">הרוכבים</span></h2>
           <p class="lead">גרר רגיל מעמיס אופנוע כמו עוד מטען. מתן רוכב בעצמו, ומעמיס את האופנוע שלך כמו שהוא היה מעמיס את שלו: רצועות על הגלגלים, לא על המסגרת, ובלי לחץ על הפלסטיקים.</p>
-          <div class="photo photo-small" data-photo="2"><div class="ph"><span class="ph-num">2</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">תקריב של רצועת קשירה על הגלגל</span></div></div>
+          <ul class="proof">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>רצועות על הגלגלים</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>לא על המסגרת</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>בלי לחץ על הפלסטיקים</li>
+          </ul>
         </div>
-        <div class="photo photo-tall" data-photo="3"><div class="ph"><span class="ph-num">3</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">מתן בחולצת המותג ליד הנגרר</span></div></div>
+        <div class="rider-media" data-reveal style="--d:.1s">
+          <div class="photo photo-tall" data-photo="3"><div class="ph"><span class="ph-num">3</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">מתן בחולצת המותג ליד הנגרר</span></div></div>
+          <div class="photo photo-inset" data-photo="2"><div class="ph"><span class="ph-num">2</span><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span class="ph-text">תקריב של רצועת קשירה על הגלגל</span></div></div>
+          <p class="rider-tag">רוכב בעצמו</p>
+        </div>
       </div>
     </section>
 
     <!-- 7. Prices -->
     <section class="section section-alt" id="prices" aria-labelledby="prices-title">
       <div class="wrap narrow">
-        <p class="kicker">מחירים</p>
-        <h2 id="prices-title" class="h2">מחירון שקוף</h2>
-        <div class="panel">
+        <header class="sec-head" data-reveal>
+          <p class="kicker">מחירים</p>
+          <h2 id="prices-title" class="h2">מחירון שקוף</h2>
+        </header>
+        <div class="ticket" data-reveal>
+          <div class="ticket-top">
+            <div>
+              <p class="ticket-label">גרירה באזור הליבה</p>
+              <p class="ticket-price"><bdi dir="ltr"><span data-cfg="price">330</span> <span class="cur">₪</span></bdi></p>
+            </div>
+            <p class="stamp">מחיר<br>סגור</p>
+          </div>
+          <div class="ticket-cut" aria-hidden="true"></div>
           <table class="price-table">
             <caption class="sr-only">מחירון גרירת אופנועים וקטנועים</caption>
-            <thead>
+            <thead class="sr-only">
               <tr><th scope="col">שירות</th><th scope="col">מחיר</th></tr>
             </thead>
             <tbody>
-              <tr class="row-main"><th scope="row">גרירה באזור הליבה</th><td><bdi dir="ltr" class="money money-main"><span data-cfg="price">330</span> <span class="cur">₪</span></bdi></td></tr>
+              <tr class="sr-only"><th scope="row">גרירה באזור הליבה</th><td><bdi dir="ltr"><span data-cfg="price">330</span> ₪</bdi></td></tr>
               <tr><th scope="row">ערב <bdi dir="ltr">18:00-22:00</bdi></th><td><bdi dir="ltr" class="money">+70 <span class="cur">₪</span></bdi></td></tr>
               <tr><th scope="row">שבת וחג</th><td><bdi dir="ltr" class="money">+100 <span class="cur">₪</span></bdi></td></tr>
               <tr><th scope="row">כלי שלא מתגלגל / אחרי תאונה</th><td><bdi dir="ltr" class="money">+50-100 <span class="cur">₪</span></bdi></td></tr>
@@ -308,7 +357,7 @@
     <!-- 8. Service area -->
     <section class="section" aria-labelledby="area-title">
       <div class="wrap area">
-        <div class="area-copy">
+        <div class="area-copy" data-reveal>
           <p class="kicker">אזור שירות</p>
           <h2 id="area-title" class="h2">איפה מתן עובד</h2>
           <ul class="chips" id="area-chips">
@@ -320,35 +369,32 @@
           </ul>
           <p class="lead">רחוק יותר? <a class="text-link" data-action="whatsapp" href="https://wa.me/972500000000" target="_blank" rel="noopener">שלחו מיקום ונבדוק.</a></p>
         </div>
-        <figure class="map panel">
+        <figure class="map" data-reveal style="--d:.1s">
           <svg viewBox="0 0 460 400" role="img" aria-labelledby="map-title" width="460" height="400">
             <title id="map-title">מפת אזור השירות: ראשון לציון, נס ציונה, רחובות, באר יעקב ובית דגן</title>
-            <rect width="460" height="400" fill="#F5F7FA"/>
-            <!-- sea -->
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#E6EBF1" stroke-width="1"/></pattern>
+            </defs>
+            <rect width="460" height="400" fill="#FFFFFF"/>
+            <rect width="460" height="400" fill="url(#grid)"/>
             <path d="M0 0 H92 C80 90 52 200 24 290 C14 330 6 370 0 400 Z" fill="#DCE6F0"/>
             <text x="34" y="150" font-size="18" fill="#566170" font-family="Assistant, sans-serif" transform="rotate(-72 34 150)" text-anchor="middle">הים התיכון</text>
-            <!-- roads -->
             <g fill="none" stroke="#DCE2EA" stroke-width="6" stroke-linecap="round">
               <path d="M120 0 C130 120 150 260 170 400"/>
               <path d="M380 0 C370 120 350 260 330 400"/>
               <path d="M60 210 C180 200 300 190 460 175"/>
               <path d="M200 0 C230 150 260 260 290 400"/>
             </g>
-            <!-- core zone -->
-            <path d="M190 120 C250 92 320 130 318 210 C316 290 330 360 270 372 C214 382 196 300 196 240 C196 190 160 140 190 120 Z" fill="rgba(248,106,0,0.10)" stroke="#B44A00" stroke-width="2.5" stroke-dasharray="8 6"/>
+            <path class="zone" d="M190 120 C250 92 320 130 318 210 C316 290 330 360 270 372 C214 382 196 300 196 240 C196 190 160 140 190 120 Z" fill="#F86A00" fill-opacity="0.10" stroke="#B44A00" stroke-width="2.5" stroke-dasharray="8 6"/>
+            <path class="route" id="route" d="M237 160 C262 190 238 220 252 248 C266 276 290 300 276 336" fill="none" stroke="#00345E" stroke-width="4" stroke-linecap="round"/>
+            <circle class="route-dot" cx="237" cy="160" r="8" fill="#F86A00" stroke="#141C24" stroke-width="3"/>
             <text x="300" y="392" font-size="17" font-weight="700" fill="#B44A00" font-family="Assistant, sans-serif" text-anchor="middle">אזור הליבה · <tspan direction="ltr" unicode-bidi="embed">330 ₪</tspan></text>
-            <!-- cities -->
             <g font-family="Assistant, sans-serif" font-weight="700" fill="#141C24" text-anchor="middle">
-              <circle cx="237" cy="160" r="9" fill="#00345E"/><circle cx="237" cy="160" r="3.5" fill="#fff"/>
-              <text x="237" y="140" font-size="21">ראשון לציון</text>
-              <circle cx="252" cy="248" r="9" fill="#00345E"/><circle cx="252" cy="248" r="3.5" fill="#fff"/>
-              <text x="252" y="228" font-size="21">נס ציונה</text>
-              <circle cx="276" cy="336" r="9" fill="#00345E"/><circle cx="276" cy="336" r="3.5" fill="#fff"/>
-              <text x="276" y="316" font-size="21">רחובות</text>
-              <circle cx="360" cy="230" r="7" fill="#566170"/>
-              <text x="372" y="212" font-size="18">באר יעקב</text>
-              <circle cx="336" cy="74" r="7" fill="#566170"/>
-              <text x="336" y="56" font-size="18">בית דגן</text>
+              <g class="pin" style="--d:.1s"><circle cx="237" cy="160" r="10" fill="#00345E"/><circle cx="237" cy="160" r="4" fill="#fff"/><text x="237" y="138" font-size="21">ראשון לציון</text></g>
+              <g class="pin" style="--d:.25s"><circle cx="252" cy="248" r="10" fill="#00345E"/><circle cx="252" cy="248" r="4" fill="#fff"/><text x="252" y="226" font-size="21">נס ציונה</text></g>
+              <g class="pin" style="--d:.4s"><circle cx="276" cy="336" r="10" fill="#00345E"/><circle cx="276" cy="336" r="4" fill="#fff"/><text x="276" y="314" font-size="21">רחובות</text></g>
+              <g class="pin" style="--d:.55s"><circle cx="360" cy="230" r="7" fill="#566170"/><text x="372" y="212" font-size="18">באר יעקב</text></g>
+              <g class="pin" style="--d:.7s"><circle cx="336" cy="74" r="7" fill="#566170"/><text x="336" y="56" font-size="18">בית דגן</text></g>
             </g>
           </svg>
         </figure>
@@ -358,43 +404,50 @@
     <!-- 9. For businesses -->
     <section class="b2b" aria-labelledby="b2b-title">
       <div class="wrap b2b-inner">
-        <div>
+        <div data-reveal>
           <p class="kicker kicker-light">לעסקים</p>
-          <h2 id="b2b-title" class="h2 h2-light">הגרר הגיבוי שלכם.</h2>
+          <h2 id="b2b-title" class="h2 h2-light h2-xl">הגרר הגיבוי שלכם.</h2>
           <p class="lead lead-light">מוסכים, סוכנויות וציי שליחים: כשהגרר הקבוע עסוק, מתן מגיע. מחיר קבוע ללקוחות עסקיים וחשבונית חודשית.</p>
-          <a class="btn btn-light btn-lg" data-action="whatsapp-b2b" href="https://wa.me/972500000000" target="_blank" rel="noopener">
+          <a class="btn btn-white btn-lg" data-action="whatsapp-b2b" href="https://wa.me/972500000000" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-message"/></svg>
             <span>דברו איתנו על שיתוף פעולה</span>
           </a>
         </div>
-        <div class="b2b-chevrons" aria-hidden="true">
-          <svg viewBox="0 0 180 60" width="180" height="60"><path d="M10 8l22 22-22 22M70 8l22 22-22 22M130 8l22 22-22 22" fill="none" stroke="#F86A00" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <ul class="b2b-list" data-reveal style="--d:.1s">
+          <li><span class="b2b-chev" aria-hidden="true"></span><strong>גיבוי כשהגרר הקבוע עסוק</strong></li>
+          <li><span class="b2b-chev" aria-hidden="true"></span><strong>מחיר קבוע ללקוחות עסקיים</strong></li>
+          <li><span class="b2b-chev" aria-hidden="true"></span><strong>חשבונית חודשית</strong></li>
+        </ul>
       </div>
     </section>
 
     <!-- 10. Reviews -->
     <section class="section" aria-labelledby="reviews-title">
       <div class="wrap">
-        <p class="kicker">ביקורות</p>
-        <h2 id="reviews-title" class="h2">מה רוכבים אומרים</h2>
+        <header class="sec-head" data-reveal>
+          <p class="kicker">ביקורות</p>
+          <h2 id="reviews-title" class="h2">מה רוכבים אומרים</h2>
+        </header>
         <!--
           REVIEWS: paste real Google reviews here.
           For each card: replace the <p class="review-ph"> with the review text,
-          and fill in the reviewer's name in <footer>. Do not write invented reviews.
+          and fill in the reviewer's name in <figcaption>. Do not write invented reviews.
         -->
         <div class="cards cards-3">
-          <figure class="card review">
+          <figure class="card review" data-reveal>
+            <svg class="icon quote" aria-hidden="true"><use href="#i-quote"/></svg>
             <div class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div>
             <blockquote><p class="review-ph">ביקורת אמיתית מגוגל תופיע כאן</p></blockquote>
             <figcaption class="review-by">שם הממליץ · Google</figcaption>
           </figure>
-          <figure class="card review">
+          <figure class="card review" data-reveal style="--d:.08s">
+            <svg class="icon quote" aria-hidden="true"><use href="#i-quote"/></svg>
             <div class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div>
             <blockquote><p class="review-ph">ביקורת אמיתית מגוגל תופיע כאן</p></blockquote>
             <figcaption class="review-by">שם הממליץ · Google</figcaption>
           </figure>
-          <figure class="card review">
+          <figure class="card review" data-reveal style="--d:.16s">
+            <svg class="icon quote" aria-hidden="true"><use href="#i-quote"/></svg>
             <div class="stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></div>
             <blockquote><p class="review-ph">ביקורת אמיתית מגוגל תופיע כאן</p></blockquote>
             <figcaption class="review-by">שם הממליץ · Google</figcaption>
@@ -406,27 +459,29 @@
     <!-- 11. FAQ -->
     <section class="section section-alt" aria-labelledby="faq-title">
       <div class="wrap narrow">
-        <p class="kicker">שאלות נפוצות</p>
-        <h2 id="faq-title" class="h2">לפני שמתקשרים</h2>
-        <div class="faq">
+        <header class="sec-head" data-reveal>
+          <p class="kicker">שאלות נפוצות</p>
+          <h2 id="faq-title" class="h2">לפני שמתקשרים</h2>
+        </header>
+        <div class="faq" data-reveal>
           <details>
-            <summary>כמה זמן לוקח להגיע?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <summary>כמה זמן לוקח להגיע?<span class="faq-ico" aria-hidden="true"></span></summary>
             <p>בדרך כלל 15-30 דקות באזור הליבה. תקבלו זמן מדויק בוואטסאפ.</p>
           </details>
           <details>
-            <summary>המחיר באמת סגור?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <summary>המחיר באמת סגור?<span class="faq-ico" aria-hidden="true"></span></summary>
             <p>כן. סוגרים מחיר לפני שיוצאים, והוא כולל מע״מ.</p>
           </details>
           <details>
-            <summary>אתם גוררים גם רכבים?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <summary>אתם גוררים גם רכבים?<span class="faq-ico" aria-hidden="true"></span></summary>
             <p>לא. רק אופנועים וקטנועים, וזה בדיוק מה שאנחנו טובים בו.</p>
           </details>
           <details>
-            <summary>האופנוע לא מתגלגל, אפשר?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <summary>האופנוע לא מתגלגל, אפשר?<span class="faq-ico" aria-hidden="true"></span></summary>
             <p>כן, בתוספת של <bdi dir="ltr">50-100 ₪</bdi> לפי המצב. שלחו תמונה ונגיד מראש.</p>
           </details>
           <details>
-            <summary>איך משלמים?<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <summary>איך משלמים?<span class="faq-ico" aria-hidden="true"></span></summary>
             <!-- TODO: confirm payment methods with Matan (edit CONFIG.payment in main.js) -->
             <p data-cfg="payment">ביט, פייבוקס, מזומן או כרטיס אשראי.</p>
           </details>
@@ -437,10 +492,10 @@
     <!-- 12. Final CTA -->
     <section class="final" aria-labelledby="final-title">
       <div class="wrap final-inner">
-        <h2 id="final-title" class="final-title">תקוע עכשיו? <span>מתן בדרך.</span></h2>
-        <div class="cta-pair cta-pair-row">
-          <a class="btn btn-call btn-lg" data-action="call" href="tel:0500000000">
-            <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+        <h2 id="final-title" class="final-title" data-reveal>תקוע עכשיו? <span>מתן בדרך.</span></h2>
+        <div class="cta-pair cta-pair-row" data-reveal style="--d:.1s">
+          <a class="btn btn-call btn-lg btn-shine" data-action="call" href="tel:0500000000">
+            <svg class="icon ring" aria-hidden="true"><use href="#i-phone"/></svg>
             <span>התקשרו עכשיו</span>
           </a>
           <a class="btn btn-wa btn-lg" data-action="whatsapp" href="https://wa.me/972500000000" target="_blank" rel="noopener">
@@ -449,6 +504,7 @@
           </a>
         </div>
       </div>
+      <div class="final-road" aria-hidden="true"></div>
     </section>
   </main>
 
@@ -470,7 +526,7 @@
   <!-- Mobile floating call bar -->
   <nav class="callbar" aria-label="יצירת קשר מהירה" aria-hidden="true">
     <a class="btn btn-call" data-action="call" href="tel:0500000000" tabindex="-1">
-      <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span>התקשרו</span>
+      <svg class="icon ring" aria-hidden="true"><use href="#i-phone"/></svg><span>התקשרו</span>
     </a>
     <a class="btn btn-wa" data-action="whatsapp" href="https://wa.me/972500000000" target="_blank" rel="noopener" tabindex="-1">
       <svg class="icon" aria-hidden="true"><use href="#i-message"/></svg><span>וואטסאפ</span>
