@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="fonts/f.css">
+<style>
+  html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0c0306}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden;
+    background:radial-gradient(ellipse at 50% 45%,#4a1220 0%,#24070f 45%,#0c0306 100%)}
+  .abs{position:absolute;left:0;top:0}
+  #bokeh span{position:absolute;border-radius:50%;filter:blur(6px)}
+  #neon{position:absolute;left:0;right:0;top:250px;text-align:center;direction:ltr;
+    font-family:'Yellowtail',cursive;font-size:190px;line-height:1;color:#ffe3ec}
+  #neon .heart{font-family:Rubik,sans-serif;font-size:90px;vertical-align:middle;margin-left:10px}
+  #frame{position:absolute;left:110px;top:560px;width:860px;height:960px;
+    border-radius:430px 430px 48px 48px;overflow:hidden;border:7px solid #d9a85b;box-sizing:border-box}
+  #frame img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+  #title{position:absolute;left:0;right:0;top:1570px;text-align:center;font-family:Rubik,sans-serif;
+    font-weight:800;font-size:112px;color:#fff3e6;letter-spacing:1px}
+  #sub{position:absolute;left:0;right:0;top:1715px;text-align:center;font-family:Rubik,sans-serif;
+    font-weight:500;font-size:44px;color:#e9b872;letter-spacing:6px}
+  #sparks span{position:absolute;color:#ffe9b0;font-family:Rubik,sans-serif}
+</style></head><body>
+<div id="stage">
+  <div id="bokeh" class="abs" style="width:1080px;height:1920px"></div>
+  <svg id="lights" class="abs" width="1080" height="260" viewBox="0 0 1080 260"></svg>
+  <div id="neon">Too Munch<span class="heart">♡</span></div>
+  <div id="frame"><img src="tohar.jpg"></div>
+  <div id="sparks" class="abs" style="width:1080px;height:1920px"></div>
+  <div id="title">המתכון של היום</div>
+  <div id="sub">HANDMADE WITH LOVE</div>
+  <svg id="cream" class="abs" width="1080" height="1920" viewBox="0 0 1080 1920" style="overflow:visible"></svg>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+const easeOut=x=>1-Math.pow(1-x,3);
+const easeInOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const backOut=x=>{const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+// deterministic pseudo-random
+let seed=7;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
+
+// bokeh
+const bok=[];for(let i=0;i<22;i++){const s=document.createElement('span');const r=30+rnd()*90;
+  bok.push({el:s,x:rnd()*1080,y:rnd()*1920,r,c:rnd()<.5?'255,150,170':'240,190,110',sp:10+rnd()*30,a:.08+rnd()*.18});
+  s.style.width=s.style.height=r+'px';$('bokeh').appendChild(s)}
+
+// string lights (catenary)
+const N=11,bulbs=[];let path='M -20 40 ';
+for(let i=0;i<=40;i++){const x=-20+i*28;const y=40+Math.sin(i/40*Math.PI)*110;path+=`L ${x} ${y} `}
+$('lights').innerHTML=`<path d="${path}" stroke="#3a2a20" stroke-width="3" fill="none"/>`;
+for(let i=0;i<N;i++){const x=40+i*100;const y=40+Math.sin((x+20)/1120*Math.PI)*110+18;
+  const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.innerHTML=`<circle cx="${x}" cy="${y}" r="38" fill="url(#glow)"/><ellipse cx="${x}" cy="${y}" rx="10" ry="14" fill="#fff1c9"/>`;
+  $('lights').appendChild(g);bulbs.push(g)}
+$('lights').insertAdjacentHTML('afterbegin',`<defs><radialGradient id="glow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".9"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient></defs>`);
+
+// sparkles around the frame
+const sp=[];for(let i=0;i<16;i++){const s=document.createElement('span');s.textContent=rnd()<.6?'✦':'•';
+  const ang=rnd()*Math.PI*2,rad=470+rnd()*90;
+  sp.push({el:s,x:540+Math.cos(ang)*rad,y:1040+Math.sin(ang)*rad*1.05,d:1.15+rnd()*.9,size:20+rnd()*34});
+  $('sparks').appendChild(s)}
+
+// cream wipe path: solid cream above, drippy edge at the bottom (y=0 edge)
+let cp='M -40 -3200 L 1120 -3200 L 1120 0 ';
+const drips=[[1000,60,150],[880,40,60],[760,55,230],[620,45,110],[470,60,300],[330,40,90],[200,55,200],[70,45,120]];
+let lastX=1120;
+for(const [x,w,len] of drips){cp+=`Q ${(lastX+x+w)/2} 30 ${x+w} 0 L ${x+w} ${len-w} A ${w} ${w} 0 0 1 ${x-w} ${len-w} L ${x-w} 0 `;lastX=x-w}
+cp+=`Q ${lastX/2-20} 30 -40 0 Z`;
+$('cream').innerHTML=`<defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f7e6d4"/><stop offset=".5" stop-color="#fff7ee"/><stop offset="1" stop-color="#f3dcc6"/></linearGradient></defs>
+<g id="cw"><path d="${cp}" fill="url(#cg)"/><path d="${cp}" fill="none" stroke="#e8c9a8" stroke-width="4" transform="translate(0,6)" opacity=".6"/></g>
+<g id="endheart"><text x="540" y="930" text-anchor="middle" font-size="195" fill="#8c1d34" font-family="Yellowtail" direction="ltr">Too Munch</text>
+<path transform="translate(540 1050) scale(2.2)" d="M0 12 C -18 -2 -26 -14 -14 -22 C -7 -26 -2 -22 0 -17 C 2 -22 7 -26 14 -22 C 26 -14 18 -2 0 12 Z" fill="#e0476f"/></g>`;
+
+// neon flicker timeline: [time, on]
+const flick=[[0.35,1],[0.40,0],[0.46,1],[0.49,0],[0.55,1],[0.62,.35],[0.66,1]];
+function neonLevel(t){let v=0;for(const [tt,o] of flick) if(t>=tt) v=o;return v}
+
+function render(t){
+  // bokeh drift + fade with lights
+  const amb=easeOut(prog(t,.15,1.2));
+  for(const b of bok){b.el.style.left=(b.x-b.r/2)+'px';b.el.style.top=(b.y-b.r/2-b.sp*t)+'px';
+    b.el.style.background=`rgba(${b.c},${b.a*amb})`}
+  $('stage').style.filter=`brightness(${.35+.65*amb})`;
+  // bulbs turn on one by one from the center outwards
+  bulbs.forEach((g,i)=>{const order=Math.abs(i-(N-1)/2);const on=t>.05+order*.06;g.style.opacity=on?(1-.1*Math.sin(t*20+i)):.15});
+  // neon
+  const n=neonLevel(t);const nl=$('neon');
+  nl.style.opacity=.18+.82*n;
+  nl.style.textShadow=n>0?`0 0 8px #fff,0 0 22px #ff5c8d,0 0 48px #ff2e6d,0 0 90px #ff2e6d,0 0 140px #c2185b`:'none';
+  nl.style.color=n>0?'#fff0f5':'#5a2b38';
+  // portrait reveal
+  const p=prog(t,.85,1.55),pe=backOut(p);
+  const fr=$('frame');fr.style.opacity=clamp(p*1.8);
+  fr.style.transform=`translateY(${(1-easeOut(p))*120}px) scale(${.82+.18*pe})`;
+  fr.style.boxShadow=`0 0 ${60*p}px rgba(233,184,114,${.55*p}),0 30px 80px rgba(0,0,0,.6)`;
+  fr.querySelector('img').style.transform=`scale(${1.12-.08*prog(t,.85,3.3)})`;
+  // sparkles twinkle
+  for(const s of sp){const k=prog(t,s.d,s.d+.5);const tw=Math.sin(k*Math.PI);
+    s.el.style.left=s.x+'px';s.el.style.top=s.y+'px';s.el.style.fontSize=s.size+'px';
+    s.el.style.opacity=tw;s.el.style.transform=`scale(${.4+tw}) rotate(${k*90}deg)`;
+    s.el.style.textShadow='0 0 12px #ffcf73'}
+  // title write-on (right to left for Hebrew)
+  const tp=easeInOut(prog(t,1.45,2.05));
+  $('title').style.clipPath=`inset(0 0 0 ${100-tp*100}%)`;
+  $('title').style.transform=`translateY(${(1-tp)*20}px)`;
+  $('title').style.textShadow='0 4px 0 #8c1d34,0 0 30px rgba(255,120,150,.45)';
+  const sb=prog(t,1.85,2.25);$('sub').style.opacity=sb;$('sub').style.letterSpacing=(14-8*easeOut(sb))+'px';
+  // cream wipe from the top
+  const w=easeInOut(prog(t,2.55,3.15));
+  $('cw').setAttribute('transform',`translate(0,${-420+w*(1920+700)})`);
+  const h=prog(t,3.05,3.35);$('endheart').style.opacity=h;
+  $('endheart').setAttribute('transform',`translate(540 960) scale(${.6+.4*backOut(h)}) translate(-540 -960)`);
+}
+window.render=render;render(0);
+</script></body></html>
