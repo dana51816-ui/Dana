@@ -1,24 +1,28 @@
 <title>מחירון אלברט לוי</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Archivo:wdth,wght@100..125,500..900&family=Josefin+Sans:wght@300;400&family=Mrs+Saint+Delafield&display=swap">
 <style>
 /* Layout: a pocket gallery — colourful tiles index the works; a work opens as a three-step picker over a live wall preview, with the price pinned in a bottom bar like a gallery wall label. */
 :root{
-  --wall:#f4f5f8; --card:#ffffff; --ink:#16171d; --muted:#686b78; --line:#e2e4ea; --soft:#eceef4;
+  --wall:#f3f5fb; --card:#ffffff; --ink:#121a3d; --muted:#5f6789; --line:#dfe4f2; --soft:#e9edf8;
+  --navy:#1d3a8f; --navy-deep:#14215e; --gold:#f2b33d; --on-gold:#14215e; --brand-fg:#ffffff;
   --cobalt:#2f4be0; --magenta:#e0337a; --sun:#f5b70a; --teal:#11a198; --tang:#f26b2a;
-  --accent:var(--cobalt); --on-accent:#ffffff;
+  --accent:var(--navy); --on-accent:#ffffff;
   --warn:#a8510b; --warn-bg:#fff2df; --ok:#1d7a4c; --sold:#b02142;
-  --display:"Bricolage Grotesque","Rubik",system-ui,sans-serif;
+  --display:"Archivo","Rubik",system-ui,sans-serif;
+  --script:"Mrs Saint Delafield",cursive; --thin:"Josefin Sans","Rubik",sans-serif;
   --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
   --shadow:0 1px 2px rgba(20,22,40,.06),0 8px 24px -12px rgba(20,22,40,.18);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --wall:#111219; --card:#1b1c26; --ink:#f2f2f5; --muted:#9a9cab; --line:#2b2d3a; --soft:#232533;
-  --accent:#8196ff; --on-accent:#0c0f2e; --warn:#ffb46b; --warn-bg:#2f2213; --ok:#6fd6a2; --sold:#ff8aa0;
+  --wall:#0c1233; --card:#151d47; --ink:#eef1fb; --muted:#9aa3c8; --line:#26306a; --soft:#1c2557;
+  --navy:#1d3a8f; --navy-deep:#0a0f2c; --gold:#f5bd52; --on-gold:#14215e;
+  --accent:#9fb3ff; --on-accent:#0c1233; --warn:#ffb46b; --warn-bg:#2f2213; --ok:#6fd6a2; --sold:#ff8aa0;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --wall:#111219; --card:#1b1c26; --ink:#f2f2f5; --muted:#9a9cab; --line:#2b2d3a; --soft:#232533;
-  --accent:#8196ff; --on-accent:#0c0f2e; --warn:#ffb46b; --warn-bg:#2f2213; --ok:#6fd6a2; --sold:#ff8aa0;
+  --wall:#0c1233; --card:#151d47; --ink:#eef1fb; --muted:#9aa3c8; --line:#26306a; --soft:#1c2557;
+  --navy:#1d3a8f; --navy-deep:#0a0f2c; --gold:#f5bd52; --on-gold:#14215e;
+  --accent:#9fb3ff; --on-accent:#0c1233; --warn:#ffb46b; --warn-bg:#2f2213; --ok:#6fd6a2; --sold:#ff8aa0;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6); color-scheme:dark}
 html,body{height:100%}
 body{background:var(--wall);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;direction:rtl;-webkit-tap-highlight-color:transparent}
@@ -32,6 +36,13 @@ bdi{unicode-bidi:isolate}
 .latin{direction:ltr;unicode-bidi:isolate;font-family:var(--display)}
 
 /* ---------- home ---------- */
+.promo{background:var(--navy);color:#fff;text-align:center;font-family:var(--display);font-stretch:125%;font-weight:800;font-size:.72rem;letter-spacing:.08em;padding:9px 16px;line-height:1.5}
+.promo b{color:var(--gold);font-weight:800}
+.brandlogo{display:flex;align-items:center;gap:2px;direction:ltr;color:var(--ink)}
+.brandlogo .A{font-family:var(--script);font-size:3.4rem;line-height:.6;margin-right:-10px;transform:translateY(6px)}
+.brandlogo .t{display:grid}
+.brandlogo .t b{font-family:var(--thin);font-weight:300;font-size:1.15rem;letter-spacing:.32em;line-height:1}
+.brandlogo .t small{font-family:var(--thin);font-size:.66rem;letter-spacing:.08em;color:var(--muted);text-align:right;margin-top:3px}
 .hero{padding-block:18px 6px;display:grid;gap:14px}
 .topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .logo{display:flex;align-items:center;gap:10px}
@@ -45,7 +56,8 @@ bdi{unicode-bidi:isolate}
 .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--warn)}
 .pill.ok .dot{background:var(--ok)}
 .greet{font-family:var(--body);font-weight:700;font-size:clamp(1.5rem,6.4vw,2.1rem);line-height:1.15;margin:4px 0 0;text-wrap:balance}
-.greet em{font-style:normal;background:linear-gradient(90deg,var(--magenta),var(--tang));-webkit-background-clip:text;background-clip:text;color:transparent}
+.greet em{font-style:normal;color:var(--accent);box-shadow:inset 0 -.32em 0 color-mix(in srgb,var(--gold) 55%,transparent)}
+.eyebrow{font-family:var(--display);font-stretch:125%;font-weight:800;font-size:.7rem;letter-spacing:.14em;color:var(--muted);direction:ltr;text-align:right}
 .searchbox{position:relative}
 .searchbox input{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:15px 48px 15px 44px;font-size:1.08rem;box-shadow:var(--shadow)}
 .searchbox input:focus{border-color:var(--accent);outline:none}
@@ -55,7 +67,7 @@ bdi{unicode-bidi:isolate}
 .themes::-webkit-scrollbar{display:none}
 .theme{flex:none;display:flex;align-items:center;gap:7px;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px 8px 12px;font-size:.93rem;font-weight:500}
 .theme i{width:12px;height:12px;border-radius:50%;background:var(--c)}
-.theme[aria-pressed="true"]{background:var(--ink);color:var(--wall);border-color:var(--ink)}
+.theme[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 .sec{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 10px}
 .sec h2{margin:0;font-size:1rem;font-weight:600}
 .sec span{color:var(--muted);font-size:.85rem}
@@ -69,7 +81,7 @@ bdi{unicode-bidi:isolate}
 .art{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
 .art .badge{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.92);color:#16171d;font-size:.72rem;font-weight:600;border-radius:999px;padding:3px 9px}
 .art .badge.sold{background:rgba(22,23,29,.82);color:#fff}
-.tile .tn{font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.2;direction:ltr;text-align:right;min-width:0;overflow-wrap:anywhere}
+.tile .tn{font-family:var(--display);font-stretch:112%;font-weight:700;font-size:1rem;line-height:1.2;direction:ltr;text-align:right;min-width:0;overflow-wrap:anywhere}
 .tile .tp{font-size:.85rem;color:var(--muted);margin-top:-4px}
 .tile .tp b{color:var(--ink);font-family:var(--display);font-variant-numeric:tabular-nums}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
@@ -83,13 +95,13 @@ bdi{unicode-bidi:isolate}
 .dhero .wrap{position:relative;display:grid;gap:14px}
 .navrow{display:flex;justify-content:space-between;align-items:center}
 .iconbtn{border:0;background:rgba(255,255,255,.2);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600;font-size:.92rem;text-decoration:none}
-.dtitle{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,8vw,2.8rem);line-height:1;letter-spacing:-.025em;margin:18px 0 0;direction:ltr;text-align:right;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.25)}
+.dtitle{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:clamp(1.9rem,8vw,2.8rem);line-height:1;letter-spacing:-.025em;margin:18px 0 0;direction:ltr;text-align:right;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.25)}
 .dtags{display:flex;gap:6px;flex-wrap:wrap}
 .dtags span{background:rgba(255,255,255,.22);border-radius:999px;padding:3px 10px;font-size:.8rem}
 .dbody{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;padding-block:20px 190px}
 .step{display:grid;gap:10px}
 .step h3{margin:0;display:flex;align-items:center;gap:8px;font-size:1rem;font-weight:600}
-.step h3 .n{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--wall);display:grid;place-items:center;font-size:.78rem;font-family:var(--display)}
+.step h3 .n{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:.78rem;font-family:var(--display)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .fcard{border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:14px;text-align:right;display:grid;gap:4px;align-content:start}
 .fcard b{font-weight:600;font-size:1rem}
@@ -119,25 +131,29 @@ th,td{padding:9px 10px;border-top:1px solid var(--line);text-align:center;white-
 th{font-weight:500;color:var(--muted);font-size:.78rem}
 td.sz{text-align:right;direction:ltr;font-family:var(--display);font-weight:600}
 td button{border:0;background:none;padding:4px 6px;border-radius:8px;font-family:var(--display);font-variant-numeric:tabular-nums;font-weight:600}
-td button.on{background:var(--accent);color:var(--on-accent)}
+td button.on{background:var(--navy);color:#fff}
 td button.w{color:var(--warn);text-decoration:underline dotted}
 .warn{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:11px 13px;font-size:.88rem}
 .site{color:var(--accent);font-size:.9rem;text-decoration:none;font-weight:500}
 
 /* price bar */
-.pbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -10px 30px -18px rgba(0,0,0,.35);padding-bottom:env(safe-area-inset-bottom,0px)}
+.pbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:linear-gradient(180deg,var(--navy),var(--navy-deep));color:#fff;border-radius:22px 22px 0 0;box-shadow:0 -10px 30px -18px rgba(0,0,0,.35);padding-bottom:env(safe-area-inset-bottom,0px)}
 .pbar .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding-block:12px 14px}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .pinfo{flex:1 1 0;min-width:0;overflow:hidden}
-.pinfo small{display:block;color:var(--muted);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;text-align:right}
-.pval{font-family:var(--display);font-weight:800;font-size:2.3rem;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
-.pval s{font-size:.45em;color:var(--muted);font-weight:600;margin-left:8px}
+.pinfo small{display:block;color:#b9c3ea;font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;text-align:right}
+.pval{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:2.3rem;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
+.pval s{font-size:.42em;color:#9fabdc;font-weight:600;margin-left:8px}
 .pbtns{display:flex;gap:8px;flex:none}
-.show{border:0;background:var(--accent);color:var(--on-accent);border-radius:14px;padding:13px 16px;font-weight:600}
-.ghost{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:12px 13px;font-weight:500}
-.disc{display:flex;gap:6px;align-items:center;font-size:.85rem;color:var(--muted)}
-.disc button{border:1px solid var(--line);background:var(--wall);border-radius:999px;padding:4px 11px;font-size:.82rem;color:var(--ink)}
-.disc button[aria-pressed="true"]{background:var(--magenta);border-color:var(--magenta);color:#fff}
+.show{border:0;background:var(--gold);color:var(--on-gold);font-weight:700;border-radius:14px;padding:13px 16px;font-weight:600}
+.ghost{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px 13px;font-weight:500}
+.disc{display:flex;gap:6px;align-items:center;font-size:.82rem;color:#b9c3ea;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.disc::-webkit-scrollbar{display:none}
+.disc>*{flex:none}
+.pbar .ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.coll{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-stretch:125%;font-weight:800;font-size:.66rem;letter-spacing:.1em;color:var(--on-gold);background:var(--gold);border-radius:999px;padding:3px 9px;margin-inline-start:2px;vertical-align:middle}
+.disc button{border:1px solid rgba(255,255,255,.28);background:transparent;border-radius:999px;padding:4px 11px;font-size:.8rem;color:#fff}
+.disc button[aria-pressed="true"]{background:#fff;border-color:#fff;color:var(--navy-deep);font-weight:600}
 
 /* original */
 .olabel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:12px}
@@ -150,7 +166,7 @@ td button.w{color:var(--warn);text-decoration:underline dotted}
 .field label{font-size:.85rem;color:var(--muted)}
 .field input{border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:12px;font-size:1.05rem;width:100%}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.primary{border:0;background:var(--ink);color:var(--wall);border-radius:14px;padding:13px 16px;font-weight:600}
+.primary{border:0;background:var(--navy);color:#fff;border-radius:14px;padding:13px 16px;font-weight:600}
 .note{font-size:.86rem;color:var(--muted);margin:0}
 
 /* settings */
@@ -162,22 +178,25 @@ td button.w{color:var(--warn);text-decoration:underline dotted}
 .panel h3{margin:0;font-size:1rem}
 .seg{display:flex;flex-wrap:wrap;gap:8px}
 .seg button{border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:9px 14px}
-.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.seg button[aria-pressed="true"]{border-color:var(--navy);background:var(--navy);color:#fff}
 .flaglist{display:grid;gap:4px;font-size:.82rem;max-height:240px;overflow:auto;direction:ltr;text-align:right;color:var(--muted)}
 
 /* customer view */
-.cust{position:fixed;inset:0;z-index:50;background:#0f1016;color:#f4f4f6;display:grid;place-items:center;padding:24px 16px;padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+.cust{position:fixed;inset:0;z-index:50;background:radial-gradient(120% 80% at 100% 0%,#2a4bb0 0,transparent 60%),linear-gradient(180deg,#1d3a8f,#0a0f2c);color:#f4f4f6;display:grid;place-items:center;padding:24px 16px;padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
 .cust .cc{width:min(520px,100%);display:grid;gap:18px;direction:ltr;text-align:left}
-.cust .strip{height:10px;border-radius:999px}
-.cust .who{font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:#a9abba}
-.cust h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,9vw,3.2rem);line-height:1;margin:0;letter-spacing:-.02em}
+.cust .strip{height:6px;border-radius:999px}
+.cust .who{display:flex;align-items:center;gap:4px;color:#fff}
+.cust .who .A{font-family:var(--script);font-size:3rem;line-height:.6}
+.cust .who b{font-family:var(--thin);font-weight:300;letter-spacing:.32em;font-size:1.05rem}
+.cust .cpill{justify-self:start;font-family:var(--display);font-stretch:125%;font-weight:800;font-size:.72rem;letter-spacing:.12em;background:var(--gold);color:#14215e;border-radius:999px;padding:5px 12px}
+.cust h2{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:clamp(2rem,9vw,3.2rem);line-height:1;margin:0;letter-spacing:-.02em}
 .cust dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;font-size:1rem}
-.cust dt{color:#a9abba}
+.cust dt{color:#aab6e6}
 .cust dd{margin:0}
-.cust .big{font-family:var(--display);font-weight:800;font-size:clamp(3.6rem,20vw,6rem);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.cust .big s{display:block;font-size:.3em;color:#a9abba;font-weight:600}
-.cust .close{justify-self:start;border:1px solid #3a3c4a;background:none;color:#f4f4f6;border-radius:999px;padding:9px 16px;direction:rtl}
-.toast{position:fixed;bottom:calc(150px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--wall);padding:10px 16px;border-radius:999px;font-size:.9rem;z-index:60;white-space:nowrap}
+.cust .big{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:clamp(3.6rem,20vw,6rem);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.cust .big s{display:block;font-size:.3em;color:#aab6e6;font-weight:600}
+.cust .close{justify-self:start;border:1px solid rgba(255,255,255,.35);background:none;color:#f4f4f6;border-radius:999px;padding:9px 16px;direction:rtl}
+.toast{position:fixed;bottom:calc(170px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--wall);padding:10px 16px;border-radius:999px;font-size:.9rem;z-index:60;white-space:nowrap}
 @media (prefers-reduced-motion:no-preference){
   .sheet{animation:up .22s cubic-bezier(.2,.8,.2,1)}
   .cust{animation:fade .18s ease-out}
@@ -186,13 +205,15 @@ td button.w{color:var(--warn);text-decoration:underline dotted}
 }
 </style>
 
+<div class="promo" id="promo"></div>
 <div class="wrap" id="home">
   <section class="hero">
     <div class="topline">
-      <div class="logo"><span class="mark" aria-hidden="true"></span><div><b class="latin">Albert Levi</b><small>מחירון לסיור בארה״ב</small></div></div>
+      <div class="brandlogo" aria-label="Albert Levi, A splash of art"><span class="A" aria-hidden="true">A</span><span class="t"><b>Albert Levi</b><small>A splash of art</small></span></div>
       <button class="pill" id="rateBtn" type="button" aria-label="הגדרות שער ועיגול"><span class="dot"></span><bdi dir="ltr">$1 = ₪<span id="rateTxt">3.70</span></bdi><span aria-hidden="true">⚙︎</span></button>
     </div>
-    <h1 class="greet">על איזו יצירה <em>הלקוח שואל?</em></h1>
+    <div class="eyebrow">USA TOUR · PRICE GUIDE</div>
+    <h1 class="greet" style="margin-top:-6px">על איזו יצירה <em>הלקוח שואל?</em></h1>
     <div class="searchbox">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="שם היצירה, למשל Freedom" autocomplete="off" aria-label="חיפוש יצירה">
@@ -245,8 +266,8 @@ const FRAME_ORDER=['stretch','black','white','rolled','espresso','natural'];
 const THEMES=[['all','הכול','var(--ink)'],['tree','עץ החיים','var(--teal)'],['jw','ישראל ויהדות','var(--cobalt)'],['an','חיות וטבע','var(--tang)'],['mv','תנועה וריקוד','var(--magenta)'],['emb','Embellished','var(--sun)'],['orig','מקורים','#7b3fe4']];
 const ST={avail:'זמין',hold:'שמור ללקוח',sold:'נמכר'};
 
-let S={rate:3.7,round:'5',unit:'in',verified:false},ORIG={},db=null,canWrite=true;
-let theme='all',cur=null,sel={},disc=0,recent=ls('alp_recent')||[];
+let S={rate:3.7,round:'5',unit:'in',verified:false,coll:true},ORIG={},db=null,canWrite=true;
+let theme='all',cur=null,sel={},disc='auto',recent=ls('alp_recent')||[];
 
 const area=s=>s.split('x').reduce((a,b)=>a*b,1);
 const inch=cm=>Math.round(cm/2.54);
@@ -265,7 +286,8 @@ $('themes').addEventListener('click',e=>{const b=e.target.closest('.theme');if(!
 $('q').addEventListener('input',()=>{$('clearQ').hidden=!$('q').value;renderHome()});
 $('clearQ').addEventListener('click',()=>{$('q').value='';$('clearQ').hidden=true;renderHome();$('q').focus()});
 function inTheme(a){if(theme==='all')return true;if(theme==='emb')return !!a.f.emb;if(theme==='orig')return !!a.o;return a.T.has(theme)}
-function renderHome(){
+function renderPromo(){$('promo').innerHTML=S.coll?`THE COLLECTOR'S RATE · UP TO $300: <b>10%</b> · OVER $300: <b>15%</b> · OVER $500: <b>20%</b>`:`USA TOUR · PRICE GUIDE`;$('promo').dir='ltr'}
+function renderHome(){renderPromo();
   $('rateTxt').textContent=S.rate.toFixed(2);$('rateBtn').classList.toggle('ok',!!S.verified);
   const q=$('q').value.trim().toLowerCase().replace(/[^a-z0-9 ]/g,'');
   const items=ART.filter(a=>(!q||a.k.includes(q))&&inTheme(a));
@@ -284,7 +306,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('#grid [data-id],
 
 /* --- detail --- */
 function fmts(a){const f=['canvas','emb','float'].filter(x=>a.f[x]);if(a.o)f.push('orig');return f}
-function openArt(id){cur=ART.find(a=>a.id===id);disc=0;sel={fmt:fmts(cur)[0]};defaults();
+function openArt(id){cur=ART.find(a=>a.id===id);disc='auto';sel={fmt:fmts(cur)[0]};defaults();
   recent=[id,...recent.filter(x=>x!==id)].slice(0,10);ls('alp_recent',recent);
   $('detail').hidden=false;$('detail').scrollTop=0;renderDetail();history.pushState({d:1},'')}
 function defaults(){if(sel.fmt==='orig')return;const F=cur.f[sel.fmt];const ss=Object.keys(F).sort((x,y)=>area(x)-area(y));
@@ -305,7 +327,7 @@ function wallSVG(a,s,frame){
   <g fill="var(--muted)" opacity=".55"><rect x="${sx}" y="${H-sofaH}" width="210" height="45" rx="10"/><rect x="${sx-8}" y="${H-sofaH+20}" width="226" height="50" rx="12"/><rect x="${sx+8}" y="${H-15}" width="6" height="15"/><rect x="${sx+196}" y="${H-15}" width="6" height="15"/></g>
   <g fill="var(--muted)" opacity=".35"><circle cx="${W-24}" cy="${H-160}" r="11"/><rect x="${W-36}" y="${H-147}" width="24" height="147" rx="11"/></g>
   <rect x="${ax}" y="${ay}" width="${w}" height="${h}" fill="url(#${gid})" ${fs!=='none'?`stroke="${fs}" stroke-width="${Math.max(3,Math.min(w,h)*.04)}"`:''} ${frame==='rolled'?'stroke="var(--ink)" stroke-dasharray="4 3" stroke-width="1.2"':''}/>
-  <text x="${W/2}" y="${ay-8}" text-anchor="middle" font-size="${Math.max(11,W/26)}" fill="var(--ink)" font-family="Bricolage Grotesque, sans-serif" font-weight="700" style="direction:ltr;unicode-bidi:plaintext">${sz(s,'in')} · ${sz(s,'cm')}</text>
+  <text x="${W/2}" y="${ay-8}" text-anchor="middle" font-size="${Math.max(11,W/26)}" fill="var(--ink)" font-family="Archivo, sans-serif" font-weight="700" style="direction:ltr;unicode-bidi:plaintext">${sz(s,'in')} · ${sz(s,'cm')}</text>
   </svg>`}
 
 function renderDetail(){
@@ -330,7 +352,7 @@ function renderDetail(){
   $('detail').innerHTML=h;renderBar();
 }
 function matrixHTML(a){const F=a.f[sel.fmt],ss=Object.keys(F).sort((x,y)=>area(x)-area(y));const cols=FRAME_ORDER.filter(f=>ss.some(s=>F[s][f]));
-  return `<details class="matrix" id="mx"${ls('alp_mx')?' open':''}><summary>כל המחירים של ${FMT[sel.fmt].he} בטבלה אחת</summary><div class="tscroll"><table><thead><tr><th>גודל</th>${cols.map(c=>`<th>${FRAME[c].he}</th>`).join('')}</tr></thead><tbody>${ss.map(s=>`<tr><td class="sz">${sz(s,S.unit)}</td>${cols.map(c=>{const o=F[s][c];return `<td>${o?`<button type="button" class="${s===sel.size&&c===sel.frame?'on':''}${o.w?' w':''}" data-cell="${s}|${c}">${$f(usd(o.p))}</button>`:'–'}</td>`}).join('')}</tr>`).join('')}</tbody></table></div></details>`}
+  return `<details class="matrix" id="mx"${ls('alp_mx')?' open':''}><summary>כל המחירים של ${FMT[sel.fmt].he} (לפני הנחה)</summary><div class="tscroll"><table><thead><tr><th>גודל</th>${cols.map(c=>`<th>${FRAME[c].he}</th>`).join('')}</tr></thead><tbody>${ss.map(s=>`<tr><td class="sz">${sz(s,S.unit)}</td>${cols.map(c=>{const o=F[s][c];return `<td>${o?`<button type="button" class="${s===sel.size&&c===sel.frame?'on':''}${o.w?' w':''}" data-cell="${s}|${c}">${$f(usd(o.p))}</button>`:'–'}</td>`}).join('')}</tr>`).join('')}</tbody></table></div></details>`}
 function origHTML(a){const o=orig(a);
   return `<div class="step"><h3><span class="n">2</span>פרטי המקור</h3><div class="olabel">
     <div class="status">${Object.entries(ST).map(([k,v])=>`<button type="button" data-st="${k}" aria-pressed="${o.status===k}"${canWrite?'':' disabled'}>${v}</button>`).join('')}</div>
@@ -339,18 +361,20 @@ function origHTML(a){const o=orig(a);
     <button class="primary" type="button" data-act="saveOrig"${canWrite?'':' disabled'}>שמירת המחיר</button>
     <p class="note">באתר אין מחיר למקורים. מזינים פעם אחת, וזה מתעדכן אצל כל מי שהאפליקציה משותפת איתו.</p></div></div>`}
 
-function curPrice(){if(sel.fmt==='orig'){const o=orig(cur);if(!o.price)return null;return {base:o.price,fin:disc?Math.round(o.price*(1-disc/100)):o.price}}
-  const o=cur.f[sel.fmt][sel.size][sel.frame];return {base:usd(o.p),fin:disc?usd(o.p*(1-disc/100)):usd(o.p)}}
+function collPct(list){return !S.coll?0:list>500?20:list>300?15:10}
+function curPrice(){if(sel.fmt==='orig'){const o=orig(cur);if(!o.price)return null;const pct=disc==='auto'?0:disc;return {base:o.price,pct,coll:false,fin:pct?Math.round(o.price*(1-pct/100)):o.price}}
+  const o=cur.f[sel.fmt][sel.size][sel.frame];const base=usd(o.p);const auto=disc==='auto';const pct=auto?collPct(base):disc;
+  return {base,pct,coll:auto&&pct>0,fin:pct?usd(o.p*(1-pct/100)):base}}
 function specEN(){if(sel.fmt==='orig'){const o=orig(cur);return 'Original painting'+(o.size?' · '+o.size:'')}return `${FMT[sel.fmt].en} · ${sz(sel.size,'in')} · ${FRAME[sel.frame].en}`}
 function renderBar(){const p=curPrice();if(!p){$('pbar').hidden=true;return}
-  $('pbar').innerHTML=`<div class="wrap"><div class="prow"><div class="pinfo"><small>${esc(specEN())}${sel.fmt!=='orig'?' · ₪'+Math.round(cur.f[sel.fmt][sel.size][sel.frame].p).toLocaleString('en-US'):''}</small><div class="pval">${$f(p.fin)}${disc?`<s>${$f(p.base)}</s>`:''}</div></div>
+  $('pbar').innerHTML=`<div class="wrap"><div class="prow"><div class="pinfo"><small>${esc(specEN())}${sel.fmt!=='orig'?' · ₪'+Math.round(cur.f[sel.fmt][sel.size][sel.frame].p).toLocaleString('en-US'):''}</small><div class="pval">${$f(p.fin)}${p.pct?`<s>${$f(p.base)}</s>`:''}</div></div>
   <div class="pbtns"><button class="ghost" type="button" data-act="copy" aria-label="העתקה">העתקה</button><button class="show" type="button" data-act="cust">הצג ללקוח</button></div></div>
-  <div class="disc">הנחה:${[0,5,10,15].map(d=>`<button type="button" data-disc="${d}" aria-pressed="${disc===d}">${d?d+'%':'בלי'}</button>`).join('')}</div></div>`}
+  <div class="disc">${p.coll?`<span class="coll">COLLECTOR'S RATE −${p.pct}%</span>`:'הנחה:'}${(S.coll&&sel.fmt!=='orig'?['auto']:[]).concat([0,10,15,20]).map(d=>`<button type="button" data-disc="${d}" aria-pressed="${disc===d||(d===0&&disc==='auto'&&(sel.fmt==='orig'||!S.coll))}">${d==='auto'?'אוטומטי':d?d+'%':'בלי'}</button>`).join('')}</div></div>`}
 
 $('detail').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
   if(b.dataset.act==='back')return back();
   if(b.dataset.act==='saveOrig')return saveOrig();
-  if(b.dataset.fmt){sel.fmt=b.dataset.fmt;disc=0;defaults()}
+  if(b.dataset.fmt){sel.fmt=b.dataset.fmt;disc='auto';defaults()}
   else if(b.dataset.size){sel.size=b.dataset.size;defaults()}
   else if(b.dataset.frame)sel.frame=b.dataset.frame;
   else if(b.dataset.cell){const [s,f]=b.dataset.cell.split('|');sel.size=s;sel.frame=f}
@@ -359,15 +383,15 @@ $('detail').addEventListener('click',e=>{const b=e.target.closest('button');if(!
   const y=$('detail').scrollTop;renderDetail();$('detail').scrollTop=y});
 $('detail').addEventListener('toggle',e=>{if(e.target.id==='mx')ls('alp_mx',e.target.open)},true);
 $('pbar').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
-  if(b.dataset.disc!==undefined){disc=+b.dataset.disc;renderBar();return}
+  if(b.dataset.disc!==undefined){disc=b.dataset.disc==='auto'?'auto':+b.dataset.disc;renderBar();return}
   if(b.dataset.act==='copy')return copyQ();
   if(b.dataset.act==='cust')return showCust()});
-function quote(){const p=curPrice();return `${cur.n} — ${specEN().replace(/ · /g,', ')}${sel.fmt!=='orig'?' ('+sz(sel.size,'cm')+')':''} — ${$f(p.fin)}`}
+function quote(){const p=curPrice();return `${cur.n} — ${specEN().replace(/ · /g,', ')}${sel.fmt!=='orig'?' ('+sz(sel.size,'cm')+')':''} — ${p.pct?$f(p.fin)+' (was '+$f(p.base)+(p.coll?", Collector's Rate "+p.pct+'% off':', '+p.pct+'% off')+')':$f(p.fin)}`}
 function copyQ(){const t=quote();try{navigator.clipboard.writeText(t).then(()=>toast('הועתק, אפשר להדביק ללקוח'),()=>toast(t))}catch(e){toast(t)}}
 function showCust(){const p=curPrice();
   const rows=sel.fmt==='orig'?[['Edition','Original painting · one of a kind'],...(orig(cur).size?[['Size',orig(cur).size]]:[])]:[['Edition',FMT[sel.fmt].en],['Size',`${sz(sel.size,'in')}  (${sz(sel.size,'cm')})`],['Finish',FRAME[sel.frame].en]];
-  $('cust').innerHTML=`<div class="cc"><div class="strip" style="background:linear-gradient(90deg,${cur.c.join(',')})"></div><div class="who">Albert Levi</div><h2>${esc(cur.n)}</h2>
-  <dl>${rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl><div class="big">${disc?`<s>${$f(p.base)}</s>`:''}${$f(p.fin)}</div><button class="close" type="button" data-act="x">סגירה ←</button></div>`;
+  $('cust').innerHTML=`<div class="cc"><div class="who"><span class="A">A</span><b>Albert Levi</b></div><div class="strip" style="background:linear-gradient(90deg,${cur.c.join(',')})"></div>${p.coll?`<span class="cpill">THE COLLECTOR'S RATE · ${p.pct}% OFF</span>`:''}<h2>${esc(cur.n)}</h2>
+  <dl>${rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl><div class="big">${p.pct?`<s>${$f(p.base)}</s>`:''}${$f(p.fin)}</div><button class="close" type="button" data-act="x">סגירה ←</button></div>`;
   $('cust').hidden=false;history.pushState({d:1,c:1},'')}
 $('cust').addEventListener('click',()=>back());
 
@@ -388,6 +412,7 @@ function renderSettings(){const fl=flags();
     <div class="row2"><div class="field"><label for="cIls">מחיר בשקלים</label><input id="cIls" inputmode="decimal" placeholder="1059"></div><div class="field"><label for="cUsd">מחיר בדולרים</label><input id="cUsd" inputmode="decimal" placeholder="289"></div></div>
     <button class="ghost" type="button" data-act="calib">חישוב השער</button></div>
   <div class="panel"><h3>עיגול המחיר ללקוח</h3><div class="seg">${[['none','לדולר הקרוב'],['5','ל־5$'],['10','ל־10$'],['9','מסתיים ב־9']].map(([k,v])=>`<button type="button" data-round="${k}" aria-pressed="${S.round===k}">${v}</button>`).join('')}</div></div>
+  <div class="panel"><h3>The Collector's Rate</h3><p class="note">ההנחה מהאתר: עד $300 מקבלים 10%, מעל $300 מקבלים 15%, ומעל $500 מקבלים 20%. כשהיא פעילה, האפליקציה מחשבת אותה אוטומטית על הדפסים. על מקורים היא לא חלה.</p><div class="seg">${[[true,'פעילה'],[false,'כבויה']].map(([k,v])=>`<button type="button" data-coll="${k}" aria-pressed="${S.coll===k}">${v}</button>`).join('')}</div></div>
   <div class="panel"><h3>מידות</h3><div class="seg">${[['in','אינצ׳ים קודם'],['cm','סנטימטרים קודם']].map(([k,v])=>`<button type="button" data-unit="${k}" aria-pressed="${S.unit===k}">${v}</button>`).join('')}</div></div>
   <button class="primary" type="button" data-act="saveS"${canWrite?'':' disabled'}>שמירה ${db?'אצל כולם':'במכשיר'}</button>
   <div class="panel"><h3>מחירים חשודים באתר (${fl.length})</h3><p class="note">מחירים שמופיעים כך באתר ונראים כמו טעות, למשל מידה גדולה שזולה ממידה קטנה. כדאי לתקן אותם בחנות.</p><div class="flaglist">${fl.map(x=>`<div>${esc(x)}</div>`).join('')}</div></div></div>`}
@@ -395,8 +420,9 @@ $('settings').addEventListener('click',async e=>{const b=e.target.closest('butto
   if(b.dataset.act==='back')return back();
   if(b.dataset.round){readRate();S.round=b.dataset.round;return renderSettings()}
   if(b.dataset.unit){readRate();S.unit=b.dataset.unit;return renderSettings()}
+  if(b.dataset.coll){readRate();S.coll=b.dataset.coll==='true';return renderSettings()}
   if(b.dataset.act==='calib'){const i=parseFloat($('cIls').value),u=parseFloat($('cUsd').value);if(i>0&&u>0){S.rate=Math.round(i/u*100)/100;S.verified=true;renderSettings();toast('השער: '+S.rate+'. לחצו שמירה')}else toast('צריך למלא את שני המחירים');return}
-  if(b.dataset.act==='saveS'){readRate();const rec={rate:S.rate,round:S.round,unit:S.unit,verified:!!S.verified,updated:Date.now()};
+  if(b.dataset.act==='saveS'){readRate();const rec={rate:S.rate,round:S.round,unit:S.unit,verified:!!S.verified,coll:!!S.coll,updated:Date.now()};
     if(db){try{await db.doc('settings/main').set(rec);toast('נשמר אצל כולם')}catch(err){toast(err&&err.code==='invalid_argument'?'אין לך הרשאה לשמור':'השמירה לא הצליחה, נסו שוב')}}else{ls('alp_settings',rec);toast('נשמר במכשיר הזה')}
     renderHome()}});
 function readRate(){const el=$('sRate');if(!el)return;const r=parseFloat(el.value);if(r>1&&r<10){if(r!==S.rate)S.verified=false;S.rate=r}}
