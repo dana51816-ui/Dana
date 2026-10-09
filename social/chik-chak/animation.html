@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<style>
+  @font-face{font-family:Rubik;font-weight:300 900;src:url(assets/rubik-hebrew.woff2) format('woff2');unicode-range:U+0307-0308,U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
+  @font-face{font-family:Rubik;font-weight:300 900;src:url(assets/rubik-latin.woff2) format('woff2')}
+  :root{--y:#ffc107;--g:#8bd60f;--k:#0b0b0b}
+  html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}
+  *{box-sizing:border-box}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--k);font-family:Rubik,sans-serif;color:#fff}
+  .abs{position:absolute;left:0;top:0;width:1080px;height:1920px}
+  .scene{position:absolute;inset:0;opacity:0}
+  .c{position:absolute;left:0;right:0;text-align:center}
+  .y{color:var(--y)} .g{color:var(--g)}
+  /* scene 1 – dead car */
+  #dash{position:absolute;left:190px;top:560px;width:700px;height:700px;border-radius:50%;
+    background:radial-gradient(circle at 50% 40%,#2a2a2a,#111 60%,#050505);border:10px solid #222;
+    box-shadow:inset 0 0 80px #000,0 0 0 4px #333}
+  #btn{position:absolute;left:150px;top:150px;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(circle at 50% 35%,#3a3a3a,#161616);border:8px solid #444;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:58px;letter-spacing:4px;color:#777;direction:ltr}
+  #btn small{font-size:30px;letter-spacing:6px;margin-top:6px}
+  #click{top:330px;font-size:150px;font-weight:900;letter-spacing:-2px}
+  #batlow{position:absolute;left:440px;top:1330px;width:200px;height:96px}
+  #s1cap{top:1520px;font-size:66px;font-weight:700;line-height:1.25}
+  /* flash */
+  #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+  #bolt{position:absolute;left:0;top:0;opacity:0}
+  /* scene 2 – brand slam */
+  #rays{position:absolute;left:-460px;top:-0px;width:2000px;height:2000px;opacity:.0}
+  #logoBig{position:absolute;left:340px;top:380px;width:400px;height:400px}
+  #brand{top:830px;font-size:200px;font-weight:900;line-height:1;letter-spacing:-4px;
+    text-shadow:0 10px 0 #b8860b,0 0 60px rgba(255,193,7,.55)}
+  #brand2{top:1070px;font-size:110px;font-weight:800;color:#fff}
+  #tag{top:1290px;font-size:64px;font-weight:700}
+  #tag span{background:var(--y);color:#000;padding:10px 34px;border-radius:18px;display:inline-block}
+  /* scene 3 – van */
+  #road{position:absolute;inset:0;background:linear-gradient(#0b0b0b,#151a08)}
+  #lines span{position:absolute;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(255,193,7,0),var(--y))}
+  #vanCard{position:absolute;left:40px;top:640px;width:1000px;height:562px;border-radius:40px;overflow:hidden;
+    border:10px solid var(--y);box-shadow:0 0 80px rgba(255,193,7,.45),0 40px 80px rgba(0,0,0,.7)}
+  #vanCard img{width:100%;height:100%;object-fit:cover}
+  #s3top{top:250px;font-size:96px;font-weight:900;line-height:1.1}
+  #s3bot{top:1290px;font-size:72px;font-weight:800;line-height:1.2}
+  #timer{position:absolute;left:390px;top:1450px;width:300px;height:300px}
+  /* scene 4 – battery charging */
+  #bat{position:absolute;left:200px;top:300px;width:680px;height:1040px}
+  #pct{top:690px;font-size:190px;font-weight:900;direction:ltr;color:#000;mix-blend-mode:normal}
+  .feat{position:absolute;right:90px;left:90px;height:110px;border-radius:30px;background:#161616;
+    border:3px solid #2b2b2b;display:flex;align-items:center;gap:26px;padding:0 36px;font-size:48px;font-weight:700;opacity:0;white-space:nowrap}
+  .feat i{font-style:normal;font-size:60px}
+  .feat b{color:var(--y);font-weight:900}
+  /* scene 5 – vroom */
+  #vroom{top:700px;font-size:230px;font-weight:900;font-style:italic;color:var(--g);direction:ltr;
+    text-shadow:0 0 50px rgba(139,214,15,.7),12px 12px 0 #2f4a00}
+  #s5a{top:1060px;font-size:88px;font-weight:900}
+  #s5b{top:1190px;font-size:60px;font-weight:600;color:#cfcfcf}
+  /* scene 6 – CTA */
+  #cta{position:absolute;inset:0}
+  #ctaLogo{position:absolute;left:400px;top:170px;width:280px;height:280px}
+  #ctaName{top:480px;font-size:112px;white-space:nowrap;font-weight:900;line-height:1}
+  #ctaSub{top:640px;font-size:82px;font-weight:900;color:var(--y);line-height:1.1}
+  #ctaSub2{top:760px;font-size:54px;font-weight:600}
+  #pills{position:absolute;top:880px;left:60px;right:60px;display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
+  #pills span{border:3px solid var(--g);color:var(--g);font-size:44px;font-weight:800;padding:12px 30px;border-radius:60px;opacity:0}
+  #phoneBox{position:absolute;left:70px;right:70px;top:1110px;height:250px;border-radius:60px;background:var(--y);
+    display:flex;align-items:center;justify-content:center;gap:34px;direction:ltr;color:#000;font-weight:900;font-size:100px;letter-spacing:-2px;white-space:nowrap}
+  #phoneBox svg{width:110px;height:110px;flex:none}
+  #ctaCall{top:1400px;font-size:56px;font-weight:800}
+  #share{position:absolute;left:90px;right:90px;top:1560px;border:3px dashed #555;border-radius:34px;padding:26px 30px;
+    text-align:center;font-size:48px;font-weight:700;line-height:1.3;color:#eee}
+  #prog{position:absolute;left:0;bottom:0;height:12px;background:var(--y)}
+  #grain{position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:screen}
+</style></head><body>
+<div id="stage">
+
+  <!-- 1. Dead car -->
+  <div class="scene" id="s1">
+    <div class="c" id="click">קליק.</div>
+    <div id="dash"><div id="btn">ENGINE<small>START · STOP</small></div></div>
+    <svg id="batlow" viewBox="0 0 200 96"><rect x="4" y="4" width="176" height="88" rx="14" fill="none" stroke="#ff3b30" stroke-width="8"/>
+      <rect x="182" y="30" width="14" height="36" rx="4" fill="#ff3b30"/><rect id="batlowFill" x="16" y="16" width="22" height="64" rx="6" fill="#ff3b30"/></svg>
+    <div class="c" id="s1cap">7:42 בבוקר.<br>האוטו <span style="color:#ff3b30">לא מניע</span> 😩</div>
+  </div>
+
+  <!-- 2. Brand slam -->
+  <div class="scene" id="s2">
+    <svg id="rays" viewBox="-1000 -1000 2000 2000"></svg>
+    <svg id="logoBig" viewBox="0 0 200 200"></svg>
+    <div class="c y" id="brand">צ׳יק צ׳אק!</div>
+    <div class="c" id="brand2">מצבר חדש.</div>
+    <div class="c" id="tag"><span>עד הבית שלך 🏠</span></div>
+  </div>
+
+  <!-- 3. Van on the way -->
+  <div class="scene" id="s3">
+    <div id="road"></div>
+    <div id="lines" class="abs"></div>
+    <div class="c" id="s3top">אנחנו כבר<br><span class="g">בדרך אלייך</span> 🚐💨</div>
+    <div id="vanCard"><img src="assets/van.jpg"></div>
+    <div class="c" id="s3bot">אצלך <span class="y">תוך שעה</span></div>
+    <svg id="timer" viewBox="0 0 300 300"><circle cx="150" cy="150" r="128" fill="none" stroke="#2b2b2b" stroke-width="22"/>
+      <circle id="timerArc" cx="150" cy="150" r="128" fill="none" stroke="#ffc107" stroke-width="22" stroke-linecap="round"
+        stroke-dasharray="804.2" stroke-dashoffset="804.2" transform="rotate(-90 150 150)"/>
+      <text id="timerTxt" x="150" y="172" text-anchor="middle" font-family="Rubik" font-weight="900" font-size="70" fill="#fff">60′</text></svg>
+  </div>
+
+  <!-- 4. Charging + features -->
+  <div class="scene" id="s4">
+    <svg id="bat" viewBox="0 0 680 1040">
+      <defs><linearGradient id="fillG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#8bd60f"/><stop offset="1" stop-color="#ffc107"/></linearGradient>
+        <clipPath id="batClip"><rect x="40" y="130" width="600" height="870" rx="50"/></clipPath></defs>
+      <rect x="230" y="40" width="220" height="80" rx="20" fill="#2b2b2b"/>
+      <rect x="20" y="110" width="640" height="910" rx="70" fill="#111" stroke="#2b2b2b" stroke-width="16"/>
+      <g clip-path="url(#batClip)"><rect id="batFill" x="40" y="1000" width="600" height="0" fill="url(#fillG)"/>
+        <path id="wave" fill="#ffe082" opacity=".55"/></g>
+      <path id="batBolt" d="M380 230 L250 560 L340 560 L300 860 L450 480 L355 480 L410 230 Z" fill="#fff" opacity=".12"/>
+    </svg>
+    <div class="c" id="pct">0%</div>
+    <div class="feat" id="f1" style="top:1380px"><i>🕐</i><span>שירות <b>24/7</b> – גם באמצע הלילה</span></div>
+    <div class="feat" id="f2" style="top:1510px"><i>🔧</i><span>התקנה <b>מהירה ומקצועית</b> במקום</span></div>
+    <div class="feat" id="f3" style="top:1640px"><i>🔋</i><span>מגוון רחב של <b>מצברים מובילים</b></span></div>
+    <div class="feat" id="f4" style="top:1770px"><i>💸</i><span>בלי גרר. בלי מוסך. <b>בלי חפירות.</b></span></div>
+  </div>
+
+  <!-- 5. Vroom -->
+  <div class="scene" id="s5">
+    <div id="lines5" class="abs"></div>
+    <div class="c" id="vroom">VROOM!</div>
+    <div class="c" id="s5a">מניע. <span class="y">ממשיכים בחיים.</span></div>
+    <div class="c" id="s5b">ככה זה כשמזמינים צ׳יק צ׳אק ⚡</div>
+  </div>
+
+  <!-- 6. CTA -->
+  <div class="scene" id="s6">
+    <svg id="cta" viewBox="0 0 1080 1920"></svg>
+    <svg id="ctaLogo" viewBox="0 0 200 200"></svg>
+    <div class="c" id="ctaName">צ׳יק צ׳אק <span class="y">מצברים</span></div>
+    <div class="c" id="ctaSub">החלפת מצבר עד הבית</div>
+    <div class="c" id="ctaSub2">שירות מהיר, מקצועי ונוח!</div>
+    <div id="pills"><span>24/7</span><span>עד שעה</span><span>התקנה במקום</span></div>
+    <div id="phoneBox"><svg viewBox="0 0 32 32"><path fill="#000" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.6-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.3 1.4 3.5c.2.2 2.4 3.6 5.8 5.1 2.8 1.1 3.4.9 4 .8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>055-3033757</div>
+    <div class="c" id="ctaCall">📲 שלחו וואטסאפ – ואנחנו בדרך</div>
+    <div id="share">תייגו את החבר שהמצבר שלו<br><span class="y">תמיד</span> מת בבוקר 😅👇</div>
+  </div>
+
+  <div id="flash"></div>
+  <svg id="bolt" class="abs" viewBox="0 0 1080 1920"><path id="boltPath" fill="none" stroke="#fff" stroke-width="14" stroke-linejoin="round"/>
+    <path id="boltPath2" fill="none" stroke="#ffc107" stroke-width="40" stroke-linejoin="round" opacity=".5"/></svg>
+  <div id="prog"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3);
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const bo=x=>{const c=2.2;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+let seed=11;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
+const DUR=20;
+
+// Logo: rounded down-triangle + bolt + minus/plus
+const logo=`<path d="M30 52 Q20 44 32 42 L168 42 Q180 44 170 52 L108 168 Q100 180 92 168 Z" fill="none" stroke="#fff" stroke-width="9" stroke-linejoin="round"/>
+ <path d="M112 30 L74 110 L100 110 L86 160 L132 86 L106 86 L124 30 Z" fill="#ffc107"/>
+ <rect x="50" y="18" width="22" height="6" rx="3" fill="#ffc107"/>
+ <rect x="138" y="18" width="22" height="6" rx="3" fill="#ffc107"/><rect x="146" y="10" width="6" height="22" rx="3" fill="#ffc107"/>`;
+$('logoBig').innerHTML=logo;$('ctaLogo').innerHTML=logo;
+
+// rays
+let rays='';for(let i=0;i<24;i++){const a=i/24*Math.PI*2,b=a+Math.PI/24;
+  rays+=`<path d="M0 0 L${Math.cos(a)*1500} ${Math.sin(a)*1500} L${Math.cos(b)*1500} ${Math.sin(b)*1500}Z" fill="${i%2?'#1a1400':'#2b2100'}"/>`}
+$('rays').innerHTML=rays;
+
+// speed lines
+function mkLines(host,n){const arr=[];for(let i=0;i<n;i++){const s=document.createElement('span');
+  const o={el:s,y:rnd()*1920,w:200+rnd()*600,sp:2500+rnd()*3500,off:rnd()*3000};$(host).appendChild(s);arr.push(o)}return arr}
+const L3=mkLines('lines',34),L5=mkLines('lines5',40);
+function runLines(arr,t,alpha){for(const o of arr){const x=((o.off+t*o.sp)%(1080+o.w*2))-o.w;
+  o.el.style.left=x+'px';o.el.style.top=o.y+'px';o.el.style.width=o.w+'px';o.el.style.opacity=alpha*.7}}
+
+// CTA background: halftone dots
+let dots='';for(let y=0;y<1920;y+=60)for(let x=(y/60%2)*30;x<1080;x+=60){dots+=`<circle cx="${x}" cy="${y}" r="5" fill="#ffc107"/>`}
+$('cta').innerHTML=`<g id="dots" opacity=".07">${dots}</g><circle id="glow" cx="540" cy="1235" r="420" fill="#ffc107" opacity="0"/>`;
+
+// lightning bolt path generator (deterministic)
+function boltD(x0,y0,x1,y1,segs,j){let d=`M${x0} ${y0}`;for(let i=1;i<=segs;i++){const k=i/segs;
+  const x=x0+(x1-x0)*k+(i<segs?(rnd()-.5)*j:0),y=y0+(y1-y0)*k;d+=` L${x.toFixed(0)} ${y.toFixed(0)}`}return d}
+seed=99;const B1=boltD(620,-40,470,1100,14,180);
+$('boltPath').setAttribute('d',B1);$('boltPath2').setAttribute('d',B1);
+
+function show(id,a){$(id).style.opacity=a}
+function shake(t,amp,f=40){return `translate(${Math.sin(t*f)*amp}px,${Math.cos(t*f*1.3)*amp}px)`}
+
+function render(t){
+  // ---- Scene windows
+  const v1=t<2.75?1:0, v2=t>=2.75&&t<5.0?1:0, v3=t>=5.0&&t<8.2?1:0, v4=t>=8.2&&t<13.6?1:0, v5=t>=13.6&&t<15.6?1:0, v6=t>=15.6?1:0;
+  show('s1',v1);show('s2',v2);show('s3',v3);show('s4',v4);show('s5',v5);show('s6',v6);
+
+  // ---- 1: click click click
+  if(v1){
+    const clicks=[.35,1.0,1.65];let k=0,since=9;for(const c of clicks)if(t>=c){k++;since=t-c}
+    const ck=$('click');ck.textContent=['','קליק.','קליק. קליק.','קליק. קליק. קליק.'][k];
+    ck.style.fontSize=(k===3?110:150)+'px';
+    ck.style.color=since<.12?'#ff3b30':'#fff';
+    ck.style.transform=`scale(${1+.25*Math.max(0,1-since*6)})`;
+    $('btn').style.transform=`scale(${since<.15?.92:1})`;
+    $('btn').style.boxShadow=since<.2?`0 0 60px rgba(255,59,48,${.8*(1-since*5)})`:'none';
+    $('btn').style.color=since<.2?'#ff3b30':'#777';
+    $('dash').style.transform=shake(t,since<.2?10*(1-since*5):0);
+    $('batlow').style.opacity=(Math.floor(t*4)%2)?1:.25;
+    const cp=eo(prog(t,.15,.6));$('s1cap').style.opacity=cp;$('s1cap').style.transform=`translateY(${(1-cp)*40}px)`;
+    $('stage').style.filter=`brightness(${t>2.2?1-prog(t,2.2,2.6)*.7:1})`;
+  } else $('stage').style.filter='none';
+
+  // ---- lightning transition 2.55–2.95
+  const lb=prog(t,2.55,2.62),lf=prog(t,2.62,3.0);
+  $('bolt').style.opacity=t>2.55&&t<2.9?(Math.floor(t*40)%2?1:.6):0;
+  $('flash').style.opacity=t>2.6&&t<3.2?(1-eo(lf))*(t<2.75?1:.9):0;
+  $('flash').style.background=t<2.7?'#fff':'#ffc107';
+
+  // ---- 2: brand slam
+  if(v2){const lt=t-2.75;
+    const r=$('rays');r.style.opacity=clamp(lt*3)*.9;r.style.transform=`rotate(${lt*25}deg)`;
+    const lp=prog(lt,0,.35);$('logoBig').style.transform=`scale(${.2+.8*bo(lp)}) rotate(${(1-lp)*-30}deg)`;$('logoBig').style.opacity=clamp(lp*3);
+    const bp=prog(lt,.12,.42);$('brand').style.transform=`scale(${3-2*eo(bp)})`+shake(lt,bp>=1&&lt<.6?14*(1-prog(lt,.42,.6)):0);
+    $('brand').style.opacity=clamp(bp*4);
+    const b2=prog(lt,.5,.75);$('brand2').style.opacity=b2;$('brand2').style.transform=`translateX(${(1-eo(b2))*-300}px)`;
+    const tg=prog(lt,.85,1.15);$('tag').style.opacity=tg;$('tag').style.transform=`scale(${.5+.5*bo(tg)})`;
+    const out=prog(lt,2.0,2.25);$('s2').style.transform=`scale(${1+out*.4})`;$('s2').style.opacity=1-out;
+  }
+
+  // ---- 3: van driving in (photo faces left → drive right-to-left)
+  if(v3){const lt=t-5.0;
+    runLines(L3,lt,1);
+    const vin=prog(lt,0,.55);const vx=(1-eo(vin))*1200;
+    const bump=Math.sin(lt*30)*3*(vin<1?1:.4);
+    $('vanCard').style.transform=`translate(${vx}px,${bump}px) rotate(${(1-vin)*4-1}deg) skewX(${(1-vin)*-10}deg)`;
+    $('vanCard').style.filter=vin<1?`blur(${(1-vin)*8}px)`:'none';
+    const tp=prog(lt,.25,.6);$('s3top').style.opacity=tp;$('s3top').style.transform=`translateY(${(1-eo(tp))*-60}px)`;
+    const bp=prog(lt,.7,1.0);$('s3bot').style.opacity=bp;$('s3bot').style.transform=`scale(${.6+.4*bo(bp)})`;
+    const tm=prog(lt,.9,2.9);$('timer').style.opacity=prog(lt,.85,1.05);
+    $('timerArc').style.strokeDashoffset=804.2*(1-eio(tm));
+    $('timerTxt').textContent=Math.round(60-59*eio(tm))+'′';
+    if(tm>=1)$('timerTxt').textContent='✓';
+    const out=prog(lt,2.95,3.2);$('vanCard').style.opacity=1-out;
+    if(out>0)$('vanCard').style.transform=`translate(${-eo(out)*1300}px,0) skewX(${out*12}deg)`;
+  }
+
+  // ---- 4: battery charging 0→100 with features
+  if(v4){const lt=t-8.2;
+    const sIn=eo(prog(lt,0,.35));$('bat').style.transform=`translateY(${(1-sIn)*200}px) scale(${.8+.2*sIn})`;$('bat').style.opacity=sIn;
+    const steps=[[.3,1.25,25],[1.25,2.2,50],[2.2,3.15,75],[3.15,4.1,100]];
+    let pct=0;for(const [a,b,v] of steps){if(lt>=a)pct=v-25+25*eio(prog(lt,a,b))}
+    pct=Math.min(100,pct);
+    const h=870*pct/100;$('batFill').setAttribute('y',1000-h);$('batFill').setAttribute('height',h);
+    let w=`M40 ${1000-h} `;for(let x=40;x<=640;x+=20)w+=`L${x} ${1000-h+Math.sin(x/40+lt*8)*10*(pct<100?1:.3)} `;w+=`L640 ${1000-h+30} L40 ${1000-h+30}Z`;
+    $('wave').setAttribute('d',w);
+    $('pct').textContent=Math.round(pct)+'%';
+    $('pct').style.color=pct>45?'#000':'#fff';
+    $('pct').style.transform=`scale(${pct>=100?1+.15*Math.max(0,1-(lt-4.1)*4):1})`;
+    $('batBolt').setAttribute('opacity',pct>=100?.9:.12+.08*Math.sin(lt*12));
+    $('batBolt').setAttribute('fill',pct>=100?'#fff':'#fff');
+    $('bat').style.filter=pct>=100?`drop-shadow(0 0 ${40+20*Math.sin(lt*10)}px rgba(139,214,15,.8))`:'none';
+    ['f1','f2','f3','f4'].forEach((id,i)=>{const a=steps[i][0]+.15;const p=prog(lt,a,a+.35);const el=$(id);
+      el.style.opacity=p;el.style.transform=`translateX(${(1-eo(p))*-700}px)`;
+      const active=lt>=a&&lt<steps[i][1]+.15;el.style.borderColor=active?'#ffc107':'#2b2b2b';
+      el.style.background=active?'#221b00':'#161616'});
+    const out=prog(lt,5.15,5.4);$('s4').style.opacity=1-out;
+  }
+
+  // ---- 5: VROOM
+  if(v5){const lt=t-13.6;runLines(L5,lt,1);
+    const vp=prog(lt,0,.25);$('vroom').style.transform=`scale(${2.4-1.4*eo(vp)}) skewX(-8deg)`+shake(lt,lt<.7?18*(1-lt/.7):2,55);
+    $('vroom').style.opacity=clamp(vp*3);
+    const a=prog(lt,.45,.75);$('s5a').style.opacity=a;$('s5a').style.transform=`translateY(${(1-eo(a))*50}px)`;
+    const b=prog(lt,.8,1.1);$('s5b').style.opacity=b;
+    $('s5').style.background=`radial-gradient(circle at 50% 40%,rgba(139,214,15,${.25*(1-prog(lt,0,1.2))}),transparent 70%)`;
+    const out=prog(lt,1.8,2.0);$('s5').style.opacity=1-out;
+  }
+
+  // ---- 6: CTA
+  if(v6){const lt=t-15.6;
+    const lg=prog(lt,0,.35);$('ctaLogo').style.transform=`scale(${bo(lg)}) rotate(${(1-lg)*180}deg)`;$('ctaLogo').style.opacity=clamp(lg*2);
+    const n=prog(lt,.15,.45);$('ctaName').style.opacity=n;$('ctaName').style.transform=`translateY(${(1-eo(n))*60}px)`;
+    const s=prog(lt,.3,.6);$('ctaSub').style.clipPath=`inset(0 0 0 ${100-eio(s)*100}%)`;
+    const s2=prog(lt,.5,.8);$('ctaSub2').style.opacity=s2;
+    [...$('pills').children].forEach((el,i)=>{const p=prog(lt,.6+i*.12,.9+i*.12);el.style.opacity=p;el.style.transform=`scale(${.4+.6*bo(p)})`});
+    const pb=prog(lt,.9,1.25);const pulse=lt>1.4?1+.035*Math.sin((lt-1.4)*7):1;
+    $('phoneBox').style.opacity=clamp(pb*2);$('phoneBox').style.transform=`scale(${(.3+.7*bo(pb))*pulse})`;
+    $('phoneBox').style.boxShadow=`0 0 ${50+30*Math.sin(lt*7)}px rgba(255,193,7,.55)`;
+    $('glow').setAttribute('opacity',.08+.05*Math.sin(lt*7));
+    $('dots').setAttribute('transform',`translate(0 ${-(lt*30)%60})`);
+    const c=prog(lt,1.35,1.6);$('ctaCall').style.opacity=c;
+    const sh=prog(lt,1.8,2.1);$('share').style.opacity=sh;$('share').style.transform=`translateY(${(1-eo(sh))*40}px) rotate(${(1-sh)*-3}deg)`;
+    $('share').style.borderColor=lt>2.1&&Math.floor(lt*3)%2?'#ffc107':'#555';
+  }
+  $('prog').style.width=(t/DUR*1080)+'px';
+}
+window.render=render;window.DUR=DUR;render(0);
+</script></body></html>
