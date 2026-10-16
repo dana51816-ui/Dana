@@ -71,9 +71,11 @@ bdi{unicode-bidi:isolate}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding-bottom:110px}
 .tile{display:grid;gap:7px;border:0;background:none;padding:0;text-align:right;align-content:start}
 .art{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-.art .badge{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.93);color:#14215e;font-size:.7rem;font-weight:600;border-radius:999px;padding:3px 9px}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:12px;filter:drop-shadow(0 6px 10px rgba(20,30,80,.18))}
+.art.ph{background:var(--card)!important}
+.art .badge{z-index:1;position:absolute;top:8px;right:8px;background:rgba(255,255,255,.93);color:#14215e;font-size:.7rem;font-weight:600;border-radius:999px;padding:3px 9px}
 .art .badge.sold{background:rgba(20,33,94,.85);color:#fff}
-.art .star{position:absolute;bottom:8px;left:8px;background:var(--gold);color:#14215e;font-size:.7rem;font-weight:700;border-radius:999px;padding:3px 8px}
+.art .star{z-index:1;position:absolute;bottom:8px;left:8px;background:var(--gold);color:#14215e;font-size:.7rem;font-weight:700;border-radius:999px;padding:3px 8px}
 .tile .tn{font-family:var(--display);font-stretch:112%;font-weight:700;font-size:.98rem;line-height:1.2;direction:ltr;text-align:right;overflow-wrap:anywhere}
 .tile .tp{font-size:.82rem;color:var(--muted);margin-top:-3px}
 .tile .tp b{color:var(--ink);font-family:var(--display);font-variant-numeric:tabular-nums}
@@ -82,7 +84,9 @@ bdi{unicode-bidi:isolate}
 /* sheets */
 .sheet{position:fixed;inset:0;z-index:20;background:var(--wall);overflow-y:auto;padding-top:env(safe-area-inset-top,0px)}
 .dhero{position:relative;padding-block:12px 18px;color:#fff;overflow:hidden}
-.dhero .bg{position:absolute;inset:0}
+.dhero .bg{position:absolute;inset:0;overflow:hidden}
+.dhero .bg img{position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);object-fit:cover;filter:blur(26px) saturate(1.3)}
+.heroimg{display:block;max-width:100%;max-height:min(42vh,320px);margin:4px auto 0;object-fit:contain;filter:drop-shadow(0 14px 28px rgba(0,0,0,.4))}
 .dhero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,15,44,.15),rgba(10,15,44,.62))}
 .dhero .wrap{position:relative;display:grid;gap:12px}
 .navrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -196,6 +200,7 @@ textarea{width:100%;min-height:80px;border:1.5px solid var(--line);background:va
 .cust .who .A{font-family:var(--script);font-size:3rem;line-height:.6}
 .cust .who b{font-family:var(--thin);font-weight:300;letter-spacing:.32em;font-size:1.05rem}
 .cust .strip{height:6px;border-radius:999px}
+.cust .cimg{max-width:100%;max-height:34vh;justify-self:center;object-fit:contain;filter:drop-shadow(0 16px 30px rgba(0,0,0,.45))}
 .cust .cpill{justify-self:start;font-family:var(--display);font-stretch:125%;font-weight:800;font-size:.7rem;letter-spacing:.12em;background:var(--gold);color:#14215e;border-radius:999px;padding:5px 12px}
 .cust h2{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:clamp(1.9rem,9vw,3rem);line-height:1;margin:0}
 .cust dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0}
@@ -262,6 +267,7 @@ ART.forEach(a=>{a.id=a.k.replace(/[^a-z0-9]+/g,'-');const h=hash(a.k);let cs=nul
   if(/israel|yisrael|jerusalem|hamsa|judah|chanuka|rabbi|shield|nova|together we|proud of us|strong together|peace will|map of/.test(k))t.add('jw');
   if(/elephant|deer|peacock|koi|lion|butterfly|frog|wing|flight|stride|majest|roar|jump|aviation|bird/.test(k))t.add('an');
   a.T=t});
+const img=a=>'thumbs/'+a.id+'.webp';
 function artBg(a,deg){const [c1,c2,c3]=a.c,h=a.h1;const x1=20+h%50,y1=15+(h>>>4)%40,x2=40+(h>>>8)%50,y2=50+(h>>>12)%40,x3=(h>>>16)%90,y3=(h>>>20)%90;
   return `radial-gradient(circle at ${x1}% ${y1}%,${c2} 0 18%,transparent 19%),radial-gradient(circle at ${x3}% ${y3}%,#ffffff 0 5%,transparent 5.5%),radial-gradient(ellipse at ${x2}% ${y2}%,${c3} 0 26%,transparent 27%),radial-gradient(circle at ${100-x1}% ${100-y2}%,${c2}99 0 30%,transparent 31%),linear-gradient(${deg||(h%360)}deg,${c1},${c3})`}
 
@@ -310,7 +316,7 @@ function inTheme(a){if(theme==='all')return true;if(theme==='emb')return !!a.f.e
 function tileHTML(a){const o=a.o?origInfo(a):null,m=minUSD(a),onTour=tour.includes(a.id);
   const badge=o?`<span class="badge${o.status==='sold'?' sold':''}">מקור${o.status==='sold'?' · נמכר':o.status==='hold'?' · שמור':''}</span>`:'';
   const pr=m!=null?`הדפס מ־<b>${$f(m)}</b>`:(o&&o.price?`מקור · <b>${$f(o.price)}</b>`:'מקור · לפי קבוצת מחיר');
-  return `<button class="tile" type="button" data-id="${a.id}"><div class="art" style="background:${artBg(a)}">${badge}${onTour?'<span class="star">⭐ בטור</span>':''}</div><div class="tn">${esc(a.n)}</div><div class="tp">${pr}</div></button>`}
+  return `<button class="tile" type="button" data-id="${a.id}"><div class="art ph" style="background:${artBg(a)}"><img src="${img(a)}" alt="" loading="lazy" decoding="async" onerror="this.remove();this.parentNode&&this.parentNode.classList.remove('ph')">${badge}${onTour?'<span class="star">⭐ בטור</span>':''}</div><div class="tn">${esc(a.n)}</div><div class="tp">${pr}</div></button>`}
 function renderHome(){
   renderPromo();$('rateTxt').textContent=S.rate.toFixed(2);$('setBtn').classList.toggle('ok',!!S.verified);
   const q=$('q').value.trim().toLowerCase().replace(/[^a-z0-9 ]/g,'');
@@ -353,7 +359,7 @@ function wallSVG(){if(!sel)return '';const [w,h]=sel.custom?[sel.w,sel.h]:dims(s
   <rect width="${W}" height="${H}" fill="var(--soft)"/><rect y="${H-4}" width="${W}" height="4" fill="var(--line)"/>
   <g fill="var(--muted)" opacity=".5"><rect x="${sx}" y="${H-sofaH}" width="210" height="45" rx="10"/><rect x="${sx-8}" y="${H-sofaH+20}" width="226" height="50" rx="12"/><rect x="${sx+8}" y="${H-15}" width="6" height="15"/><rect x="${sx+196}" y="${H-15}" width="6" height="15"/></g>
   <g fill="var(--muted)" opacity=".32"><circle cx="${W-24}" cy="${H-160}" r="11"/><rect x="${W-36}" y="${H-147}" width="24" height="147" rx="11"/></g>
-  <rect x="${ax}" y="${ay}" width="${w}" height="${h}" fill="url(#${gid})" ${fs!=='none'?`stroke="${fs}" stroke-width="${Math.max(3,Math.min(w,h)*.04)}"`:''} ${fr==='rolled'?'stroke="var(--ink)" stroke-dasharray="4 3" stroke-width="1.2"':''}/>
+  <rect x="${ax}" y="${ay}" width="${w}" height="${h}" fill="url(#${gid})"/><image href="${img(cur)}" x="${ax}" y="${ay}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid slice"/><rect x="${ax}" y="${ay}" width="${w}" height="${h}" fill="none" ${fs!=='none'?`stroke="${fs}" stroke-width="${Math.max(3,Math.min(w,h)*.04)}"`:''} ${fr==='rolled'?'stroke="var(--ink)" stroke-dasharray="4 3" stroke-width="1.2"':''}/>
   </svg><p>כך זה נראה מעל ספה ברוחב 2.1 מטר, ליד אדם בגובה 1.70</p></div>`}
 function origHTML(){const o=origInfo(cur);
   const tiersSet=Object.keys(T).some(k=>Object.values(T[k]||{}).some(Boolean));
@@ -366,8 +372,9 @@ function origHTML(){const o=origInfo(cur);
     ${tiersSet?'':'<div class="warn">עוד לא הוגדרו מחירים לקבוצות המקורים. מגדירים פעם אחת בהגדרות, בטבלה "מחירי מקורים".</div>'}
   </section>`}
 function renderDetail(){const a=cur,hasP=Object.keys(a.f).length>0;
-  let h=`<header class="dhero"><div class="bg" style="background:${artBg(a,135)}"></div><div class="wrap">
+  let h=`<header class="dhero"><div class="bg" style="background:${artBg(a,135)}"><img src="${img(a)}" alt="" onerror="this.remove()"></div><div class="wrap">
     <div class="navrow"><button class="iconbtn" type="button" data-act="back">→ חזרה</button><div class="r"><button class="iconbtn" type="button" data-act="tour" aria-pressed="${tour.includes(a.id)}">${tour.includes(a.id)?'⭐ בטור':'☆ להוסיף לטור'}</button>${a.h?`<a class="iconbtn" href="https://www.albertlevi.com/products/${esc(a.h)}" target="_blank" rel="noopener">↗</a>`:''}</div></div>
+    <img class="heroimg" src="${img(a)}" alt="${esc(a.n)}" onerror="this.remove()">
     <h2 class="dtitle">${esc(a.n)}</h2>
     <div class="kind"><button type="button" data-kind="print" aria-pressed="${kind==='print'}"${hasP?'':' disabled'}>הדפס / מהדורה</button><button type="button" data-kind="orig" aria-pressed="${kind==='orig'}"${a.o?'':' disabled'}>מקור${a.o?'':' · אין'}</button></div>
   </div></header><div class="wrap dbody">`;
@@ -440,7 +447,7 @@ $('pkg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 
 /* ---------- customer view ---------- */
 function showCust(o){let h=`<div class="cc"><div class="who"><span class="A">A</span><b>Albert Levi</b></div>`;
-  if(o.single){const it=o.items[0],p=o.single;h+=`<div class="strip" style="background:linear-gradient(90deg,${cur.c.join(',')})"></div>${p.coll?`<span class="cpill">THE COLLECTOR'S RATE · ${p.pct}% OFF</span>`:''}<h2>${esc(it.n)}</h2><dl>${it.spec.split(' · ').map((v,i)=>`<dt>${['Edition','Size','Finish','',''][i]||''}</dt><dd>${esc(v)}</dd>`).join('')}</dl><div class="big">${p.pct?`<s>${$f(it.list)}</s>`:''}${$f(p.fin)}</div>`}
+  if(o.single){const it=o.items[0],p=o.single;h+=`<img class="cimg" src="${img(cur)}" alt="" onerror="this.remove()">${p.coll?`<span class="cpill">THE COLLECTOR'S RATE · ${p.pct}% OFF</span>`:''}<h2>${esc(it.n)}</h2><dl>${it.spec.split(' · ').map((v,i)=>`<dt>${['Edition','Size','Finish','',''][i]||''}</dt><dd>${esc(v)}</dd>`).join('')}</dl><div class="big">${p.pct?`<s>${$f(it.list)}</s>`:''}${$f(p.fin)}</div>`}
   else{const c=o.pkg;h+=`<div class="strip" style="background:linear-gradient(90deg,#f2b33d,#2f4be0)"></div><h2>Your collection</h2><div class="lines">${c.items.map(x=>`<div><span>${esc(x.n)}<br><small style="color:#aab6e6">${esc(x.spec)}</small></span><span>${x.fin!==x.list?`<s style="color:#aab6e6;font-weight:500">${$f(x.list)}</s> `:''}${$f(x.fin)}</span></div>`).join('')}</div><div class="big">${c.fin<c.list?`<s>${$f(c.list)}</s>`:''}${$f(c.fin)}</div>`}
   $('cust').innerHTML=h+`<button class="close" type="button">סגירה ←</button></div>`;$('cust').hidden=false;renderFab();history.pushState({d:1,c:1},'')}
 $('cust').addEventListener('click',()=>back());

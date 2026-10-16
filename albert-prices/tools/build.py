@@ -6,7 +6,11 @@ ALIAS={'tree of happines pink magic':'tree of happiness pink magic','powerfull s
  'wild majestiy':'wild majesty','wing of freedom':'wings of freedom','am yisral chai tree of life':'am yisrael chai tree of life',
  'noble peacock':'a noble peacock','am israel chai tree of life':'am yisrael chai tree of life',
  'exact geometry precise colorful refined design':'exact geometry','funky frog in square shades':'funky frog',
- 'tree of happiness earthy elegance':'tree of happiness earth'}
+ 'tree of happiness earthy elegance':'tree of happiness earth',
+ 'bloom of happiness':'the bloom of happiness','blue life':'tree of life blue life','colorful dream':'tree of life colorful dream',
+ 'colorful life':'tree of life colorful life','everlastig love':'everlasting love','gentle purple':'tree of life gentle purple',
+ 'glow in the dark dance':'glow in the dark dance celebrate freedom in glow','map of israel':'map of israel never again',
+ 'smile forever after nova':'after nova smile forever','together we win':'together we will win'}
 def base(t):
   t=re.sub(r'(?i)original (artwork|painting)\s*-?','',t)
   t=re.sub(r'(?i)embellished edition print\s*-?','',t)
@@ -92,7 +96,7 @@ for key,g in groups.items():
         elif o['p']<250 and area>2000: reason='מחיר נמוך באופן חריג'
         if reason:
           o['w']=reason; flags.append((g['name'],f,s,frm,o['p'],reason))
-  out.append({'k':key,'n':g['name'],'h':(g['handles'] or [None])[0],'f':g['formats'],'o':g['original'],'t':sorted(g['tags'])})
+  out.append({'k':key,'n':g['name'],'h':(g['handles'] or [None])[0],'f':g['formats'],'o':g['original'],'img':(g['handles'] or [None])[0] or (g['original'] or {}).get('handle'),'t':sorted(g['tags'])})
 out.sort(key=lambda x:x['n'].lower())
 json.dump(out,open(sys.argv[2],'w'),ensure_ascii=False,separators=(',',':'))
 print(len(out),'artworks; with original',sum(1 for x in out if x['o']),'; flags',len(flags))

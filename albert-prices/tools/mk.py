@@ -22,7 +22,7 @@ import hashlib
 ver=hashlib.sha1((head+body).encode()).hexdigest()[:10]
 open(outdir+'/sw.js','w').write('''// Offline cache for the price guide. Bump happens automatically: the version is a hash of index.html.
 const V='alp-%s';
-const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'];
+const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'].concat(%s);
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith('alp-')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET')return;
@@ -33,5 +33,5 @@ self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.me
   if(/fonts\\.(googleapis|gstatic)\\.com$/.test(u.hostname)){
     e.respondWith(caches.open(V+'-fonts').then(c=>c.match(e.request).then(r=>r||fetch(e.request).then(n=>{c.put(e.request,n.clone());return n}))))}
 });
-'''%ver)
+'''%(ver,json.dumps(['thumbs/'+f for f in sorted(__import__('os').listdir(outdir+'/thumbs'))])))
 print('ok',ver)

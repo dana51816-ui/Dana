@@ -44,7 +44,7 @@ for a in arts:
       f[fmt]={s:{fr:o['p'] for fr,o in frs.items() if not o.get('w')} for s,frs in sz.items()}
       f[fmt]={s:v for s,v in f[fmt].items() if v}
       if not f[fmt]: del f[fmt]
-  out.append({'k':a['k'],'n':a['n'],'h':a['h'],'f':f,'o':bool(a['o']),'os':(a['o'] or {}).get('site'),'t':a.get('t',[])})
+  out.append({'img':a.get('img'),'k':a['k'],'n':a['n'],'h':a['h'],'f':f,'o':bool(a['o']),'os':(a['o'] or {}).get('site'),'t':a.get('t',[])})
 json.dump({'std':std,'art':out},open(sys.argv[2],'w'),ensure_ascii=False,separators=(',',':'))
 for f,tab in std.items():
   print('==',f)
