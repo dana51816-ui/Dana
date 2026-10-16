@@ -2,7 +2,8 @@ import sys,json
 tpl,data,outdir,preview=sys.argv[1:5]
 t=open(tpl).read(); d=open(data).read().replace('</','<\\/')
 body=t.replace('__DATA__',d)
-open(preview,'w').write(body)
+open(preview,'w').write(body.replace('__QR_SRC__','https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js'))
+body=body.replace('__QR_SRC__','vendor/qrcode.js')
 head='''<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1d3a8f">
@@ -22,7 +23,7 @@ import hashlib
 ver=hashlib.sha1((head+body).encode()).hexdigest()[:10]
 open(outdir+'/sw.js','w').write('''// Offline cache for the price guide. Bump happens automatically: the version is a hash of index.html.
 const V='alp-%s';
-const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'].concat(%s);
+const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','vendor/qrcode.js'].concat(%s);
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith('alp-')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET')return;
