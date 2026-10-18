@@ -15,6 +15,6 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add albert-prices/tools/probe
-          git commit -m "Probe US storefront responses" || echo "nothing to commit"
+          git add albert-prices/tools/products-live.json albert-prices/tools/products-js.json
+          git commit -m "Fetch live US catalog" || echo "nothing to commit"
           git pull --rebase origin claude/albert-price-simulator && git push
