@@ -40,7 +40,7 @@ print('ok',ver)
 # originals form page
 import os
 arts=json.loads(open(data).read())['art']
-orig=[{'id':__import__('re').sub(r'[^a-z0-9]+','-',a['k']),'n':a['n'],'os':a.get('os')} for a in arts if a['o']]
+orig=[{'id':__import__('re').sub(r'[^a-z0-9]+','-',a['k']),'n':a['n'],'os':a.get('os'),'sh':a.get('sh')} for a in arts if a['o']]
 orig.sort(key=lambda a:(a['os'] is False,a['n'].lower()))
 ot=open(os.path.join(os.path.dirname(tpl),'tplO.html')).read().replace('__DATA__',json.dumps(orig,ensure_ascii=False).replace('</','<\\/'))
 open(outdir+'/originals.html','w').write(head.replace('<link rel="manifest" href="manifest.webmanifest">','')+ot+'</body></html>')
