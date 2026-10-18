@@ -1,7 +1,7 @@
 import json,sys,collections
 arts=json.load(open(sys.argv[1]))
 def key(s):
-  a,b=map(int,s.split('x')); return '%dx%d'%(min(a,b),max(a,b))
+  a,b=map(float,s.split('x')); return '%gx%g'%(min(a,b),max(a,b))
 area=lambda k: eval(k.replace('x','*'))
 cnt=collections.defaultdict(collections.Counter)
 for a in arts:

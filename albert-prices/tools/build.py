@@ -29,8 +29,9 @@ def parse_size(s):
   m=re.search(r'(\d+(?:\.\d+)?)\s*[″"\'’]*\s*[x×X]\s*(\d+(?:\.\d+)?)\s*(CM|cm|″|"|\'\')?',s)
   if not m: return None
   a,b=float(m.group(1)),float(m.group(2)); unit=m.group(3) or ''
-  if unit.lower()!='cm' and ('″' in s or '"' in s): a,b=round(a*2.54),round(b*2.54)
-  return (int(round(a)),int(round(b)))
+  # sizes are kept in inches exactly as the store lists them; any centimetre size is converted
+  if unit.lower()=='cm' or re.search(r'(?i)\bcm\b',s): a,b=round(a/2.54),round(b/2.54)
+  return (a,b)
 groups=collections.OrderedDict()
 for p in ps:
   if p['product_type'] in SKIP_TYPES or SKIP.search(p['title']): continue
@@ -68,7 +69,7 @@ for p in ps:
     if not size: continue
     price=float(v['price'])
     if price<=0: continue
-    sz='%dx%d'%size
+    sz='%gx%g'%size
     fm=g['formats'].setdefault(fmt,{})
     ent=fm.setdefault(sz,{})
     # keep first seen (avoid duplicate products overriding)
@@ -93,7 +94,6 @@ for key,g in groups.items():
         reason=None
         if smaller and o['p']<max(x['p'] for x in smaller): reason='מחיר נמוך ממידה קטנה יותר'
         elif frm in('black','white') and 'stretch' in sz[s] and o['p']<sz[s]['stretch']['p']: reason='מסגרת זולה מקנבס ללא מסגרת'
-        elif o['p']<250 and area>2000: reason='מחיר נמוך באופן חריג'
         if reason:
           o['w']=reason; flags.append((g['name'],f,s,frm,o['p'],reason))
   out.append({'k':key,'n':g['name'],'h':(g['handles'] or [None])[0],'f':g['formats'],'o':g['original'],'img':(g['handles'] or [None])[0] or (g['original'] or {}).get('handle'),'t':sorted(g['tags'])})

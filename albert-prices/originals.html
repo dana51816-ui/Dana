@@ -15,14 +15,14 @@
 <style>
 /* Layout: a one-thumb pricing session for the artist — intro, a short price-band table, then one original per screen with its image, and a send-to-WhatsApp finish. */
 :root{
-  --wall:#f3f5fb; --card:#ffffff; --ink:#121a3d; --muted:#5f6789; --line:#dfe4f2; --soft:#e9edf8;
-  --navy:#1d3a8f; --deep:#14215e; --gold:#f2b33d; --ok:#1d7a4c; --sold:#b02142; --warn:#a8510b;
+  --wall:#f6f7fa; --card:#ffffff; --ink:#2a3048; --muted:#6c7390; --line:#e6e9f0; --soft:#eef1f6;
+  --navy:#3d5a99; --deep:#2e4677; --gold:#e9bd6b; --ok:#1d7a4c; --sold:#b02142; --warn:#a8510b;
   --display:"Archivo","Rubik",system-ui,sans-serif; --script:"Mrs Saint Delafield",cursive; --thin:"Josefin Sans","Rubik",sans-serif;
   --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
   --shadow:0 1px 2px rgba(20,30,80,.06),0 10px 26px -14px rgba(20,30,80,.22);
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wall:#0c1233;--card:#151d47;--ink:#eef1fb;--muted:#9aa3c8;--line:#26306a;--soft:#1c2557;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}}
-:root[data-theme="dark"]{--wall:#0c1233;--card:#151d47;--ink:#eef1fb;--muted:#9aa3c8;--line:#26306a;--soft:#1c2557;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wall:#161b2b;--card:#1e2438;--ink:#e9ecf4;--muted:#a2a9c2;--line:#2e3550;--soft:#252c44;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}}
+:root[data-theme="dark"]{--wall:#161b2b;--card:#1e2438;--ink:#e9ecf4;--muted:#a2a9c2;--line:#2e3550;--soft:#252c44;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--wall);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;direction:rtl;-webkit-tap-highlight-color:transparent}
@@ -120,7 +120,7 @@ const ART=JSON.parse(document.getElementById('data').textContent);
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const img=a=>'thumbs/'+a.id+'.webp';
-const SC=[['S','קטן','עד 60 ס״מ'],['M','בינוני','60–100 ס״מ'],['L','גדול','100–150 ס״מ'],['XL','ענק','מעל 150 ס״מ']];
+const SC=[['S','קטן','עד 24″'],['M','בינוני','24″–40″'],['L','גדול','40″–60″'],['XL','ענק','מעל 60″']];
 const CX=[['1','רגילה'],['2','מורכבת'],['3','מורכבת מאוד']];
 const ST=[['avail','זמין למכירה'],['sold','נמכר'],['skip','לא למכירה']];
 const KEY='alp_orig_form';
@@ -158,7 +158,7 @@ function render(){progress();const m=$('main');
     <div class="q"><h3>גודל</h3><div class="chips">${SC.map(([k,l,d])=>`<button type="button" data-sc="${k}" aria-pressed="${o.sc===k}">${l}<small>${d}</small></button>`).join('')}</div></div>
     <div class="q"><h3>מורכבות</h3><div class="chips">${CX.map(([k,l])=>`<button type="button" data-cx="${k}" aria-pressed="${o.cx===k}">${l}${o.sc&&tierP(o.sc,k)?`<b>${$f(tierP(o.sc,k))}</b>`:''}</button>`).join('')}</div></div>
     <div class="row2"><div class="field"><label for="ovr">מחיר מיוחד ($)</label><input id="ovr" inputmode="numeric" value="${o.ovr||''}" placeholder="לא חובה"></div>
-    <div class="field"><label for="dim">מידה מדויקת (ס״מ)</label><input id="dim" value="${esc(o.dim||'')}" placeholder="100x120"></div></div>
+    <div class="field"><label for="dim">מידה מדויקת (אינץ׳)</label><input id="dim" value="${esc(o.dim||'')}" placeholder="40x48"></div></div>
     <div class="result"><span>המחיר של היצירה</span><b>${o.price?$f(o.price):'—'}</b></div>`:''}
     </div>`;
     nav(`<button class="btn" type="button" data-prev>הקודם</button><button class="primary" type="button" data-next>${st.i<ART.length-1?'הבא':'לסיכום'}</button><button class="btn" type="button" data-go="sum" aria-label="לסיכום">☰</button>`);return}
