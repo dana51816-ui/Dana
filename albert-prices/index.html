@@ -404,7 +404,7 @@ const FR={stretch:{he:'מתוח',en:'Stretched canvas'},black:{he:'מסגרת ש
 const FRO=['stretch','black','white','rolled','espresso','natural'];
 const SC=[['S','קטן','עד 60 ס״מ'],['M','בינוני','עד 100 ס״מ'],['L','גדול','עד 150 ס״מ'],['XL','ענק','מעל 150 ס״מ']];
 const CX=[['1','רגילה'],['2','מורכבת'],['3','מורכבת מאוד']];
-const ST={avail:'זמין',hold:'שמור ללקוח',sold:'נמכר'};
+const ST={avail:'זמין',hold:'שמור ללקוח',sold:'נמכר',nfs:'לא למכירה'};
 const THEMES=[['all','הכול','var(--ink)'],['tree','עץ החיים','var(--teal)'],['jw','ישראל ויהדות','var(--cobalt)'],['an','חיות וטבע','var(--tang)'],['emb','Embellished','var(--sun)'],['orig','מקורים','#7b3fe4']];
 
 /* ---------- state ---------- */
@@ -510,7 +510,7 @@ function wallSVG(){if(!sel)return '';return `<div class="wallbox"><canvas id="mi
 function origHTML(){const o=origInfo(cur);
   const tiersSet=Object.keys(T).some(k=>Object.values(T[k]||{}).some(Boolean));
   return `<section class="ocard">
-    <div><h4>מחיר המקור</h4><div class="obig">${o.price?$f(o.price):'<span style="font-size:.45em;color:var(--muted)">בחרו גודל ומורכבות</span>'}</div>${o.ovr?'<p class="note">מחיר ידני ליצירה הזאת</p>':''}</div>
+    <div><h4>מחיר המקור${o.dim?` · <bdi dir="ltr">${esc(o.dim)} cm</bdi>`:''}</h4><div class="obig">${o.price?$f(o.price):'<span style="font-size:.45em;color:var(--muted)">בחרו גודל ומורכבות</span>'}</div>${o.ovr?'<p class="note">מחיר ידני ליצירה הזאת</p>':''}</div>
     <div><h4>גודל</h4><div class="chips">${SC.map(([k,l,d])=>`<button type="button" data-sc="${k}" aria-pressed="${o.sc===k}">${l}<small>${d}</small></button>`).join('')}</div></div>
     <div><h4>מורכבות</h4><div class="chips">${CX.map(([k,l])=>`<button type="button" data-cx="${k}" aria-pressed="${o.cx===k}">${l}</button>`).join('')}</div></div>
     <div><h4>סטטוס</h4><div class="chips st">${Object.entries(ST).map(([k,v])=>`<button type="button" data-st="${k}" aria-pressed="${o.status===k}">${v}</button>`).join('')}</div></div>
@@ -688,8 +688,8 @@ function drawLamp(x,lx,fy,k,eve,t){x.save();x.strokeStyle='#1c1c1e';x.lineWidth=
 
 /* ---- viewing room ---- */
 const VR={env:'gallery',eve:false,dims:true,t:0,w:100,h:75,raf:0};
-function vrTarget(){if(kind==='orig')return [100,120];return sel.custom?[sel.w,sel.h]:dims(sel.s)}
-function vrDraw(){const cv=$('vrc');if(cv)drawScene(cv,{a:cur,w:VR.w,h:VR.h,fr:kind==='orig'?'stretch':sel.fr,env:VR.env,eve:VR.eve,dims:VR.dims&&kind!=='orig',t:VR.t,onload:vrDraw})}
+function vrTarget(){if(kind==='orig'){const m=(origInfo(cur).dim||'').match(/(\d+(?:\.\d+)?)\s*[x×X*]\s*(\d+(?:\.\d+)?)/);return m?[+m[1],+m[2]]:[100,120]}return sel.custom?[sel.w,sel.h]:dims(sel.s)}
+function vrDraw(){const cv=$('vrc');if(cv)drawScene(cv,{a:cur,w:VR.w,h:VR.h,fr:kind==='orig'?'stretch':sel.fr,env:VR.env,eve:VR.eve,dims:VR.dims&&(kind!=='orig'||!!(origInfo(cur).dim||'').match(/\d+\s*[x×X*]\s*\d+/)),t:VR.t,onload:vrDraw})}
 function vrAnimate(toW,toH,lights){cancelAnimationFrame(VR.raf);const fw=VR.w,fh=VR.h,ft=VR.t,t0=performance.now(),d=lights?1100:480,red=matchMedia('(prefers-reduced-motion: reduce)').matches;
   (function step(n){const p=red?1:Math.min(1,(n-t0)/d),e=1-Math.pow(1-p,3);VR.w=fw+(toW-fw)*e;VR.h=fh+(toH-fh)*e;if(lights)VR.t=ft+(1-ft)*Math.min(1,p*1.3);vrDraw();if(p<1)VR.raf=requestAnimationFrame(step)})(t0)}
 function renderCust(){const o=CV;$('cust').classList.toggle('vrmode',!!o.single);
@@ -825,7 +825,7 @@ $('settings').addEventListener('click',e=>{const b=e.target.closest('button');if
   if(d.me)S.me=d.me;else if(d.round)S.round=d.round;else if(d.unit)S.unit=d.unit;else if(d.coll)S.coll=d.coll==='true';
   else if(d.act==='calib'){const i=parseFloat($('cIls').value),u=parseFloat($('cUsd').value);if(i>0&&u>0){S.rate=Math.round(i/u*100)/100;S.verified=true;toast('השער עודכן: '+S.rate)}else return toast('צריך למלא את שני המחירים')}
   else if(d.act==='exp')return copy(syncCode(),'הקוד הועתק. שלחו אותו בוואטסאפ');
-  else if(d.act==='imp'){const v=($('imp').value||'').trim();try{if(!v.startsWith('ALP1:'))throw 0;const o=JSON.parse(decodeURIComponent(escape(atob(v.slice(5)))));const me=S.me;Object.assign(S,o.S||{});S.me=me;ORIG=o.ORIG||{};T=o.T||{};tour=o.tour||[];const ids=new Set(SALES.map(s=>s.id));(o.SALES||[]).forEach(s=>{if(!ids.has(s.id))SALES.push(s)});toast('הנתונים נטענו. עכשיו שני המכשירים זהים')}catch(err){return toast('הקוד לא תקין. צריך להעתיק אותו בשלמותו')}}
+  else if(d.act==='imp'){const v=($('imp').value||'').trim();try{if(!v.startsWith('ALP1:'))throw 0;const o=JSON.parse(decodeURIComponent(escape(atob(v.slice(5)))));const me=S.me;if(o.S){Object.assign(S,o.S);S.me=me}if(o.ORIG)Object.entries(o.ORIG).forEach(([id,v])=>{ORIG[id]=Object.assign({},ORIG[id]||{},v)});if(o.T)T=o.T;if(o.tour)tour=o.tour;const ids=new Set(SALES.map(s=>s.id));(o.SALES||[]).forEach(s=>{if(!ids.has(s.id))SALES.push(s)});toast('הנתונים נטענו. עכשיו שני המכשירים זהים')}catch(err){return toast('הקוד לא תקין. צריך להעתיק אותו בשלמותו')}}
   else return;persist();renderSettings();renderHome()});
 
 /* ---------- utils + boot ---------- */

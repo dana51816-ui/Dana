@@ -23,16 +23,26 @@ import hashlib
 ver=hashlib.sha1((head+body).encode()).hexdigest()[:10]
 open(outdir+'/sw.js','w').write('''// Offline cache for the price guide. Bump happens automatically: the version is a hash of index.html.
 const V='alp-%s';
-const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','vendor/qrcode.js'].concat(%s);
+const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','vendor/qrcode.js','originals.html'].concat(%s);
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith('alp-')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET')return;
   if(u.origin===location.origin){
     // network first for the page (to pick up price updates), cache as fallback offline
-    if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{const cp=r.clone();caches.open(V).then(c=>c.put('index.html',cp));return r}).catch(()=>caches.match('index.html')));return}
+    if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{const cp=r.clone();caches.open(V).then(c=>c.put(e.request,cp));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html'))));return}
     e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));return}
   if(/fonts\\.(googleapis|gstatic)\\.com$/.test(u.hostname)){
     e.respondWith(caches.open(V+'-fonts').then(c=>c.match(e.request).then(r=>r||fetch(e.request).then(n=>{c.put(e.request,n.clone());return n}))))}
 });
 '''%(ver,json.dumps(['thumbs/'+f for f in sorted(__import__('os').listdir(outdir+'/thumbs'))])))
 print('ok',ver)
+
+# originals form page
+import os
+arts=json.loads(open(data).read())['art']
+orig=[{'id':__import__('re').sub(r'[^a-z0-9]+','-',a['k']),'n':a['n'],'os':a.get('os')} for a in arts if a['o']]
+orig.sort(key=lambda a:(a['os'] is False,a['n'].lower()))
+ot=open(os.path.join(os.path.dirname(tpl),'tplO.html')).read().replace('__DATA__',json.dumps(orig,ensure_ascii=False).replace('</','<\\/'))
+open(outdir+'/originals.html','w').write(head.replace('<link rel="manifest" href="manifest.webmanifest">','')+ot+'</body></html>')
+open(os.path.join(os.path.dirname(preview),'originals-preview.html'),'w').write(ot)
+print('originals',len(orig))

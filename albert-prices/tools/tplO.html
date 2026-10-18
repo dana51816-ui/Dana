@@ -1,0 +1,183 @@
+<title>מחירי מקורים · אלברט</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Archivo:wdth,wght@100..125,500..900&family=Josefin+Sans:wght@300&family=Mrs+Saint+Delafield&display=swap">
+<style>
+/* Layout: a one-thumb pricing session for the artist — intro, a short price-band table, then one original per screen with its image, and a send-to-WhatsApp finish. */
+:root{
+  --wall:#f3f5fb; --card:#ffffff; --ink:#121a3d; --muted:#5f6789; --line:#dfe4f2; --soft:#e9edf8;
+  --navy:#1d3a8f; --deep:#14215e; --gold:#f2b33d; --ok:#1d7a4c; --sold:#b02142; --warn:#a8510b;
+  --display:"Archivo","Rubik",system-ui,sans-serif; --script:"Mrs Saint Delafield",cursive; --thin:"Josefin Sans","Rubik",sans-serif;
+  --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:0 1px 2px rgba(20,30,80,.06),0 10px 26px -14px rgba(20,30,80,.22);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wall:#0c1233;--card:#151d47;--ink:#eef1fb;--muted:#9aa3c8;--line:#26306a;--soft:#1c2557;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}}
+:root[data-theme="dark"]{--wall:#0c1233;--card:#151d47;--ink:#eef1fb;--muted:#9aa3c8;--line:#26306a;--soft:#1c2557;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--wall);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;direction:rtl;-webkit-tap-highlight-color:transparent}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;transition:transform .12s ease,background-color .2s,border-color .2s,color .2s}
+button:active:not(:disabled){transform:scale(.965)}
+:focus-visible{outline:2.5px solid var(--navy);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding-inline:16px}
+.top{background:linear-gradient(180deg,var(--navy),var(--deep));color:#fff;padding-block:14px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top .wrap{display:grid;gap:10px}
+.logo{display:flex;align-items:center;direction:ltr;justify-content:flex-end}
+.logo .A{font-family:var(--script);font-size:2.6rem;line-height:.6;margin-right:-6px}
+.logo b{font-family:var(--thin);font-weight:300;letter-spacing:.32em;font-size:.95rem}
+.prog{display:flex;align-items:center;gap:10px;font-size:.82rem;color:#c9d2f3}
+.prog .bar{flex:1;height:6px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--gold);border-radius:999px;transition:width .35s ease}
+.prog span{font-family:var(--display);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+main{padding-block:18px 130px}
+h1{font-size:1.65rem;line-height:1.2;margin:0 0 6px;text-wrap:balance}
+h2{font-size:1.15rem;margin:0}
+p{margin:0}
+.lead{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:14px;box-shadow:var(--shadow)}
+.steps{display:grid;gap:10px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:.85rem}
+.note{font-size:.84rem;color:var(--muted)}
+.tiers{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th,td{padding:6px 4px;text-align:center}
+th{font-size:.78rem;color:var(--muted);font-weight:500}
+th.r{text-align:right;font-size:.88rem;color:var(--ink);font-weight:600}
+th.r small{display:block;color:var(--muted);font-weight:400;font-size:.72rem}
+.money{position:relative}
+.money input{width:100%;min-width:76px;border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:11px 8px 11px 22px;text-align:center;direction:ltr;font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums}
+.money::before{content:"$";position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600;pointer-events:none}
+.art{position:relative;border-radius:20px;overflow:hidden;background:var(--card);border:1px solid var(--line);aspect-ratio:1/1;max-height:46vh;width:100%;display:grid;place-items:center;box-shadow:var(--shadow)}
+.art img{width:100%;height:100%;object-fit:contain;padding:14px}
+.art .site{position:absolute;top:10px;right:10px;font-size:.72rem;font-weight:600;border-radius:999px;padding:3px 10px;background:rgba(255,255,255,.92);color:#14215e}
+.name{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:1.7rem;line-height:1.05;direction:ltr;text-align:right;letter-spacing:-.01em}
+.q{display:grid;gap:8px}
+.q h3{margin:0;font-size:.9rem;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:10px 13px;display:grid;gap:1px;text-align:center;min-width:72px}
+.chips button small{font-size:.7rem;color:var(--muted)}
+.chips button b{font-family:var(--display);font-variant-numeric:tabular-nums;font-size:.78rem;color:var(--ok)}
+.chips button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chips button[aria-pressed="true"] small,.chips button[aria-pressed="true"] b{color:#ffe3a3}
+.chips.st button[aria-pressed="true"][data-st="avail"]{background:var(--ok);border-color:var(--ok)}
+.chips.st button[aria-pressed="true"][data-st="sold"]{background:var(--sold);border-color:var(--sold)}
+.chips.st button[aria-pressed="true"][data-st="skip"]{background:var(--muted);border-color:var(--muted)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:grid;gap:5px}
+.field label{font-size:.82rem;color:var(--muted)}
+.field input{border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:11px;width:100%;direction:ltr;text-align:center}
+.result{display:flex;justify-content:space-between;align-items:center;gap:10px;background:color-mix(in srgb,var(--gold) 16%,transparent);border-radius:14px;padding:12px 14px}
+.result b{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:1.6rem;direction:ltr}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--card);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.nav .wrap{display:flex;gap:10px;padding:0}
+.btn{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px;font-weight:600}
+.primary{flex:1;border:0;background:var(--navy);color:#fff;border-radius:14px;padding:14px 16px;font-weight:700;font-size:1.02rem}
+.gold{flex:1;border:0;background:linear-gradient(180deg,#f6c55a,#e0a32e);color:#14215e;border-radius:14px;padding:15px;font-weight:800;font-size:1.05rem}
+.list{display:grid;gap:8px}
+.li{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 10px;text-align:right}
+.li>span{min-width:0}
+.li img{width:48px;height:48px;object-fit:contain;background:var(--soft);border-radius:10px}
+.li{width:100%}
+.li small{display:block}
+.li .n{display:block;font-weight:600;direction:ltr;text-align:right;font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li small{color:var(--muted);font-size:.76rem}
+.li .p{font-family:var(--display);font-weight:800;font-variant-numeric:tabular-nums}
+.li .p.miss{color:var(--warn);font-family:var(--body);font-weight:500;font-size:.8rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:linear-gradient(160deg,var(--navy),var(--deep));color:#fff;border-radius:16px;padding:12px;display:grid}
+.stat small{color:#c9d2f3;font-size:.72rem}
+.stat b{font-family:var(--display);font-weight:900;font-size:1.4rem}
+textarea{width:100%;min-height:90px;border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:10px;font-size:.75rem;direction:ltr;color:inherit;font-family:ui-monospace,monospace}
+.toast{position:fixed;bottom:calc(96px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--wall);padding:10px 16px;border-radius:999px;font-size:.9rem;z-index:20;white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.screen{animation:in .28s cubic-bezier(.2,.8,.2,1)}@keyframes in{from{opacity:.3;transform:translateX(-14px)}to{opacity:1;transform:none}}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="logo" aria-label="Albert Levi"><span class="A" aria-hidden="true">A</span><b>Albert Levi</b></div>
+  <div class="prog"><div class="bar"><i id="pbar" style="width:0%"></i></div><span id="ptxt">0 / 0</span></div>
+</div></header>
+<main class="wrap" id="main"></main>
+<nav class="nav" id="nav"><div class="wrap" id="navIn"></div></nav>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+(function(){
+const ART=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const img=a=>'thumbs/'+a.id+'.webp';
+const SC=[['S','קטן','עד 60 ס״מ'],['M','בינוני','60–100 ס״מ'],['L','גדול','100–150 ס״מ'],['XL','ענק','מעל 150 ס״מ']];
+const CX=[['1','רגילה'],['2','מורכבת'],['3','מורכבת מאוד']];
+const ST=[['avail','זמין למכירה'],['sold','נמכר'],['skip','לא למכירה']];
+const KEY='alp_orig_form';
+let st={T:{},O:{},i:0,view:'intro'};
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s)st=Object.assign(st,s)}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const $f=n=>'$'+Math.round(n).toLocaleString('en-US');
+function info(a){const o=Object.assign({sc:'',cx:'',status:a.os===false?'sold':'avail',ovr:null,dim:''},st.O[a.id]||{});o.tier=(o.sc&&o.cx&&st.T[o.sc]&&st.T[o.sc][o.cx])||null;o.price=o.ovr||o.tier;o.done=o.status!=='avail'||!!o.price;return o}
+function toast(t){const el=$('toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+function progress(){const done=ART.filter(a=>info(a).done).length;$('pbar').style.width=(done/ART.length*100)+'%';$('ptxt').textContent=`${done}/${ART.length}`}
+function nav(html){$('navIn').innerHTML=html}
+function go(v){st.view=v;save();render();window.scrollTo(0,0)}
+
+function render(){progress();const m=$('main');
+  if(st.view==='intro'){m.innerHTML=`<div class="screen" style="display:grid;gap:16px">
+    <div><h1>שלום אלברט, בוא נקבע מחירים למקורים 🎨</h1><p class="lead">יש ${ART.length} מקורים. זה לוקח בערך 10 דקות, ואפשר לעצור באמצע ולהמשיך מאותו מקום.</p></div>
+    <div class="card"><ol class="steps">
+      <li><div><b>טבלת מחירים לפי גודל ומורכבות</b><p class="note">12 מחירים שמכסים את רוב המקורים.</p></div></li>
+      <li><div><b>עוברים על כל מקור</b><p class="note">בוחרים גודל ומורכבות, והמחיר נקבע לבד. אפשר גם לרשום מחיר מיוחד.</p></div></li>
+      <li><div><b>שולחים לדנה בוואטסאפ</b><p class="note">לחיצה אחת, וזה נכנס לאפליקציה של הטור.</p></div></li>
+    </ol></div></div>`;nav(`<button class="primary" type="button" data-go="tiers">מתחילים</button>`);return}
+  if(st.view==='tiers'){m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
+    <div><h1>מחיר לפי גודל ומורכבות</h1><p class="lead">כמה עולה מקור בכל שילוב? לפי הצלע הארוכה של הציור. משאירים ריק אם אין כזה.</p></div>
+    <div class="card tiers"><table><thead><tr><th></th>${CX.map(([k,l])=>`<th>${l}</th>`).join('')}</tr></thead><tbody>
+    ${SC.map(([s,l,d])=>`<tr><th class="r">${l}<small>${d}</small></th>${CX.map(([c])=>`<td><div class="money"><input inputmode="numeric" data-t="${s}|${c}" value="${(st.T[s]&&st.T[s][c])||''}" aria-label="${l} ${CX.find(x=>x[0]===c)[1]}"></div></td>`).join('')}</tr>`).join('')}
+    </tbody></table></div><p class="note">מעדיף לתמחר כל ציור בנפרד? אפשר לדלג, ולרשום מחיר בכל מקור.</p></div>`;
+    nav(`<button class="btn" type="button" data-go="intro">חזרה</button><button class="primary" type="button" data-go="item">הבא: המקורים</button>`);return}
+  if(st.view==='item'){const a=ART[st.i],o=info(a);
+    const tierP=(s,c)=>st.T[s]&&st.T[s][c];
+    m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
+    <div class="art"><img src="${img(a)}" alt="${esc(a.n)}"><span class="site">${st.i+1} מתוך ${ART.length}</span></div>
+    <div class="name">${esc(a.n)}</div>
+    <div class="q"><h3>מצב</h3><div class="chips st">${ST.map(([k,l])=>`<button type="button" data-st="${k}" aria-pressed="${o.status===k}">${l}</button>`).join('')}</div></div>
+    ${o.status==='avail'?`
+    <div class="q"><h3>גודל</h3><div class="chips">${SC.map(([k,l,d])=>`<button type="button" data-sc="${k}" aria-pressed="${o.sc===k}">${l}<small>${d}</small></button>`).join('')}</div></div>
+    <div class="q"><h3>מורכבות</h3><div class="chips">${CX.map(([k,l])=>`<button type="button" data-cx="${k}" aria-pressed="${o.cx===k}">${l}${o.sc&&tierP(o.sc,k)?`<b>${$f(tierP(o.sc,k))}</b>`:''}</button>`).join('')}</div></div>
+    <div class="row2"><div class="field"><label for="ovr">מחיר מיוחד ($)</label><input id="ovr" inputmode="numeric" value="${o.ovr||''}" placeholder="לא חובה"></div>
+    <div class="field"><label for="dim">מידה מדויקת (ס״מ)</label><input id="dim" value="${esc(o.dim||'')}" placeholder="100x120"></div></div>
+    <div class="result"><span>המחיר של היצירה</span><b>${o.price?$f(o.price):'—'}</b></div>`:''}
+    </div>`;
+    nav(`<button class="btn" type="button" data-prev>הקודם</button><button class="primary" type="button" data-next>${st.i<ART.length-1?'הבא':'לסיכום'}</button><button class="btn" type="button" data-go="sum" aria-label="לסיכום">☰</button>`);return}
+  if(st.view==='sum'){const rows=ART.map((a,i)=>({a,i,o:info(a)}));const priced=rows.filter(r=>r.o.status==='avail'&&r.o.price),missing=rows.filter(r=>r.o.status==='avail'&&!r.o.price);
+    const total=priced.reduce((s,r)=>s+r.o.price,0);
+    m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
+    <div><h1>${missing.length?'כמעט סיימנו':'הכול מוכן לשליחה ✓'}</h1><p class="lead">${missing.length?`נשארו ${missing.length} מקורים זמינים בלי מחיר. אפשר לשלוח גם ככה ולהשלים אחר כך.`:'כל המקורים הזמינים מתומחרים.'}</p></div>
+    <div class="stats"><div class="stat"><small>מתומחרים</small><b>${priced.length}</b></div><div class="stat"><small>בלי מחיר</small><b>${missing.length}</b></div><div class="stat"><small>שווי כולל</small><b style="font-size:1.05rem">${$f(total)}</b></div></div>
+    <div class="list">${rows.map(r=>`<button class="li" type="button" data-jump="${r.i}"><img src="${img(r.a)}" alt=""><span><span class="n">${esc(r.a.n)}</span><small>${r.o.status==='avail'?[SC.find(x=>x[0]===r.o.sc)?.[1],CX.find(x=>x[0]===r.o.cx)?.[1]].filter(Boolean).join(' · ')||'—':ST.find(x=>x[0]===r.o.status)[1]}</small></span><span class="p${r.o.status==='avail'&&!r.o.price?' miss':''}">${r.o.status!=='avail'?'':r.o.price?$f(r.o.price):'חסר'}</span></button>`).join('')}</div>
+    <details class="card"><summary class="note">הקוד שנשלח (לגיבוי)</summary><textarea id="code" readonly>${code()}</textarea></details></div>`;
+    nav(`<button class="btn" type="button" data-go="item">חזרה</button><button class="gold" type="button" data-send>שליחה לדנה בוואטסאפ</button>`);return}
+}
+function code(){const O={};ART.forEach(a=>{const o=st.O[a.id];if(o){const r={status:o.status==='skip'?'hold':o.status};if(o.sc)r.sc=o.sc;if(o.cx)r.cx=o.cx;if(o.ovr)r.ovr=o.ovr;if(o.dim)r.dim=o.dim;O[a.id]=r}});
+  const json=JSON.stringify({v:1,ORIG:O,T:st.T});return 'ALP1:'+btoa(unescape(encodeURIComponent(json)))}
+function setO(k,v){const o=Object.assign({},st.O[ART[st.i].id]||{});o[k]=v;st.O[ART[st.i].id]=o;save()}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.go){if(d.go==='item'&&st.view!=='item'){const f=ART.findIndex(a=>!info(a).done);if(st.view==='tiers'||st.view==='intro')st.i=f<0?0:f}return go(d.go)}
+  if(d.next!==undefined){if(st.i<ART.length-1){st.i++;save();render();window.scrollTo(0,0)}else go('sum');return}
+  if(d.prev!==undefined){if(st.i>0){st.i--;save();render();window.scrollTo(0,0)}else go('tiers');return}
+  if(d.jump!==undefined){st.i=+d.jump;return go('item')}
+  if(d.st){setO('status',d.st)}else if(d.sc){setO('sc',d.sc)}else if(d.cx){setO('cx',d.cx)}
+  else if(d.send!==undefined){const c=code();const msg=`מחירי מקורים מאלברט 🎨\nלהדביק באפליקציה: הגדרות ← סנכרון ← טעינת הקוד\n\n${c}`;
+    try{navigator.clipboard.writeText(c).catch(()=>{})}catch(err){}
+    const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(msg);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
+    toast('נפתח וואטסאפ. הקוד גם הועתק');return}
+  else return;render()});
+document.addEventListener('input',e=>{const t=e.target;
+  if(t.dataset.t){const [s,c]=t.dataset.t.split('|');st.T[s]=st.T[s]||{};st.T[s][c]=parseInt(t.value.replace(/[^\d]/g,''),10)||null;save();progress()}
+  if(t.id==='ovr'){setO('ovr',parseInt(t.value.replace(/[^\d]/g,''),10)||null);const o=info(ART[st.i]);const r=document.querySelector('.result b');if(r)r.textContent=o.price?$f(o.price):'—';progress()}
+  if(t.id==='dim'){setO('dim',t.value.trim())}});
+render();
+})();
+</script>
