@@ -81,6 +81,21 @@ th.r small{display:block;color:var(--muted);font-weight:400;font-size:.72rem}
 .field input{border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:11px;width:100%;direction:ltr;text-align:center}
 .result{display:flex;justify-content:space-between;align-items:center;gap:10px;background:color-mix(in srgb,var(--gold) 16%,transparent);border-radius:14px;padding:12px 14px}
 .result b{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:1.6rem;direction:ltr}
+.srow{display:grid;grid-template-columns:1fr auto 1fr 1.3fr auto;gap:6px;align-items:center}
+.srow input{width:100%;border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:11px 6px;text-align:center;direction:ltr;font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums}
+.srow .x{color:var(--muted);font-weight:600}
+.srow .del{border:0;background:var(--soft);border-radius:999px;width:34px;height:34px;color:var(--muted)}
+.shead{display:grid;grid-template-columns:1fr auto 1fr 1.3fr auto;gap:6px;font-size:.74rem;color:var(--muted);text-align:center}
+.ptab{display:grid;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.prow{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(120px,1fr);gap:10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line)}
+.prow:first-child{border-top:0}
+.prow.off{opacity:.45}
+.prow .sz{white-space:nowrap;font-family:var(--display);font-weight:800;direction:ltr;font-variant-numeric:tabular-nums}
+.prow .sz small{display:block;font-family:var(--body);font-weight:400;font-size:.72rem;color:var(--muted)}
+.prow input[type=checkbox]{width:22px;height:22px;accent-color:var(--navy)}
+.prow .money input{min-width:96px}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.toggle input{width:22px;height:22px;accent-color:var(--navy)}
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--card);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
 .nav .wrap{display:flex;gap:10px;padding:0}
 .btn{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px;font-weight:600}
@@ -120,75 +135,73 @@ const ART=JSON.parse(document.getElementById('data').textContent);
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const img=a=>'thumbs/'+a.id+'.webp';
-const SC=[['S','קטן','עד 24″'],['M','בינוני','24″–40″'],['L','גדול','40″–60″'],['XL','ענק','מעל 60″']];
-const CX=[['1','רגילה'],['2','מורכבת'],['3','מורכבת מאוד']];
-const ST=[['avail','זמין למכירה'],['sold','נמכר'],['skip','לא למכירה']];
-const KEY='alp_orig_form';
-let st={T:{},O:{},i:0,view:'intro'};
+const KEY='alp_orig_form2';
+let st={OS:[{w:24,h:30,p:null},{w:30,h:40,p:null},{w:36,h:48,p:null},{w:40,h:60,p:null},{w:48,h:60,p:null},{w:60,h:80,p:null}],O:{},i:0,view:'intro'};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s)st=Object.assign(st,s)}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
 const $f=n=>'$'+Math.round(n).toLocaleString('en-US');
-function info(a){const o=Object.assign({sc:'',cx:'',status:a.os===false?'sold':'avail',ovr:null,dim:''},st.O[a.id]||{});o.tier=(o.sc&&o.cx&&st.T[o.sc]&&st.T[o.sc][o.cx])||null;o.price=o.ovr||o.tier;o.done=o.status!=='avail'||!!o.price;return o}
+const key=r=>`${r.w}x${r.h}`;const cm=v=>Math.round(v*2.54);
+const sizes=()=>st.OS.filter(r=>r.w>0&&r.h>0);
+function info(a){const o=st.O[a.id]||{};const rows=sizes().map(r=>{const k=key(r),off=(o.off||[]).includes(k),ov=o.ovr&&o.ovr[k];return {k,r,off,ov,p:ov||r.p}});const live=rows.filter(x=>!x.off&&x.p);return {o,rows,nfs:!!o.nfs,done:!!o.seen,priced:live.length}}
 function toast(t){const el=$('toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
 function progress(){const done=ART.filter(a=>info(a).done).length;$('pbar').style.width=(done/ART.length*100)+'%';$('ptxt').textContent=`${done}/${ART.length}`}
-function nav(html){$('navIn').innerHTML=html}
+function nav(h){$('navIn').innerHTML=h}
 function go(v){st.view=v;save();render();window.scrollTo(0,0)}
-
+function setO(f){const id=ART[st.i].id;const o=Object.assign({},st.O[id]||{});f(o);st.O[id]=o;save()}
 function render(){progress();const m=$('main');
   if(st.view==='intro'){m.innerHTML=`<div class="screen" style="display:grid;gap:16px">
-    <div><h1>שלום אלברט, בוא נקבע מחירים למקורים 🎨</h1><p class="lead">יש ${ART.length} מקורים. זה לוקח בערך 10 דקות, ואפשר לעצור באמצע ולהמשיך מאותו מקום.</p></div>
+    <div><h1>שלום אלברט, בוא נקבע מחירים למקורים 🎨</h1><p class="lead">כל ציור אפשר להזמין כמקור בכמה גדלים. קובעים מחיר לכל גודל, וכשלקוח בוחר גודל המחיר מופיע מיד.</p></div>
     <div class="card"><ol class="steps">
-      <li><div><b>טבלת מחירים לפי גודל ומורכבות</b><p class="note">12 מחירים שמכסים את רוב המקורים.</p></div></li>
-      <li><div><b>עוברים על כל מקור</b><p class="note">בוחרים גודל ומורכבות, והמחיר נקבע לבד. אפשר גם לרשום מחיר מיוחד.</p></div></li>
+      <li><div><b>מחיר לכל גודל</b><p class="note">רשימה אחת שחלה על כל המקורים. אפשר להוסיף ולמחוק גדלים.</p></div></li>
+      <li><div><b>עוברים על הציורים</b><p class="note">המחירים כבר מופיעים. משנים רק אם ציור מסוים צריך מחיר אחר, או מורידים גודל שלא מתאים לו.</p></div></li>
       <li><div><b>שולחים לדנה בוואטסאפ</b><p class="note">לחיצה אחת, וזה נכנס לאפליקציה של הטור.</p></div></li>
-    </ol></div></div>`;nav(`<button class="primary" type="button" data-go="tiers">מתחילים</button>`);return}
-  if(st.view==='tiers'){m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
-    <div><h1>מחיר לפי גודל ומורכבות</h1><p class="lead">כמה עולה מקור בכל שילוב? לפי הצלע הארוכה של הציור. משאירים ריק אם אין כזה.</p></div>
-    <div class="card tiers"><table><thead><tr><th></th>${CX.map(([k,l])=>`<th>${l}</th>`).join('')}</tr></thead><tbody>
-    ${SC.map(([s,l,d])=>`<tr><th class="r">${l}<small>${d}</small></th>${CX.map(([c])=>`<td><div class="money"><input inputmode="numeric" data-t="${s}|${c}" value="${(st.T[s]&&st.T[s][c])||''}" aria-label="${l} ${CX.find(x=>x[0]===c)[1]}"></div></td>`).join('')}</tr>`).join('')}
-    </tbody></table></div><p class="note">מעדיף לתמחר כל ציור בנפרד? אפשר לדלג, ולרשום מחיר בכל מקור.</p></div>`;
-    nav(`<button class="btn" type="button" data-go="intro">חזרה</button><button class="primary" type="button" data-go="item">הבא: המקורים</button>`);return}
-  if(st.view==='item'){const a=ART[st.i],o=info(a);
-    const tierP=(s,c)=>st.T[s]&&st.T[s][c];
+    </ol></div><p class="note">אפשר לעצור באמצע ולהמשיך מאותו מקום.</p></div>`;nav(`<button class="primary" type="button" data-go="sizes">מתחילים</button>`);return}
+  if(st.view==='sizes'){m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
+    <div><h1>מחיר לכל גודל</h1><p class="lead">רוחב × גובה באינצ׳ים, ומחיר בדולרים. זה המחיר הרגיל לכל המקורים.</p></div>
+    <div class="card" style="gap:8px"><div class="shead"><span>רוחב</span><span></span><span>גובה</span><span>מחיר</span><span></span></div>
+    ${st.OS.map((r,i)=>`<div class="srow"><input inputmode="decimal" data-w="${i}" value="${r.w||''}" aria-label="רוחב"><span class="x">×</span><input inputmode="decimal" data-h="${i}" value="${r.h||''}" aria-label="גובה"><div class="money"><input inputmode="numeric" data-p="${i}" value="${r.p||''}" aria-label="מחיר"></div><button class="del" type="button" data-del="${i}" aria-label="מחיקה">✕</button></div>`).join('')}
+    <button class="btn" type="button" data-add>+ עוד גודל</button></div>
+    <p class="note">ציור שיש לו מחיר אחר? מעדכנים אותו בשלב הבא.</p></div>`;
+    nav(`<button class="btn" type="button" data-go="intro">חזרה</button><button class="primary" type="button" data-go="item">הבא: הציורים</button>`);return}
+  if(st.view==='item'){const a=ART[st.i],x=info(a);
     m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
     <div class="art"><img src="${img(a)}" alt="${esc(a.n)}"><span class="site">${st.i+1} מתוך ${ART.length}</span></div>
     <div class="name">${esc(a.n)}</div>
-    <div class="q"><h3>מצב</h3><div class="chips st">${ST.map(([k,l])=>`<button type="button" data-st="${k}" aria-pressed="${o.status===k}">${l}</button>`).join('')}</div></div>
-    ${o.status==='avail'?`
-    <div class="q"><h3>גודל</h3><div class="chips">${SC.map(([k,l,d])=>`<button type="button" data-sc="${k}" aria-pressed="${o.sc===k}">${l}<small>${d}</small></button>`).join('')}</div></div>
-    <div class="q"><h3>מורכבות</h3><div class="chips">${CX.map(([k,l])=>`<button type="button" data-cx="${k}" aria-pressed="${o.cx===k}">${l}${o.sc&&tierP(o.sc,k)?`<b>${$f(tierP(o.sc,k))}</b>`:''}</button>`).join('')}</div></div>
-    <div class="row2"><div class="field"><label for="ovr">מחיר מיוחד ($)</label><input id="ovr" inputmode="numeric" value="${o.ovr||''}" placeholder="לא חובה"></div>
-    <div class="field"><label for="dim">מידה מדויקת (אינץ׳)</label><input id="dim" value="${esc(o.dim||'')}" placeholder="40x48"></div></div>
-    <div class="result"><span>המחיר של היצירה</span><b>${o.price?$f(o.price):'—'}</b></div>`:''}
+    <label class="toggle"><span>להציע את הציור הזה כמקור</span><input type="checkbox" id="offer" ${x.nfs?'':'checked'}></label>
+    ${x.nfs?'':`<div class="q"><h3>מחירים לפי גודל</h3><p class="note">ריק = המחיר הרגיל. מורידים ✓ מגודל שלא מתאים לציור הזה.</p>
+    <div class="ptab">${x.rows.map(y=>`<div class="prow${y.off?' off':''}"><input type="checkbox" data-on="${y.k}" ${y.off?'':'checked'} aria-label="להציע ${y.k}"><span class="sz">${y.r.w}″ × ${y.r.h}″<small>${cm(y.r.w)} × ${cm(y.r.h)} ס״מ</small></span><div class="money"><input inputmode="numeric" data-ov="${y.k}" value="${y.ov||''}" placeholder="${y.r.p||'מחיר'}" ${y.off?'disabled':''} aria-label="מחיר ${y.k}"></div></div>`).join('')||'<p class="note" style="padding:12px">עוד לא הוגדרו גדלים. חוזרים שלב אחד אחורה.</p>'}</div></div>`}
     </div>`;
     nav(`<button class="btn" type="button" data-prev>הקודם</button><button class="primary" type="button" data-next>${st.i<ART.length-1?'הבא':'לסיכום'}</button><button class="btn" type="button" data-go="sum" aria-label="לסיכום">☰</button>`);return}
-  if(st.view==='sum'){const rows=ART.map((a,i)=>({a,i,o:info(a)}));const priced=rows.filter(r=>r.o.status==='avail'&&r.o.price),missing=rows.filter(r=>r.o.status==='avail'&&!r.o.price);
-    const total=priced.reduce((s,r)=>s+r.o.price,0);
+  if(st.view==='sum'){const rows=ART.map((a,i)=>({a,i,x:info(a)}));const custom=rows.filter(r=>r.x.rows.some(y=>y.ov||y.off)).length,nfs=rows.filter(r=>r.x.nfs).length;
     m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
-    <div><h1>${missing.length?'כמעט סיימנו':'הכול מוכן לשליחה ✓'}</h1><p class="lead">${missing.length?`נשארו ${missing.length} מקורים זמינים בלי מחיר. אפשר לשלוח גם ככה ולהשלים אחר כך.`:'כל המקורים הזמינים מתומחרים.'}</p></div>
-    <div class="stats"><div class="stat"><small>מתומחרים</small><b>${priced.length}</b></div><div class="stat"><small>בלי מחיר</small><b>${missing.length}</b></div><div class="stat"><small>שווי כולל</small><b style="font-size:1.05rem">${$f(total)}</b></div></div>
-    <div class="list">${rows.map(r=>`<button class="li" type="button" data-jump="${r.i}"><img src="${img(r.a)}" alt=""><span><span class="n">${esc(r.a.n)}</span><small>${r.o.status==='avail'?[SC.find(x=>x[0]===r.o.sc)?.[1],CX.find(x=>x[0]===r.o.cx)?.[1]].filter(Boolean).join(' · ')||'—':ST.find(x=>x[0]===r.o.status)[1]}</small></span><span class="p${r.o.status==='avail'&&!r.o.price?' miss':''}">${r.o.status!=='avail'?'':r.o.price?$f(r.o.price):'חסר'}</span></button>`).join('')}</div>
+    <div><h1>מוכן לשליחה ✓</h1><p class="lead">${sizes().filter(r=>r.p).length} גדלים עם מחיר. אפשר לחזור ולשנות בכל רגע ולשלוח שוב.</p></div>
+    <div class="stats"><div class="stat"><small>גדלים</small><b>${sizes().length}</b></div><div class="stat"><small>מחיר מיוחד</small><b>${custom}</b></div><div class="stat"><small>לא מוצעים</small><b>${nfs}</b></div></div>
+    <div class="card" style="gap:6px">${sizes().map(r=>`<div style="display:flex;justify-content:space-between"><span style="direction:ltr;font-family:var(--display);font-weight:700">${r.w}″ × ${r.h}″</span><b style="font-family:var(--display)">${r.p?$f(r.p):'—'}</b></div>`).join('')}</div>
+    <div class="list">${rows.filter(r=>r.x.nfs||r.x.rows.some(y=>y.ov||y.off)).map(r=>`<button class="li" type="button" data-jump="${r.i}"><img src="${img(r.a)}" alt=""><span><span class="n">${esc(r.a.n)}</span><small>${r.x.nfs?'לא מוצע':r.x.rows.filter(y=>y.ov).map(y=>`${y.r.w}×${y.r.h}: ${$f(y.ov)}`).join(' · ')||'בלי חלק מהגדלים'}</small></span><span></span></button>`).join('')}</div>
     <details class="card"><summary class="note">הקוד שנשלח (לגיבוי)</summary><textarea id="code" readonly>${code()}</textarea></details></div>`;
     nav(`<button class="btn" type="button" data-go="item">חזרה</button><button class="gold" type="button" data-send>שליחה לדנה בוואטסאפ</button>`);return}
 }
-function code(){const O={};ART.forEach(a=>{const o=st.O[a.id];if(o){const r={status:o.status==='skip'?'hold':o.status};if(o.sc)r.sc=o.sc;if(o.cx)r.cx=o.cx;if(o.ovr)r.ovr=o.ovr;if(o.dim)r.dim=o.dim;O[a.id]=r}});
-  const json=JSON.stringify({v:1,ORIG:O,T:st.T});return 'ALP1:'+btoa(unescape(encodeURIComponent(json)))}
-function setO(k,v){const o=Object.assign({},st.O[ART[st.i].id]||{});o[k]=v;st.O[ART[st.i].id]=o;save()}
+function code(){const OS=sizes().filter(r=>r.p).map(r=>({s:key(r),p:r.p}));const O={};
+  ART.forEach(a=>{const o=st.O[a.id];if(!o)return;const r={};if(o.nfs)r.nfs=true;if(o.ovr&&Object.keys(o.ovr).length)r.ovr=o.ovr;if(o.off&&o.off.length)r.off=o.off;if(Object.keys(r).length)O[a.id]=r});
+  return 'ALP1:'+btoa(unescape(encodeURIComponent(JSON.stringify({v:2,OS,ORIG:O}))))}
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
-  if(d.go){if(d.go==='item'&&st.view!=='item'){const f=ART.findIndex(a=>!info(a).done);if(st.view==='tiers'||st.view==='intro')st.i=f<0?0:f}return go(d.go)}
-  if(d.next!==undefined){if(st.i<ART.length-1){st.i++;save();render();window.scrollTo(0,0)}else go('sum');return}
-  if(d.prev!==undefined){if(st.i>0){st.i--;save();render();window.scrollTo(0,0)}else go('tiers');return}
+  if(d.go){if(st.view==='item')setO(o=>o.seen=true);if(d.go==='item'&&st.view!=='item'&&st.view!=='sum'){const f=ART.findIndex(a=>!info(a).done);st.i=f<0?0:f}return go(d.go)}
+  if(d.next!==undefined){setO(o=>o.seen=true);if(st.i<ART.length-1){st.i++;save();render();window.scrollTo(0,0)}else go('sum');return}
+  if(d.prev!==undefined){if(st.i>0){st.i--;save();render();window.scrollTo(0,0)}else go('sizes');return}
   if(d.jump!==undefined){st.i=+d.jump;return go('item')}
-  if(d.st){setO('status',d.st)}else if(d.sc){setO('sc',d.sc)}else if(d.cx){setO('cx',d.cx)}
-  else if(d.send!==undefined){const c=code();const msg=`מחירי מקורים מאלברט 🎨\nלהדביק באפליקציה: הגדרות ← סנכרון ← טעינת הקוד\n\n${c}`;
+  if(d.add!==undefined){st.OS.push({w:null,h:null,p:null});save();return render()}
+  if(d.del!==undefined){st.OS.splice(+d.del,1);save();return render()}
+  if(d.send!==undefined){const c=code();const msg=`מחירי מקורים מאלברט 🎨\nלהדביק באפליקציה: הגדרות ← סנכרון ← טעינת הקוד\n\n${c}`;
     try{navigator.clipboard.writeText(c).catch(()=>{})}catch(err){}
-    const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(msg);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
-    toast('נפתח וואטסאפ. הקוד גם הועתק');return}
-  else return;render()});
-document.addEventListener('input',e=>{const t=e.target;
-  if(t.dataset.t){const [s,c]=t.dataset.t.split('|');st.T[s]=st.T[s]||{};st.T[s][c]=parseInt(t.value.replace(/[^\d]/g,''),10)||null;save();progress()}
-  if(t.id==='ovr'){setO('ovr',parseInt(t.value.replace(/[^\d]/g,''),10)||null);const o=info(ART[st.i]);const r=document.querySelector('.result b');if(r)r.textContent=o.price?$f(o.price):'—';progress()}
-  if(t.id==='dim'){setO('dim',t.value.trim())}});
+    const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(msg);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();toast('נפתח וואטסאפ. הקוד גם הועתק')}});
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.id==='offer'){setO(o=>o.nfs=!t.checked);render()}
+  if(t.dataset.on){const k=t.dataset.on;setO(o=>{const off=new Set(o.off||[]);t.checked?off.delete(k):off.add(k);o.off=[...off]});render()}});
+document.addEventListener('input',e=>{const t=e.target,num=v=>parseFloat(String(v).replace(/[^\d.]/g,''))||null;
+  if(t.dataset.w){st.OS[+t.dataset.w].w=num(t.value);save()}
+  if(t.dataset.h){st.OS[+t.dataset.h].h=num(t.value);save()}
+  if(t.dataset.p){st.OS[+t.dataset.p].p=parseInt(t.value.replace(/[^\d]/g,''),10)||null;save()}
+  if(t.dataset.ov){const k=t.dataset.ov,v=parseInt(t.value.replace(/[^\d]/g,''),10)||null;setO(o=>{o.ovr=Object.assign({},o.ovr||{});if(v)o.ovr[k]=v;else delete o.ovr[k]})}});
 render();
 })();
 </script>
