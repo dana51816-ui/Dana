@@ -47,9 +47,10 @@ bdi{unicode-bidi:isolate}
 .num{font-family:var(--display);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
 
 /* home */
-.promo{background:var(--navy-deep);color:#fff;text-align:center;font-family:var(--display);font-stretch:125%;font-weight:800;font-size:.7rem;letter-spacing:.08em;padding:9px 16px;line-height:1.5;direction:ltr}
+.promo{background:var(--navy-deep);font-size:.62rem!important;padding:7px 12px!important;color:#fff;text-align:center;font-family:var(--display);font-stretch:125%;font-weight:800;font-size:.7rem;letter-spacing:.08em;padding:9px 16px;line-height:1.5;direction:ltr}
 .promo b{color:var(--gold)}
-.hero{padding-block:14px 4px;display:grid;gap:12px}
+.hero{padding-block:10px 4px;display:grid;gap:10px}
+.stick{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--wall);margin-inline:-16px;padding:8px 16px 10px;box-shadow:0 8px 16px -14px rgba(40,50,90,.35)}
 .topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .brandlogo{display:flex;align-items:center;direction:ltr;color:var(--ink)}
 .brandlogo .A{font-family:var(--script);font-size:3.4rem;line-height:.6;margin-right:-10px;transform:translateY(6px)}
@@ -88,7 +89,7 @@ bdi{unicode-bidi:isolate}
 .art .badge.sold{background:rgba(20,33,94,.85);color:#fff}
 .art .star{z-index:1;position:absolute;bottom:8px;left:8px;background:var(--gold);color:#14215e;font-size:.7rem;font-weight:700;border-radius:999px;padding:3px 8px}
 .tile .tn{font-family:var(--display);font-stretch:112%;font-weight:700;font-size:.98rem;line-height:1.2;direction:ltr;text-align:right;overflow-wrap:anywhere}
-.tile .tp{font-size:.82rem;color:var(--muted);margin-top:-3px}
+.tile .tp{font-size:.8rem;color:var(--muted);margin-top:-3px;display:flex;gap:4px 10px;flex-wrap:wrap}
 .tile .tp b{color:var(--ink);font-family:var(--display);font-variant-numeric:tabular-nums}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
 
@@ -97,19 +98,20 @@ bdi{unicode-bidi:isolate}
 .dhero{position:relative;padding-block:12px 18px;color:#fff;overflow:hidden}
 .dhero .bg{position:absolute;inset:0;overflow:hidden}
 .dhero .bg img{position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);object-fit:cover;filter:blur(26px) saturate(1.3)}
-.heroimg{display:block;max-width:100%;max-height:min(42vh,320px);margin:4px auto 0;object-fit:contain;filter:drop-shadow(0 14px 28px rgba(0,0,0,.4))}
+.heroimg{display:block;max-width:100%;max-height:min(26vh,210px);margin:4px auto 0;object-fit:contain;filter:drop-shadow(0 14px 28px rgba(0,0,0,.4))}
 .dhero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,15,44,.15),rgba(10,15,44,.62))}
 .dhero .wrap{position:relative;display:grid;gap:12px}
 .navrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .navrow .r{display:flex;gap:8px}
 .iconbtn{border:0;background:rgba(255,255,255,.2);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600;font-size:.9rem;text-decoration:none}
 .iconbtn[aria-pressed="true"]{background:var(--gold);color:#14215e}
-.dtitle{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:clamp(1.8rem,8vw,2.7rem);line-height:1;letter-spacing:-.02em;margin:10px 0 0;direction:ltr;text-align:right;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.25)}
-.kind{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(255,255,255,.16);border-radius:16px;padding:5px}
-.kind button{border:0;background:none;color:#fff;border-radius:12px;padding:10px;font-weight:600}
+.dtitle{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:clamp(1.45rem,6.4vw,2.2rem);line-height:1;letter-spacing:-.02em;margin:10px 0 0;direction:ltr;text-align:right;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.25)}
+.kind{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;background:rgba(255,255,255,.16);border-radius:16px;padding:5px}
+.kind button{border:0;background:none;color:#fff;border-radius:12px;padding:10px 6px;font-weight:600;font-size:.9rem;line-height:1.15}
+.kind button small{display:block;font-weight:400;font-size:.7rem;opacity:.8}
 .kind button[aria-pressed="true"]{background:#fff;color:#14215e}
 .kind button:disabled{opacity:.45}
-.dbody{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding-block:18px 220px}
+.dbody{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding-block:16px 170px}
 .pcard{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .pcard header{padding:14px 16px 10px;display:grid;gap:2px}
 .pcard header b{font-size:1.02rem}
@@ -121,10 +123,17 @@ th{font-weight:500;color:var(--muted);font-size:.74rem;padding-block:8px}
 td.sz{text-align:right;padding-inline-start:16px}
 td.sz b{display:block;font-family:var(--display);font-weight:700;direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
 td.sz small{display:block;color:var(--muted);font-size:.72rem;direction:ltr;text-align:right}
-td button{border:1.5px solid transparent;background:var(--soft);padding:8px 10px;border-radius:10px;font-family:var(--display);font-variant-numeric:tabular-nums;font-weight:700;min-width:70px}
-td button.on{background:var(--sel-bg);color:var(--sel-fg)}
+td button{border:1.5px solid transparent;background:transparent;color:var(--ink);padding:8px 10px;border-radius:10px;font-family:var(--display);font-variant-numeric:tabular-nums;font-weight:700;min-width:70px}
+td button.on{background:var(--sel-bg);color:var(--sel-fg);box-shadow:0 4px 12px -6px rgba(40,60,120,.5)}
+tr.sel td{background:color-mix(in srgb,var(--navy) 6%,transparent)}
+tbody tr{cursor:pointer}
+@media (hover:hover){td button:hover:not(.on){background:var(--soft)}}
 td button.w{border-color:var(--warn);border-style:dashed;color:var(--warn)}
 td.na{color:var(--muted)}
+.custom summary{cursor:pointer;font-weight:600;font-size:.9rem;color:var(--accent);list-style:none}
+.custom summary::-webkit-details-marker{display:none}
+.custom summary::before{content:'＋ '}
+.custom[open] summary::before{content:'－ '}
 .custom{border-top:1px solid var(--line);padding:12px 16px 14px;display:grid;gap:10px;background:color-mix(in srgb,var(--soft) 50%,transparent)}
 .custom .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .custom label{font-size:.85rem;font-weight:600}
@@ -157,11 +166,13 @@ td.na{color:var(--muted)}
 
 /* bottom bar */
 .pbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:linear-gradient(180deg,var(--navy),var(--navy-deep));color:#fff;border-radius:22px 22px 0 0;box-shadow:0 -10px 30px -18px rgba(0,0,0,.45);padding-bottom:env(safe-area-inset-bottom,0px)}
-.pbar .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;padding-block:12px 12px}
+.pbar .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding-block:10px 10px}
+.dtog{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:4px 10px;font-size:.74rem;margin-top:5px;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;max-width:100%}
+.dtog .coll{padding:2px 7px}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .pinfo{flex:1 1 0;min-width:0;overflow:hidden}
 .pinfo small{display:block;color:#b9c3ea;font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;text-align:right}
-.pval{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:2.15rem;line-height:1;font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
+.pval{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:1.95rem;line-height:1;font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
 .pval s{font-size:.42em;color:#9fabdc;font-weight:600;margin-left:8px}
 .pbtns{display:flex;gap:8px;flex:none}
 .gold{border:0;background:var(--gold);color:#14215e;border-radius:14px;padding:12px 14px;font-weight:700}
@@ -272,11 +283,12 @@ button:active:not(:disabled){transform:scale(.965)}
 .wallbox canvas{display:block;width:100%;height:220px;border-radius:14px}
 
 /* quick actions */
-.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
-.qa button{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:10px 8px;display:grid;gap:2px;justify-items:center;text-align:center;box-shadow:var(--shadow)}
+.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.qa button{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:8px 10px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;text-align:right;justify-items:start;text-align:righer;box-shadow:var(--shadow)}
 .qa b{font-size:.86rem;font-weight:600}
 .qa small{font-size:.72rem;color:var(--muted);font-family:var(--display);font-variant-numeric:tabular-nums}
-.qa .ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:1rem;margin-bottom:2px}
+.qa .ic{grid-row:1/3;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:.95rem}
+.qa b{font-size:.8rem!important;line-height:1.2}
 /* quick sheet */
 .qtabs{display:flex;gap:8px}
 .qtabs button{flex:1;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:10px;font-weight:600}
@@ -343,16 +355,14 @@ td .cp{display:block;font-size:.68rem;color:var(--ok);font-weight:600;margin-top
       <div class="brandlogo" aria-label="Albert Levi, A splash of art"><span class="A" aria-hidden="true">A</span><span class="t"><b>Albert Levi</b><small>A splash of art</small></span></div>
       <button class="pill" id="setBtn" type="button" aria-label="הגדרות"><span aria-hidden="true">⚙︎</span> הגדרות</button>
     </div>
-    <div class="eyebrow">USA TOUR · PRICE GUIDE</div>
-    <h1 class="greet">על איזו יצירה <em>הלקוח שואל?</em></h1>
-    <div class="searchbox">
+    <div class="stick"><div class="searchbox">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="שם היצירה, למשל Freedom" autocomplete="off" aria-label="חיפוש יצירה">
+      <input id="q" type="search" placeholder="חיפוש יצירה…" autocomplete="off" aria-label="חיפוש יצירה">
       <button class="clear" id="clearQ" type="button" aria-label="ניקוי החיפוש" hidden>✕</button>
-    </div>
+    </div></div>
   </section>
-  <div id="tourWrap"><div class="sec"><h2>⭐ בטור</h2><span id="tourCount"></span></div><div class="tourrow" id="tour"></div></div>
   <div class="qa" id="qa"></div>
+  <div id="tourWrap"><div class="sec"><h2>⭐ בטור</h2><span id="tourCount"></span></div><div class="tourrow" id="tour"></div></div>
   <div class="themes" id="themes" style="margin-top:14px"></div>
   <div class="sec"><h2 id="gridTitle">כל היצירות</h2><span id="count"></span></div>
   <div class="grid" id="grid"></div>
@@ -414,6 +424,7 @@ let ORIG=L.ORIG||{}, T=L.T||{}, OS=L.OS||[], osel=null, tour=L.tour||[], pkg=L.p
 // Albert's original prices ship with the app; a newer built-in list replaces older ones on this device
 let OSV=L.OSV||null;
 if(D.OSV&&OSV!==D.OSV){OS=(D.OS0||[]).map(r=>Object.assign({},r));Object.entries(D.ORIG0||{}).forEach(([id,v])=>{ORIG[id]=Object.assign({},ORIG[id]||{},v)});OSV=D.OSV}
+let ftab='canvas',discOpen=false;
 let theme='all',cur=null,kind='print',sel=null,disc='auto',custom={w:'',h:''};
 
 /* ---------- pricing ---------- */
@@ -448,14 +459,14 @@ $('q').addEventListener('input',()=>{$('clearQ').hidden=!$('q').value;renderHome
 $('clearQ').addEventListener('click',()=>{$('q').value='';$('clearQ').hidden=true;renderHome();$('q').focus()});
 function inTheme(a){if(theme==='all')return true;if(theme==='emb')return !!a.f.emb;if(theme==='orig')return a.o;return a.T.has(theme)}
 function tileHTML(a){const o=a.o?origInfo(a):null,m=minUSD(a),onTour=tour.includes(a.id);
-  const badge=o&&!o.nfs?`<span class="badge">מקור${o.min?' מ־'+$f(o.min):''}</span>`:'';
-  const pr=m!=null?`הדפס מ־<b>${$f(m)}</b>`:(o&&o.min?`מקור מ־<b>${$f(o.min)}</b>`:'מקור');
+  const badge='';
+  const pr=[m!=null?`<span>הדפס <b>${$f(m)}</b></span>`:'',o&&o.min?`<span>מקור <b>${$f(o.min)}</b></span>`:''].filter(Boolean).join('')||'<span>מקור</span>';
   return `<button class="tile" type="button" data-id="${a.id}"><div class="art ph" style="background:${artBg(a)}"><img src="${img(a)}" alt="" loading="lazy" decoding="async" onerror="this.remove();this.parentNode&&this.parentNode.classList.remove('ph')">${badge}${onTour?'<span class="star">⭐ בטור</span>':''}</div><div class="tn">${esc(a.n)}</div><div class="tp">${pr}</div></button>`}
 function renderHome(){
   renderPromo();
   const q=$('q').value.trim().toLowerCase().replace(/[^a-z0-9 ]/g,'');
   const tr=tour.map(id=>ART.find(a=>a.id===id)).filter(Boolean);
-  $('tourWrap').hidden=!!q;
+  $('tourWrap').hidden=!!q||!tr.length;
   $('tourCount').textContent=tr.length?tr.length+' יצירות':'';
   $('tour').innerHTML=tr.length?tr.map(tileHTML).join(''):`<div class="tourempty">פותחים יצירה ולוחצים ⭐ כדי להוסיף אותה לרשימת היצירות שאלברט מביא לטור. הן יופיעו כאן, ראשונות.</div>`;
   const items=ART.filter(a=>(!q||a.k.includes(q))&&inTheme(a)).sort((x,y)=>(tour.includes(y.id)-tour.includes(x.id)));
@@ -464,8 +475,8 @@ function renderHome(){
   $('count').textContent=items.length+' יצירות';
   $('grid').innerHTML=items.length?items.map(tileHTML).join(''):`<div class="empty">לא מצאנו יצירה כזאת.<br>נסו חלק מהשם, למשל "tree" או "hamsa".</div>`;
   const td=dayKey(Date.now()),tt=SALES.filter(s=>dayKey(s.ts)===td).reduce((s,x)=>s+x.total,0);
-  $('qa').innerHTML=`<button type="button" data-qa="quick"><span class="ic" style="background:color-mix(in srgb,var(--gold) 30%,transparent)">$</span><b>מחירון מהיר</b><small>כל הגדלים</small></button>
-  <button type="button" data-qa="sales"><span class="ic" style="background:color-mix(in srgb,var(--ok) 25%,transparent)">✓</span><b>מכירות היום</b><small>${$f(tt)}</small></button>
+  $('qa').innerHTML=`<button type="button" data-qa="quick"><span class="ic" style="background:color-mix(in srgb,var(--gold) 30%,transparent)">$</span><b>מחירון</b><small>כל הגדלים</small></button>
+  <button type="button" data-qa="sales"><span class="ic" style="background:color-mix(in srgb,var(--ok) 25%,transparent)">✓</span><b>מכירות</b><small>היום ${$f(tt)}</small></button>
   <button type="button" data-qa="pkg"><span class="ic" style="background:color-mix(in srgb,var(--cobalt) 22%,transparent)">◫</span><b>חבילה</b><small>${pkg.length?pkg.length+' · '+$f(pkgCalc().fin):'ריקה'}</small></button>`;
   renderFab();
 }
@@ -473,24 +484,24 @@ $('qa').addEventListener('click',e=>{const b=e.target.closest('[data-qa]');if(!b
 document.addEventListener('click',e=>{const b=e.target.closest('#grid [data-id],#tour [data-id]');if(b)openArt(b.dataset.id)});
 
 /* ---------- detail: ID card ---------- */
-function openArt(id){cur=ART.find(a=>a.id===id);kind=Object.keys(cur.f).length?'print':'orig';osel=(origInfo(cur).sizes[0]||{}).s||null;sel=null;disc='auto';custom={w:'',h:''};
+function openArt(id){cur=ART.find(a=>a.id===id);ftab=['canvas','emb','float'].find(f=>cur.f[f])||'orig';kind=ftab==='orig'?'orig':'print';discOpen=false;osel=(origInfo(cur).sizes[0]||{}).s||null;sel=null;disc='auto';custom={w:'',h:''};
   if(kind==='print')pickFirst();
   $('detail').hidden=false;$('detail').scrollTop=0;renderDetail();history.pushState({d:1},'')}
-function pickFirst(){for(const f of ['canvas','emb','float'])if(cur.f[f]){const ss=Object.keys(cur.f[f]).sort((x,y)=>area(x)-area(y));for(const s of ss)for(const fr of FRO){const c=cell(cur,f,s,fr);if(c&&!c.w){sel={f,s,fr};return}}}}
+function pickFirst(){for(const f of [ftab,'canvas','emb','float'])if(cur.f[f]){const ss=Object.keys(cur.f[f]).sort((x,y)=>area(x)-area(y));for(const s of ss)for(const fr of FRO){const c=cell(cur,f,s,fr);if(c&&!c.w){sel={f,s,fr};return}}}}
 function closeAll(){for(const id of ['detail','settings','pkg','cust'])$(id).hidden=true;$('pbar').hidden=true;renderHome()}
 window.addEventListener('popstate',()=>{if(!$('close').hidden){$('close').hidden=true;return}if(!$('cust').hidden){$('cust').hidden=true;renderFab();return}if(!$('quick').hidden||!$('sales').hidden){$('quick').hidden=true;$('sales').hidden=true;renderHome();return}if(!$('pkg').hidden&&!$('detail').hidden){$('pkg').hidden=true;renderFab();return}closeAll()});
 function back(){if(history.state&&history.state.d)history.back();else closeAll()}
 
 function tableHTML(f){const F=cur.f[f],ss=Object.keys(F).sort((x,y)=>area(x)-area(y)),cols=FRO.filter(fr=>ss.some(s=>F[s][fr]!==undefined));
   let h=`<section class="pcard"><header><b>${FMT[f].he}</b><small>${FMT[f].d}</small></header><div class="tscroll"><table><thead><tr><th style="text-align:right;padding-inline-start:16px">גודל</th>${cols.map(c=>`<th>${FR[c].he}</th>`).join('')}</tr></thead><tbody>`;
-  for(const s of ss){h+=`<tr><td class="sz"><b>${sz(s,S.unit)}</b><small>${sz(s,S.unit==='cm'?'in':'cm')}</small></td>`;
+  for(const s of ss){h+=`<tr class="${sel&&!sel.custom&&sel.f===f&&sel.s===s?'sel':''}"><td class="sz"><b>${sz(s,S.unit)}</b><small>${sz(s,S.unit==='cm'?'in':'cm')}</small></td>`;
     for(const fr of cols){const c=cell(cur,f,s,fr);const on=sel&&!sel.custom&&sel.f===f&&sel.s===s&&sel.fr===fr;
       h+=c?`<td><button type="button" class="${on?'on':''}${c.w?' w':''}" data-c="${f}|${s}|${fr}">${$f(usd(c.ils))}</button></td>`:'<td class="na">–</td>'}
     h+='</tr>'}
   h+=`</tbody></table></div>`;
   if(f!=='float'){const fr=FRO.filter(x=>Object.values(STD[f]).some(v=>v[x]));const w=parseFloat(custom.w),hh=parseFloat(custom.h);const k=S.unit==='cm'?1/2.54:1;
     let res='';if(w>0&&hh>0&&custom.f===f){res=`<div class="res">${fr.map(x=>{const p=customILS(f,x,w*k,hh*k);if(!p)return '';const on=sel&&sel.custom&&sel.f===f&&sel.fr===x;return `<button type="button" class="${on?'on':''}" data-cu="${f}|${x}">${FR[x].he} · <b>${$f(usd(p))}</b></button>`}).join('')}</div><p class="note">הערכה לפי מחירי הגדלים הסטנדרטיים. כדאי לאשר מול אלברט.</p>`}
-    h+=`<div class="custom"><div class="row"><label>גודל מיוחד</label><input inputmode="decimal" aria-label="רוחב" data-cw="${f}" value="${custom.f===f?esc(custom.w):''}" placeholder="רוחב"><span>×</span><input inputmode="decimal" aria-label="גובה" data-ch="${f}" value="${custom.f===f?esc(custom.h):''}" placeholder="גובה"><span class="note">${S.unit==='cm'?'ס״מ':'אינץ׳'}</span></div>${res}</div>`}
+    h+=`<details class="custom"${custom.f===f?' open':''}><summary>גודל מיוחד שלא ברשימה</summary><div class="row"><label>גודל</label><input inputmode="decimal" aria-label="רוחב" data-cw="${f}" value="${custom.f===f?esc(custom.w):''}" placeholder="רוחב"><span>×</span><input inputmode="decimal" aria-label="גובה" data-ch="${f}" value="${custom.f===f?esc(custom.h):''}" placeholder="גובה"><span class="note">${S.unit==='cm'?'ס״מ':'אינץ׳'}</span></div>${res}</details>`}
   return h+`</section>`}
 function roomSVG(a,w,h,fr,opt){opt=opt||{};const W=Math.max(380,w+150),floor=16,sofaH=82,gap=24,H=Math.max(270,floor+sofaH+gap+h+46);
   const fy=H-floor,ax=(W-w)/2,ay=fy-sofaH-gap-h,sx=(W-210)/2,id='r'+a.id+(opt.k||'');
@@ -518,17 +529,17 @@ function origHTML(){const o=origInfo(cur);
   if(o.nfs)return `<section class="ocard"><p class="note">אלברט סימן שהציור הזה לא מוצע כמקור.</p></section>`;
   if(!o.sizes.length)return `<section class="ocard"><div class="warn">עוד אין מחירי מקורים. אלברט ממלא אותם בטופס, ואחר כך מדביקים את הקוד בהגדרות ← סנכרון.</div></section>`;
   return `<section class="pcard"><header><b>מקור · Original painting</b><small>ציור מקורי בעבודת יד בגודל שהלקוח בוחר</small></header><div class="tscroll"><table><thead><tr><th style="text-align:right;padding-inline-start:16px">גודל</th><th>מחיר</th></tr></thead><tbody>
-  ${o.sizes.map(r=>`<tr><td class="sz"><b>${sz(r.s,S.unit)}</b><small>${sz(r.s,S.unit==='cm'?'in':'cm')}</small></td><td><button type="button" class="${osel===r.s?'on':''}" data-os="${r.s}">${$f(r.p)}</button></td></tr>`).join('')}
+  ${o.sizes.map(r=>`<tr class="${osel===r.s?'sel':''}"><td class="sz"><b>${sz(r.s,S.unit)}</b><small>${sz(r.s,S.unit==='cm'?'in':'cm')}</small></td><td><button type="button" class="${osel===r.s?'on':''}" data-os="${r.s}">${$f(r.p)}</button></td></tr>`).join('')}
   </tbody></table></div></section>`}
 function renderDetail(){const a=cur,hasP=Object.keys(a.f).length>0;
   let h=`<header class="dhero"><div class="bg" style="background:${artBg(a,135)}"><img src="${img(a)}" alt="" onerror="this.remove()"></div><div class="wrap">
     <div class="navrow"><button class="iconbtn" type="button" data-act="back">→ חזרה</button><div class="r"><button class="iconbtn" type="button" data-act="tour" aria-pressed="${tour.includes(a.id)}">${tour.includes(a.id)?'⭐ בטור':'☆ להוסיף לטור'}</button>${a.h?`<a class="iconbtn" href="https://www.albertlevi.com/products/${esc(a.h)}" target="_blank" rel="noopener">↗</a>`:''}</div></div>
     <img class="heroimg" src="${img(a)}" alt="${esc(a.n)}" onerror="this.remove()">
     <h2 class="dtitle">${esc(a.n)}</h2>
-    <div class="kind"><button type="button" data-kind="print" aria-pressed="${kind==='print'}"${hasP?'':' disabled'}>הדפס / מהדורה</button><button type="button" data-kind="orig" aria-pressed="${kind==='orig'}"${a.o?'':' disabled'}>מקור${a.o?'':' · אין'}</button></div>
+    <div class="kind" role="tablist">${[['canvas','קנבס','הדפס'],['emb','Embellished','עבודת יד'],['float','מסגרת צפה','הדפס'],['orig','מקור','ציור מקורי']].filter(([f])=>f==='orig'?a.o:a.f[f]).map(([f,l,s])=>`<button type="button" role="tab" data-tab="${f}" aria-pressed="${ftab===f}">${l}<small>${s}</small></button>`).join('')}</div>
   </div></header><div class="wrap dbody">`;
   if(kind==='orig'){h+=origHTML();if(osel)h+=wallSVG()}
-  else{h+=['canvas','emb','float'].filter(f=>a.f[f]).map(tableHTML).join('');
+  else{h+=a.f[ftab]?tableHTML(ftab):'';
     const c=sel&&!sel.custom?cell(a,sel.f,sel.s,sel.fr):null;
     if(c&&c.w)h+=`<div class="warn"><b>כדאי לבדוק לפני שאומרים ללקוח.</b> במחירון באתר: ${esc(c.w)}.</div>`;
     h+=wallSVG()}
@@ -546,18 +557,20 @@ function single(it){const auto=disc==='auto';const pct=it.orig?(auto?0:disc):(au
   return {pct,coll:auto&&pct>0,fin:pct?(it.ils?usd(it.ils*(1-pct/100)):rnd(it.list*(1-pct/100))):it.list}}
 function renderBar(){const it=current();if(!it){$('pbar').hidden=true;renderFab();return}const p=single(it);
   const opts=(S.coll&&!it.orig?['auto']:[]).concat([0,10,15,20]);
-  $('pbar').innerHTML=`<div class="wrap"><div class="prow"><div class="pinfo"><small>${esc(it.spec)}</small><div class="pval"><span data-roll="${p.fin}">${$f(renderBar.last??p.fin)}</span>${p.pct?`<s>${$f(it.list)}</s>`:''}</div></div>
-  <div class="pbtns"><button class="line" type="button" data-act="add">+ לחבילה</button><button class="gold" type="button" data-act="cust">הצג ללקוח</button></div></div>
-  <div class="disc">${p.coll?`<span class="coll">COLLECTOR'S RATE −${p.pct}%</span>`:'<span>הנחה:</span>'}${opts.map(d=>`<button type="button" data-disc="${d}" aria-pressed="${disc===d||(d===0&&disc==='auto'&&!opts.includes('auto'))}">${d==='auto'?'אוטומטי':d?d+'%':'בלי'}</button>`).join('')}</div></div>`;
+  const dl=disc==='auto'?(p.pct?`אוטומטי −${p.pct}%`:'בלי'):disc?`−${disc}%`:'בלי';
+  $('pbar').innerHTML=`<div class="wrap"><div class="prow"><div class="pinfo"><small>${esc(it.spec)}</small><div class="pval"><span data-roll="${p.fin}">${$f(renderBar.last??p.fin)}</span>${p.pct?`<s>${$f(it.list)}</s>`:''}</div>
+    <button class="dtog" type="button" data-act="dtog" aria-expanded="${discOpen}">${p.coll?'Collector\'s ':'הנחה: '}${dl} ${discOpen?'▴':'▾'}</button></div>
+  <div class="pbtns"><button class="line" type="button" data-act="add" aria-label="הוספה לחבילה">+ חבילה</button><button class="gold" type="button" data-act="cust">הצג ללקוח</button></div></div>
+  ${discOpen?`<div class="disc">${opts.map(d=>`<button type="button" data-disc="${d}" aria-pressed="${disc===d||(d===0&&disc==='auto'&&!opts.includes('auto'))}">${d==='auto'?'אוטומטי':d?d+'%':'בלי'}</button>`).join('')}</div>`:''}</div>`;
   $('pbar').hidden=false;roll($('pbar'));renderBar.last=p.fin;renderFab()}
 function roll(root){root.querySelectorAll('[data-roll]').forEach(el=>{const to=+el.dataset.roll,from=parseFloat(el.textContent.replace(/[^\d.]/g,''))||to;
   if(from===to||matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=$f(to);return}
   const t0=performance.now(),d=420;(function step(t){const k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=$f(from+(to-from)*e);if(k<1)requestAnimationFrame(step)})(t0)})}
 
-$('detail').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+$('detail').addEventListener('click',e=>{let b=e.target.closest('button');if(!b){const tr=e.target.closest('tbody tr');if(tr)b=tr.querySelector('td button');}if(!b)return;const d=b.dataset;
   if(d.act==='back')return back();
   if(d.act==='tour'){tour=tour.includes(cur.id)?tour.filter(x=>x!==cur.id):[...tour,cur.id];persist();toast(tour.includes(cur.id)?'נוסף לרשימת הטור':'הוסר מהטור')}
-  else if(d.kind){kind=d.kind;disc='auto';if(kind==='print'&&!sel)pickFirst()}
+  else if(d.tab){ftab=d.tab;kind=ftab==='orig'?'orig':'print';disc='auto';if(kind==='print'&&(!sel||sel.f!==ftab)){sel=null;pickFirst()}}
   else if(d.c){const [f,s,fr]=d.c.split('|');sel={f,s,fr}}
   else if(d.cu){const [f,fr]=d.cu.split('|');const k=S.unit==='cm'?1/2.54:1;sel={custom:true,f,fr,w:Math.round(parseFloat(custom.w)*k*10)/10,h:Math.round(parseFloat(custom.h)*k*10)/10}}
   else if(d.os){osel=d.os}
@@ -569,7 +582,8 @@ $('detail').addEventListener('input',e=>{const t=e.target;
     clearTimeout(renderDetail.t);renderDetail.t=setTimeout(()=>{const y=$('detail').scrollTop,id=t.dataset.cw?'cw':'ch';renderDetail();$('detail').scrollTop=y;const el=$('detail').querySelector(`[data-${id}="${f}"]`);if(el){el.focus();const v=el.value;el.setSelectionRange(v.length,v.length)}},350)}
   if(t.id==='ovr'){const o=Object.assign({},ORIG[cur.id]||{});o.ovr=parseInt(t.value.replace(/[^\d]/g,''),10)||null;ORIG[cur.id]=o;persist();clearTimeout(renderDetail.o);renderDetail.o=setTimeout(()=>{const y=$('detail').scrollTop;renderDetail();$('detail').scrollTop=y;const el=$('ovr');if(el){el.focus()}},600)}});
 $('pbar').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
-  if(b.dataset.disc!==undefined){disc=b.dataset.disc==='auto'?'auto':+b.dataset.disc;return renderBar()}
+  if(b.dataset.act==='dtog'){discOpen=!discOpen;return renderBar()}
+  if(b.dataset.disc!==undefined){disc=b.dataset.disc==='auto'?'auto':+b.dataset.disc;discOpen=false;return renderBar()}
   if(b.dataset.act==='add'){const it=current();if(it){pkg.push(it);persist();renderFab();toast('נוסף לחבילה · '+pkg.length+' פריטים')}return}
   if(b.dataset.act==='cust'){const it=current();if(it)showCust({items:[it],single:single(it)})}});
 
