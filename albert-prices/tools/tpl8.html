@@ -369,7 +369,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const LSK='alp3';
 function load(){try{return JSON.parse(localStorage.getItem(LSK))||{}}catch(e){return {}}}
-function persist(){try{localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,tour,pkg,SALES}))}catch(e){}}
+function persist(){try{localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,tour,pkg,SALES}))}catch(e){}}
 
 /* ---------- palette per work (decorative) ---------- */
 const PAL={cobalt:'#2f4be0',magenta:'#e0337a',sun:'#f5b70a',teal:'#11a198',tang:'#f26b2a',violet:'#7b3fe4',pink:'#ff7eb6',sky:'#41b6ff',leaf:'#3fae5a',earth:'#a8683a',sand:'#e8c48a',navy:'#1b2a6b',ruby:'#c81d3f',lime:'#b6e33b',ink:'#20212b',gold:'#d9a21b',coral:'#ff6f61',mint:'#7ee0c3'};
@@ -400,6 +400,9 @@ const THEMES=[['all','הכול','var(--ink)'],['tree','עץ החיים','var(--t
 const L=load();
 let S=Object.assign({rate:3.7,round:'5',unit:'in',verified:false,coll:true,second:25,me:''},L.S||{});
 let ORIG=L.ORIG||{}, T=L.T||{}, OS=L.OS||[], osel=null, tour=L.tour||[], pkg=L.pkg||[], SALES=L.SALES||[];
+// Albert's original prices ship with the app; a newer built-in list replaces older ones on this device
+let OSV=L.OSV||null;
+if(D.OSV&&OSV!==D.OSV){OS=(D.OS0||[]).map(r=>Object.assign({},r));Object.entries(D.ORIG0||{}).forEach(([id,v])=>{ORIG[id]=Object.assign({},ORIG[id]||{},v)});OSV=D.OSV}
 let theme='all',cur=null,kind='print',sel=null,disc='auto',custom={w:'',h:''};
 
 /* ---------- pricing ---------- */

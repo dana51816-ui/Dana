@@ -1,6 +1,12 @@
-import sys,json
+import sys,json,os
 tpl,data,outdir,preview=sys.argv[1:5]
-t=open(tpl).read(); d=open(data).read().replace('</','<\\/')
+t=open(tpl).read()
+_dd=json.load(open(data))
+_op=os.path.join(outdir,'tools','originals-prices.json')
+if os.path.exists(_op):
+    _o=json.load(open(_op));_dd['OS0']=_o.get('OS',[]);_dd['ORIG0']=_o.get('ORIG',{})
+    import hashlib as _h;_dd['OSV']=_h.sha1(json.dumps(_o,sort_keys=True).encode()).hexdigest()[:8]
+d=json.dumps(_dd,ensure_ascii=False,separators=(',',':')).replace('</','<'+chr(92)+'/')
 body=t.replace('__DATA__',d)
 open(preview,'w').write(body.replace('__QR_SRC__','https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js'))
 body=body.replace('__QR_SRC__','vendor/qrcode.js')
