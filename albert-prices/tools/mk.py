@@ -6,6 +6,21 @@ _op=os.path.join(outdir,'tools','originals-prices.json')
 if os.path.exists(_op):
     _o=json.load(open(_op));_dd['OS0']=_o.get('OS',[]);_dd['ORIG0']=_o.get('ORIG',{})
     import hashlib as _h;_dd['OSV']=_h.sha1(json.dumps(_o,sort_keys=True).encode()).hexdigest()[:8]
+_tp=os.path.join(outdir,'tools','tour.json')
+if os.path.exists(_tp):
+    import re as _re,hashlib as _h2
+    _t=json.load(open(_tp));_ids={_re.sub(r'[^a-z0-9]+','-',a['k']):a for a in _dd['art']}
+    for r in _t['list']:
+        if r['new'] and r['id'] not in _ids:
+            n=r['new']['n'];w,h=map(int,r['s'].split('x'));q=max(w,h)/min(w,h)
+            _dd['art'].append({'k':n.lower().replace(',',''),'n':n,'f':{},'o':True,'os':True,'t':r['new']['t'],'sh':'sq' if q<1.15 else 'rect' if q<1.75 else 'pano','h':None,'img':None,'land':w>h})
+            _ids[r['id']]=_dd['art'][-1]
+        a=_ids.get(r['id'])
+        if a is None:raise SystemExit('tour work not found: '+r['id'])
+        a['id']=r['id']
+        if r['rename']:a['aka']=a['n'];a['n']=r['rename'];a['k']=a['k']+' '+r['rename'].lower()
+    _dd['TOUR0']=[{'id':r['id'],'s':r['s'],'p':r['p'],'d':r['d']} for r in _t['list']];_dd['TOURC']=_t['care']
+    _dd['TOURV']=_h2.sha1(json.dumps(_t,sort_keys=True).encode()).hexdigest()[:8]
 _vc={}
 for _f in os.listdir(os.path.join(outdir,'views')) if os.path.isdir(os.path.join(outdir,'views')) else []:
     _id,_,_n=_f.rpartition('-');_vc[_id]=max(_vc.get(_id,0),int(_n.split('.')[0])+1)
