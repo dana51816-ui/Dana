@@ -757,6 +757,32 @@ body{font-family:var(--body);font-size:16px}
 #home .topline{padding:calc(env(safe-area-inset-top,0px) + 18px) 22px 0!important}
 #home .topline .brandlogo{visibility:hidden}
 .banner+.stick{margin-top:18px}
+
+/* ===================== v5: gallery-wall banner ===================== */
+/* Chosen direction: three of Albert's works hung on a stone wall under a soft light, his name set beneath them like a gallery
+   title. Light wall in light mode, a dim gallery wall in dark mode. */
+.banner{background:linear-gradient(180deg,#efede7,#e5e2da)!important;color:var(--ink)!important;height:auto!important;display:block!important;
+  padding:calc(env(safe-area-inset-top,0px) + 68px) 16px 28px!important;text-align:center}
+.banner::after{display:none!important}
+.banner::before{background:radial-gradient(60% 55% at 50% 22%,rgba(255,255,255,.75),rgba(255,255,255,0) 70%)!important;z-index:0!important}
+.banner .glow{display:none!important}
+.banner .wall{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;gap:18px;height:100px;direction:ltr}
+.banner .wall img{display:block;height:68px;width:auto;max-width:22vw;object-fit:contain;box-shadow:0 10px 16px rgba(26,24,20,.22),0 1px 2px rgba(26,24,20,.2);
+  opacity:0;transform:translateY(-6px);animation:hang .9s cubic-bezier(.2,.8,.2,1) forwards}
+.banner .wall img.c{height:96px;max-width:38vw;animation-delay:.12s}
+.banner .wall img:last-child{animation-delay:.24s}
+@keyframes hang{to{opacity:1;transform:none}}
+.banner .in{position:relative;z-index:1;margin-top:24px;gap:6px!important;animation:none!important}
+.banner h1{font-weight:300!important;font-size:clamp(2.2rem,10vw,2.7rem)!important;letter-spacing:.1em!important;color:var(--ink)}
+.banner .tag{font-family:var(--body)!important;font-style:normal!important;font-size:.64rem!important;letter-spacing:.38em!important;color:var(--muted)!important;text-transform:uppercase}
+.banner .eb,.banner .rule{display:none!important}
+#home .topline #setBtn{color:var(--ink)!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .banner{background:linear-gradient(180deg,#22201c,#1a1916)!important}
+  :root:not([data-theme="light"]) .banner::before{background:radial-gradient(60% 55% at 50% 22%,rgba(255,240,215,.10),rgba(255,240,215,0) 70%)!important}
+  :root:not([data-theme="light"]) .banner .wall img{box-shadow:0 12px 20px rgba(0,0,0,.55)}}
+:root[data-theme="dark"] .banner{background:linear-gradient(180deg,#22201c,#1a1916)!important}
+:root[data-theme="dark"] .banner::before{background:radial-gradient(60% 55% at 50% 22%,rgba(255,240,215,.10),rgba(255,240,215,0) 70%)!important}
+@media (prefers-reduced-motion:reduce){.banner .wall img{animation:none;opacity:1;transform:none}}
 </style>
 
 <div class="promo" id="promo"></div>
@@ -766,7 +792,7 @@ body{font-family:var(--body);font-size:16px}
       <div class="brandlogo" aria-label="Albert Levi, A splash of art"><span class="A" aria-hidden="true">A</span><span class="t"><b>Albert Levi</b><small>A splash of art</small></span></div>
       <button class="pill" id="setBtn" type="button" aria-label="הגדרות"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
     </div>
-    <div class="banner" role="banner"><img class="glow" id="bnGlow" alt="" aria-hidden="true"><div class="in"><span class="eb">USA Tour · Price Guide</span><h1>Albert Levi</h1><span class="rule" aria-hidden="true"></span><span class="tag">A Splash of Art</span></div></div>
+    <div class="banner" role="banner"><img class="glow" id="bnGlow" alt="" aria-hidden="true"><div class="wall" id="bnWall" aria-hidden="true"></div><div class="in"><span class="eb">USA Tour · Price Guide</span><h1>Albert Levi</h1><span class="rule" aria-hidden="true"></span><span class="tag">A Splash of Art</span></div></div>
     <div class="exhibit" id="exhibit" hidden></div>
     <div class="stick"><div class="searchbox">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -875,7 +901,7 @@ function tileHTML(a){const o=a.o?origInfo(a):null,m=minUSD(a),onTour=tour.includ
   const badge='';
   const pr=[m!=null?`<span>הדפס <b>${$f(m)}</b></span>`:'',o&&o.min?`<span>מקור <b>${$f(o.min)}</b></span>`:''].filter(Boolean).join('')||'<span>מקור</span>';
   return `<button class="tile" type="button" data-id="${a.id}"><div class="art ph" style="background:${artBg(a)}"><img src="${img(a)}" alt="" loading="lazy" decoding="async" onerror="this.remove();this.parentNode&&this.parentNode.classList.remove('ph')">${badge}${onTour?'<span class="star">⭐ בטור</span>':''}</div><div class="tn">${esc(a.n)}</div><div class="tp">${pr}</div></button>`}
-function renderHome(){if(!renderHome.ex){renderHome.ex=1;const g=$('bnGlow'),a=ART.find(x=>x.id==='tree-of-life-blue-life')||ART[0];if(g&&a)g.src=img(a)}setTimeout(armReveal,0);
+function renderHome(){if(!renderHome.ex){renderHome.ex=1;const W=$('bnWall');if(W)W.innerHTML=['hamsa','tree-of-life-blue-life','a-noble-peacock'].map((id,i)=>{const a=ART.find(x=>x.id===id);return a?`<img class="${i===1?'c':''}" src="${img(a)}" alt="">`:''}).join('')}setTimeout(armReveal,0);
   renderPromo();
   const q=$('q').value.trim().toLowerCase().replace(/[^a-z0-9 ]/g,'');
   const tr=tour.map(id=>ART.find(a=>a.id===id)).filter(Boolean);
