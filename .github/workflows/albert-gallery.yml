@@ -1,0 +1,20 @@
+name: Fetch gallery images
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/albert-price-simulator]
+    paths: [albert-prices/tools/gallery-trigger.txt]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 albert-prices/tools/fetch_gallery.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add albert-prices/tools/raw
+          git commit -m "Fetch gallery images" || echo "nothing to commit"
+          git pull --rebase origin claude/albert-price-simulator && git push
