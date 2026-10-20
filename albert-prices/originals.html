@@ -1,0 +1,223 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f5f1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Albert Levi">
+
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head><body><title>מחירי מקורים · אלברט</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Archivo:wdth,wght@100..125,500..900&family=Josefin+Sans:wght@300&family=Mrs+Saint+Delafield&display=swap">
+<style>
+/* Layout: a one-thumb pricing session for the artist — intro, a short price-band table, then one original per screen with its image, and a send-to-WhatsApp finish. */
+:root{
+  --wall:#f6f7fa; --card:#ffffff; --ink:#2a3048; --muted:#6c7390; --line:#e6e9f0; --soft:#eef1f6;
+  --navy:#3d5a99; --deep:#2e4677; --gold:#e9bd6b; --ok:#1d7a4c; --sold:#b02142; --warn:#a8510b;
+  --display:"Archivo","Rubik",system-ui,sans-serif; --script:"Mrs Saint Delafield",cursive; --thin:"Josefin Sans","Rubik",sans-serif;
+  --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:0 1px 2px rgba(20,30,80,.06),0 10px 26px -14px rgba(20,30,80,.22);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wall:#161b2b;--card:#1e2438;--ink:#e9ecf4;--muted:#a2a9c2;--line:#2e3550;--soft:#252c44;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}}
+:root[data-theme="dark"]{--wall:#161b2b;--card:#1e2438;--ink:#e9ecf4;--muted:#a2a9c2;--line:#2e3550;--soft:#252c44;--ok:#6fd6a2;--sold:#ff8aa0;--warn:#ffb46b;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--wall);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;direction:rtl;-webkit-tap-highlight-color:transparent}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;transition:transform .12s ease,background-color .2s,border-color .2s,color .2s}
+button:active:not(:disabled){transform:scale(.965)}
+:focus-visible{outline:2.5px solid var(--navy);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding-inline:16px}
+.top{background:linear-gradient(180deg,var(--navy),var(--deep));color:#fff;padding-block:14px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top .wrap{display:grid;gap:10px}
+.logo{display:flex;align-items:center;direction:ltr;justify-content:flex-end}
+.logo .A{font-family:var(--script);font-size:2.6rem;line-height:.6;margin-right:-6px}
+.logo b{font-family:var(--thin);font-weight:300;letter-spacing:.32em;font-size:.95rem}
+.prog{display:flex;align-items:center;gap:10px;font-size:.82rem;color:#c9d2f3}
+.prog .bar{flex:1;height:6px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--gold);border-radius:999px;transition:width .35s ease}
+.prog span{font-family:var(--display);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+main{padding-block:18px 130px}
+h1{font-size:1.65rem;line-height:1.2;margin:0 0 6px;text-wrap:balance}
+h2{font-size:1.15rem;margin:0}
+p{margin:0}
+.lead{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:14px;box-shadow:var(--shadow)}
+.steps{display:grid;gap:10px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:.85rem}
+.note{font-size:.84rem;color:var(--muted)}
+.tiers{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th,td{padding:6px 4px;text-align:center}
+th{font-size:.78rem;color:var(--muted);font-weight:500}
+th.r{text-align:right;font-size:.88rem;color:var(--ink);font-weight:600}
+th.r small{display:block;color:var(--muted);font-weight:400;font-size:.72rem}
+.money{position:relative}
+.money input{width:100%;min-width:76px;border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:11px 8px 11px 22px;text-align:center;direction:ltr;font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums}
+.money::before{content:"$";position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600;pointer-events:none}
+.art{position:relative;border-radius:20px;overflow:hidden;background:var(--card);border:1px solid var(--line);aspect-ratio:1/1;max-height:46vh;width:100%;display:grid;place-items:center;box-shadow:var(--shadow)}
+.art img{width:100%;height:100%;object-fit:contain;padding:14px}
+.art .site{position:absolute;top:10px;right:10px;font-size:.72rem;font-weight:600;border-radius:999px;padding:3px 10px;background:rgba(255,255,255,.92);color:#14215e}
+.name{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:1.7rem;line-height:1.05;direction:ltr;text-align:right;letter-spacing:-.01em}
+.q{display:grid;gap:8px}
+.q h3{margin:0;font-size:.9rem;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:10px 13px;display:grid;gap:1px;text-align:center;min-width:72px}
+.chips button small{font-size:.7rem;color:var(--muted)}
+.chips button b{font-family:var(--display);font-variant-numeric:tabular-nums;font-size:.78rem;color:var(--ok)}
+.chips button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chips button[aria-pressed="true"] small,.chips button[aria-pressed="true"] b{color:#ffe3a3}
+.chips.st button[aria-pressed="true"][data-st="avail"]{background:var(--ok);border-color:var(--ok)}
+.chips.st button[aria-pressed="true"][data-st="sold"]{background:var(--sold);border-color:var(--sold)}
+.chips.st button[aria-pressed="true"][data-st="skip"]{background:var(--muted);border-color:var(--muted)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:grid;gap:5px}
+.field label{font-size:.82rem;color:var(--muted)}
+.field input{border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:11px;width:100%;direction:ltr;text-align:center}
+.result{display:flex;justify-content:space-between;align-items:center;gap:10px;background:color-mix(in srgb,var(--gold) 16%,transparent);border-radius:14px;padding:12px 14px}
+.result b{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:1.6rem;direction:ltr}
+.srow{display:grid;grid-template-columns:1fr auto 1fr 1.3fr auto;gap:6px;align-items:center}
+.srow input{width:100%;border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:11px 6px;text-align:center;direction:ltr;font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums}
+.srow .x{color:var(--muted);font-weight:600}
+.srow .del{border:0;background:var(--soft);border-radius:999px;width:34px;height:34px;color:var(--muted)}
+.shead{display:grid;grid-template-columns:1fr auto 1fr 1.3fr auto;gap:6px;font-size:.74rem;color:var(--muted);text-align:center}
+.ptab{display:grid;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.prow{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(120px,1fr);gap:10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line)}
+.prow:first-child{border-top:0}
+.prow.off{opacity:.45}
+.prow .sz{white-space:nowrap;font-family:var(--display);font-weight:800;direction:ltr;font-variant-numeric:tabular-nums}
+.prow .sz small{display:block;font-family:var(--body);font-weight:400;font-size:.72rem;color:var(--muted)}
+.prow input[type=checkbox]{width:22px;height:22px;accent-color:var(--navy)}
+.prow .money input{min-width:96px}
+.shapes{display:flex;gap:8px;flex-wrap:wrap}
+.shapes button{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+.shapes button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.shapes i{display:block;border:2px solid currentColor;border-radius:3px}
+.ghead{display:flex;align-items:center;gap:8px;font-weight:700;margin-top:4px}
+.ghead i{display:block;border:2px solid var(--navy);border-radius:3px}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.toggle input{width:22px;height:22px;accent-color:var(--navy)}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--card);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.nav .wrap{display:flex;gap:10px;padding:0}
+.btn{border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px;font-weight:600}
+.primary{flex:1;border:0;background:var(--navy);color:#fff;border-radius:14px;padding:14px 16px;font-weight:700;font-size:1.02rem}
+.gold{flex:1;border:0;background:linear-gradient(180deg,#f6c55a,#e0a32e);color:#14215e;border-radius:14px;padding:15px;font-weight:800;font-size:1.05rem}
+.list{display:grid;gap:8px}
+.li{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 10px;text-align:right}
+.li>span{min-width:0}
+.li img{width:48px;height:48px;object-fit:contain;background:var(--soft);border-radius:10px}
+.li{width:100%}
+.li small{display:block}
+.li .n{display:block;font-weight:600;direction:ltr;text-align:right;font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li small{color:var(--muted);font-size:.76rem}
+.li .p{font-family:var(--display);font-weight:800;font-variant-numeric:tabular-nums}
+.li .p.miss{color:var(--warn);font-family:var(--body);font-weight:500;font-size:.8rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:linear-gradient(160deg,var(--navy),var(--deep));color:#fff;border-radius:16px;padding:12px;display:grid}
+.stat small{color:#c9d2f3;font-size:.72rem}
+.stat b{font-family:var(--display);font-weight:900;font-size:1.4rem}
+textarea{width:100%;min-height:90px;border:1.5px solid var(--line);background:var(--wall);border-radius:12px;padding:10px;font-size:.75rem;direction:ltr;color:inherit;font-family:ui-monospace,monospace}
+.toast{position:fixed;bottom:calc(96px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--wall);padding:10px 16px;border-radius:999px;font-size:.9rem;z-index:20;white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.screen{animation:in .28s cubic-bezier(.2,.8,.2,1)}@keyframes in{from{opacity:.3;transform:translateX(-14px)}to{opacity:1;transform:none}}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="logo" aria-label="Albert Levi"><span class="A" aria-hidden="true">A</span><b>Albert Levi</b></div>
+  <div class="prog"><div class="bar"><i id="pbar" style="width:0%"></i></div><span id="ptxt">0 / 0</span></div>
+</div></header>
+<main class="wrap" id="main"></main>
+<nav class="nav" id="nav"><div class="wrap" id="navIn"></div></nav>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="data">[{"id": "a-moment-of-silence", "n": "A Moment of Silence", "os": true, "sh": "rect"}, {"id": "after-nova-smile-forever", "n": "After Nova - Smile Forever", "os": true, "sh": "rect"}, {"id": "alive-together", "n": "Alive Together", "os": true, "sh": "pano"}, {"id": "am-yisrael-chai", "n": "Am Yisrael Chai", "os": true, "sh": "rect"}, {"id": "am-yisrael-chai-tree-of-life", "n": "Am Yisrael Chai - Tree Of Life", "os": true, "sh": "rect"}, {"id": "beauty", "n": "Beauty", "os": true, "sh": "rect"}, {"id": "between-worlds", "n": "Between Worlds", "os": true, "sh": "sq"}, {"id": "blue-waterfall", "n": "Blue Waterfall", "os": true, "sh": "rect"}, {"id": "born-to-rise", "n": "Born To Rise", "os": true, "sh": "rect"}, {"id": "breaking-the-limits", "n": "Breaking the Limits", "os": true, "sh": "rect"}, {"id": "bursting-power", "n": "Bursting Power", "os": true, "sh": "rect"}, {"id": "chanuka-hanukkah", "n": "Chanuka - Hanukkah", "os": true, "sh": "sq"}, {"id": "circle-of-life", "n": "Circle OF Life", "os": true, "sh": "sq"}, {"id": "colorful-wings", "n": "Colorful Wings", "os": true, "sh": "rect"}, {"id": "colors-of-protection", "n": "Colors of Protection", "os": true, "sh": "sq"}, {"id": "dance-among-the-waves", "n": "Dance Among The Waves", "os": true, "sh": "rect"}, {"id": "deep-harmony", "n": "Deep Harmony", "os": true, "sh": "sq"}, {"id": "dynamic-monochrome-ride", "n": "Dynamic Monochrome Ride", "os": true, "sh": "rect"}, {"id": "eagle-s-flight", "n": "Eagle's Flight", "os": true, "sh": "rect"}, {"id": "everlasting-love", "n": "Everlasting Love", "os": true, "sh": "sq"}, {"id": "exact-geometry", "n": "Exact Geometry - Precise, Colorful, Refined Design", "os": true, "sh": "rect"}, {"id": "exploded-head", "n": "Exploded Head", "os": true, "sh": "pano"}, {"id": "explosive-power", "n": "Explosive Power", "os": true, "sh": "sq"}, {"id": "fiery-elegance", "n": "Fiery Elegance", "os": true, "sh": "rect"}, {"id": "glow-in-the-dark-dance-celebrate-freedom-in-glow", "n": "Glow In The Dark Dance - Celebrate Freedom in Glow", "os": true, "sh": "rect"}, {"id": "hamsa", "n": "Hamsa", "os": true, "sh": "sq"}, {"id": "hard-life-good-life", "n": "Hard Life, Good Life", "os": true, "sh": "sq"}, {"id": "harmony-of-koi", "n": "Harmony of Koi", "os": true, "sh": "rect"}, {"id": "harmony-wings", "n": "Harmony Wings", "os": true, "sh": "sq"}, {"id": "heart-of-protection", "n": "Heart of Protection", "os": true, "sh": "sq"}, {"id": "hurricane", "n": "Hurricane", "os": true, "sh": "sq"}, {"id": "infinite-power", "n": "Infinite Power", "os": true, "sh": "rect"}, {"id": "joyful-essence", "n": "Joyful Essence", "os": true, "sh": "sq"}, {"id": "light-of-hope", "n": "Light of Hope", "os": true, "sh": "sq"}, {"id": "lion-of-judah", "n": "Lion Of Judah", "os": true, "sh": "rect"}, {"id": "natural", "n": "Natural", "os": true, "sh": "rect"}, {"id": "ocean-mind", "n": "Ocean Mind", "os": true, "sh": "sq"}, {"id": "our-connection", "n": "Our Connection", "os": true, "sh": "rect"}, {"id": "peace-will-return", "n": "Peace Will Return", "os": true, "sh": "sq"}, {"id": "pink-dream", "n": "Pink Dream", "os": true, "sh": "rect"}, {"id": "power-in-aviation", "n": "Power IN Aviation", "os": true, "sh": "rect"}, {"id": "presence", "n": "Presence", "os": true, "sh": "rect"}, {"id": "proud-of-us", "n": "Proud Of Us", "os": true, "sh": "rect"}, {"id": "rabbi-israel", "n": "Rabbi - Israel", "os": true, "sh": "rect"}, {"id": "roar-of-strength", "n": "Roar of Strength", "os": true, "sh": "rect"}, {"id": "roaring-royals", "n": "Roaring Royals", "os": true, "sh": "pano"}, {"id": "settled", "n": "Settled", "os": true, "sh": "rect"}, {"id": "silent-flight", "n": "Silent Flight", "os": true, "sh": "sq"}, {"id": "silent-power", "n": "Silent Power", "os": true, "sh": "pano"}, {"id": "soft-flight", "n": "Soft Flight", "os": true, "sh": "rect"}, {"id": "star-of-hope", "n": "Star Of Hope", "os": true, "sh": "sq"}, {"id": "strong-together", "n": "Strong Together", "os": true, "sh": "rect"}, {"id": "together-we-will-win", "n": "Together We Will Win", "os": true, "sh": "rect"}, {"id": "tornado", "n": "Tornado", "os": true, "sh": "sq"}, {"id": "tree-of-life-blue-life", "n": "Tree of Life - Blue Life", "os": true, "sh": "rect"}, {"id": "tree-of-life-colorful-dream", "n": "Tree Of Life - Colorful Dream", "os": true, "sh": "rect"}, {"id": "tree-of-life-colorful-life", "n": "Tree Of Life - Colorful Life", "os": true, "sh": "rect"}, {"id": "tree-of-life-earth", "n": "Tree Of Life - Earth", "os": true, "sh": "rect"}, {"id": "tree-of-life-gentle-purple", "n": "Tree Of Life - Gentle Purple", "os": true, "sh": "rect"}, {"id": "we-shall-dance-again", "n": "We Shall Dance Again", "os": true, "sh": "rect"}, {"id": "wild-butterfly", "n": "Wild Butterfly", "os": true, "sh": "rect"}, {"id": "wild-majesty", "n": "Wild Majesty", "os": true, "sh": "sq"}, {"id": "wild-nature", "n": "Wild Nature", "os": true, "sh": "rect"}, {"id": "a-noble-peacock", "n": "A Noble Peacock", "os": false, "sh": "sq"}, {"id": "after-the-storm", "n": "After The Storm", "os": false, "sh": "rect"}, {"id": "almost-still", "n": "Almost Still", "os": false, "sh": "rect"}, {"id": "am-yisrael-chai-earth", "n": "Am Yisrael Chai - Earth", "os": false, "sh": "rect"}, {"id": "an-elephant-blows", "n": "An Elephant Blows", "os": false, "sh": "rect"}, {"id": "butterfly-elephant", "n": "Butterfly / Elephant", "os": false, "sh": "rect"}, {"id": "dancing-with-color", "n": "Dancing with Color", "os": false, "sh": "rect"}, {"id": "deer-in-the-forest", "n": "Deer In The Forest", "os": false, "sh": "rect"}, {"id": "elegance-in-motion", "n": "Elegance in Motion", "os": false, "sh": "rect"}, {"id": "family-stride", "n": "Family Stride", "os": false, "sh": "rect"}, {"id": "flowers-in-the-hair", "n": "Flowers In The Hair", "os": false, "sh": "rect"}, {"id": "freedom", "n": "Freedom", "os": false, "sh": "rect"}, {"id": "funky-frog", "n": "Funky Frog in Square Shades", "os": false, "sh": "rect"}, {"id": "home-of-the-heart", "n": "Home Of The Heart", "os": false, "sh": "rect"}, {"id": "infinite-sky", "n": "Infinite Sky", "os": false, "sh": "rect"}, {"id": "infinity", "n": "Infinity", "os": false, "sh": "rect"}, {"id": "intriguing-beauty", "n": "Intriguing Beauty", "os": false, "sh": "rect"}, {"id": "israel-hamsa", "n": "Israel & Hamsa", "os": false, "sh": "sq"}, {"id": "jerusalem-home-of-my-heart", "n": "Jerusalem - Home of My Heart", "os": false, "sh": "rect"}, {"id": "luminous-tree", "n": "Luminous Tree", "os": false, "sh": "rect"}, {"id": "map-of-israel-never-again", "n": "Map Of Israel - Never Again", "os": false, "sh": "rect"}, {"id": "my-head-exploded", "n": "My Head Exploded", "os": false, "sh": "rect"}, {"id": "powerful-dance", "n": "Powerful Dance", "os": false, "sh": "rect"}, {"id": "powerful-stride", "n": "Powerful Stride", "os": false, "sh": "rect"}, {"id": "rise-again", "n": "Rise Again", "os": false, "sh": "sq"}, {"id": "soaring-soul", "n": "Soaring Soul", "os": false, "sh": "sq"}, {"id": "soft-moments", "n": "Soft Moments", "os": false, "sh": "rect"}, {"id": "strong-family", "n": "Strong Family", "os": false, "sh": "rect"}, {"id": "the-bloom-of-happiness", "n": "The Bloom of Happiness", "os": false, "sh": "rect"}, {"id": "tree-of-happiness-midnight-serenity", "n": "Tree Of Happiness - Midnight Serenity", "os": false, "sh": "rect"}, {"id": "tree-of-happiness-tranquil-purple", "n": "Tree Of Happiness - Tranquil Purple", "os": false, "sh": "rect"}, {"id": "tree-of-happiness-pink-magic", "n": "Tree of Happiness, Pink Magic", "os": false, "sh": "rect"}, {"id": "tree-of-heppines-glow-in-the-dark", "n": "Tree of Heppines - Glow in The Dark", "os": false, "sh": "rect"}, {"id": "tree-of-life-turquoise-tranquility", "n": "Tree OF Life - Turquoise Tranquility", "os": false, "sh": "rect"}, {"id": "tropical-color", "n": "Tropical Color", "os": false, "sh": "rect"}, {"id": "wild-color", "n": "Wild Color", "os": false, "sh": "rect"}, {"id": "wisdom-eternal", "n": "Wisdom Eternal", "os": false, "sh": "rect"}]</script>
+<script>
+(function(){
+const ART=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const img=a=>'thumbs/'+a.id+'.webp';
+const KEY='alp_orig_form2';
+// sizes belong to a shape; each painting only gets the sizes of its own shape
+const SH=[['sq','מרובע','1:1',14,14],['rect','מלבן','3:4 · 2:3',12,16],['pano','פנורמי','1:2',9,18]];
+const bucket=(w,h)=>{const r=Math.max(w,h)/Math.min(w,h);return r<1.15?'sq':r<1.75?'rect':'pano'};
+const shIcon=(g,k)=>{const s=SH.find(x=>x[0]===g);return `<i style="width:${s[3]*(k||1)}px;height:${s[4]*(k||1)}px"></i>`};
+let st={OS:[{g:'sq',w:24,h:24,p:null},{g:'sq',w:36,h:36,p:null},{g:'sq',w:48,h:48,p:null},
+  {g:'rect',w:24,h:30,p:null},{g:'rect',w:30,h:40,p:null},{g:'rect',w:36,h:48,p:null},{g:'rect',w:40,h:60,p:null},{g:'rect',w:48,h:72,p:null},
+  {g:'pano',w:20,h:40,p:null},{g:'pano',w:30,h:60,p:null},{g:'pano',w:36,h:72,p:null}],O:{},i:0,view:'intro'};
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s){st=Object.assign(st,s);st.OS.forEach(r=>{if(!r.g)r.g=r.w&&r.h?bucket(r.w,r.h):'rect'})}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const $f=n=>'$'+Math.round(n).toLocaleString('en-US');
+const key=r=>`${r.w}x${r.h}`;const cm=v=>Math.round(v*2.54);
+const sizes=()=>st.OS.filter(r=>r.w>0&&r.h>0);
+function shapeOf(a){return (st.O[a.id]||{}).sh||a.sh||'rect'}
+function info(a){const o=st.O[a.id]||{},g=shapeOf(a);const rows=sizes().filter(r=>r.g===g).map(r=>{const k=key(r),off=(o.off||[]).includes(k),ov=o.ovr&&o.ovr[k];return {k,r,off,ov,p:ov||r.p}});const live=rows.filter(x=>!x.off&&x.p);return {o,g,rows,nfs:!!o.nfs,done:!!o.seen,priced:live.length}}
+function toast(t){const el=$('toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+function progress(){const done=ART.filter(a=>info(a).done).length;$('pbar').style.width=(done/ART.length*100)+'%';$('ptxt').textContent=`${done}/${ART.length}`}
+function nav(h){$('navIn').innerHTML=h}
+function go(v){st.view=v;save();render();window.scrollTo(0,0)}
+function setO(f){const id=ART[st.i].id;const o=Object.assign({},st.O[id]||{});f(o);st.O[id]=o;save()}
+function render(){progress();const m=$('main');
+  if(st.view==='intro'){m.innerHTML=`<div class="screen" style="display:grid;gap:16px">
+    <div><h1>שלום אלברט, בוא נקבע מחירים למקורים 🎨</h1><p class="lead">כל ציור אפשר להזמין כמקור בכמה גדלים. קובעים מחיר לכל גודל, וכשלקוח בוחר גודל המחיר מופיע מיד.</p></div>
+    <div class="card"><ol class="steps">
+      <li><div><b>מחיר לכל גודל</b><p class="note">לפי צורה: מרובע, מלבן ופנורמי. כל ציור יקבל רק את הגדלים של הצורה שלו.</p></div></li>
+      <li><div><b>עוברים על הציורים</b><p class="note">המחירים כבר מופיעים. משנים רק אם ציור מסוים צריך מחיר אחר, או מורידים גודל שלא מתאים לו.</p></div></li>
+      <li><div><b>שולחים לדנה בוואטסאפ</b><p class="note">לחיצה אחת, וזה נכנס לאפליקציה של הטור.</p></div></li>
+    </ol></div><p class="note">אפשר לעצור באמצע ולהמשיך מאותו מקום.</p></div>`;nav(`<button class="primary" type="button" data-go="sizes">מתחילים</button>`);return}
+  if(st.view==='sizes'){m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
+    <div><h1>מחיר לכל גודל</h1><p class="lead">רוחב × גובה באינצ׳ים, ומחיר בדולרים, לכל צורה. ציור יקבל רק את הגדלים של הצורה שלו.</p></div>
+    ${SH.map(([g,l,rt])=>`<div class="card" style="gap:8px"><div class="ghead">${shIcon(g)}${l} <span class="note">${rt}</span></div><div class="shead"><span>רוחב</span><span></span><span>גובה</span><span>מחיר</span><span></span></div>
+    ${st.OS.map((r,i)=>r.g!==g?'':`<div class="srow"><input inputmode="decimal" data-w="${i}" value="${r.w||''}" aria-label="רוחב"><span class="x">×</span><input inputmode="decimal" data-h="${i}" value="${r.h||''}" aria-label="גובה"><div class="money"><input inputmode="numeric" data-p="${i}" value="${r.p||''}" aria-label="מחיר"></div><button class="del" type="button" data-del="${i}" aria-label="מחיקה">✕</button></div>`).join('')}
+    <button class="btn" type="button" data-add="${g}">+ גודל ${l}</button></div>`).join('')}
+    <p class="note">ציור שיש לו מחיר אחר? מעדכנים אותו בשלב הבא.</p></div>`;
+    nav(`<button class="btn" type="button" data-go="intro">חזרה</button><button class="primary" type="button" data-go="item">הבא: הציורים</button>`);return}
+  if(st.view==='item'){const a=ART[st.i],x=info(a);
+    m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
+    <div class="art"><img src="${img(a)}" alt="${esc(a.n)}"><span class="site">${st.i+1} מתוך ${ART.length}</span></div>
+    <div class="name">${esc(a.n)}</div>
+    <div class="q"><h3>צורת הציור</h3><div class="shapes">${SH.map(([g,l])=>`<button type="button" data-sh="${g}" aria-pressed="${x.g===g}">${shIcon(g,.9)}${l}</button>`).join('')}</div></div>
+    <label class="toggle"><span>להציע את הציור הזה כמקור</span><input type="checkbox" id="offer" ${x.nfs?'':'checked'}></label>
+    ${x.nfs?'':`<div class="q"><h3>מחירים לפי גודל</h3><p class="note">ריק = המחיר הרגיל. מורידים ✓ מגודל שלא מתאים לציור הזה.</p>
+    <div class="ptab">${x.rows.map(y=>`<div class="prow${y.off?' off':''}"><input type="checkbox" data-on="${y.k}" ${y.off?'':'checked'} aria-label="להציע ${y.k}"><span class="sz">${y.r.w}″ × ${y.r.h}″<small>${cm(y.r.w)} × ${cm(y.r.h)} ס״מ</small></span><div class="money"><input inputmode="numeric" data-ov="${y.k}" value="${y.ov||''}" placeholder="${y.r.p||'מחיר'}" ${y.off?'disabled':''} aria-label="מחיר ${y.k}"></div></div>`).join('')||'<p class="note" style="padding:12px">אין גדלים לצורה הזאת. מוסיפים אותם בשלב "מחיר לכל גודל".</p>'}</div></div>`}
+    </div>`;
+    nav(`<button class="btn" type="button" data-prev>הקודם</button><button class="primary" type="button" data-next>${st.i<ART.length-1?'הבא':'לסיכום'}</button><button class="btn" type="button" data-go="sum" aria-label="לסיכום">☰</button>`);return}
+  if(st.view==='sum'){const rows=ART.map((a,i)=>({a,i,x:info(a)}));const custom=rows.filter(r=>r.x.rows.some(y=>y.ov||y.off)||r.x.o.sh).length,nfs=rows.filter(r=>r.x.nfs).length;
+    m.innerHTML=`<div class="screen" style="display:grid;gap:14px">
+    <div><h1>מוכן לשליחה ✓</h1><p class="lead">${sizes().filter(r=>r.p).length} גדלים עם מחיר. אפשר לחזור ולשנות בכל רגע ולשלוח שוב.</p></div>
+    <div class="stats"><div class="stat"><small>גדלים</small><b>${sizes().length}</b></div><div class="stat"><small>מחיר מיוחד</small><b>${custom}</b></div><div class="stat"><small>לא מוצעים</small><b>${nfs}</b></div></div>
+    <div class="card" style="gap:6px">${sizes().map(r=>`<div style="display:flex;justify-content:space-between"><span style="direction:ltr;font-family:var(--display);font-weight:700">${r.w}″ × ${r.h}″ <small class="note">${SH.find(s=>s[0]===r.g)[1]}</small></span><b style="font-family:var(--display)">${r.p?$f(r.p):'—'}</b></div>`).join('')}</div>
+    <div class="list">${rows.filter(r=>r.x.nfs||r.x.o.sh||r.x.rows.some(y=>y.ov||y.off)).map(r=>`<button class="li" type="button" data-jump="${r.i}"><img src="${img(r.a)}" alt=""><span><span class="n">${esc(r.a.n)}</span><small>${r.x.nfs?'לא מוצע':r.x.o.sh?'צורה: '+SH.find(s=>s[0]===r.x.o.sh)[1]+(r.x.rows.some(y=>y.ov)?' · ':'')+r.x.rows.filter(y=>y.ov).map(y=>`${y.r.w}×${y.r.h}: ${$f(y.ov)}`).join(' · '):r.x.rows.filter(y=>y.ov).map(y=>`${y.r.w}×${y.r.h}: ${$f(y.ov)}`).join(' · ')||'בלי חלק מהגדלים'}</small></span><span></span></button>`).join('')}</div>
+    <details class="card"><summary class="note">הקוד שנשלח (לגיבוי)</summary><textarea id="code" readonly>${code()}</textarea></details></div>`;
+    nav(`<button class="btn" type="button" data-go="item">חזרה</button><button class="gold" type="button" data-send>שליחה לדנה בוואטסאפ</button>`);return}
+}
+function code(){const OS=sizes().filter(r=>r.p).map(r=>({s:key(r),p:r.p,g:r.g}));const O={};
+  ART.forEach(a=>{const o=st.O[a.id];if(!o)return;const r={};if(o.nfs)r.nfs=true;if(o.sh)r.sh=o.sh;if(o.ovr&&Object.keys(o.ovr).length)r.ovr=o.ovr;if(o.off&&o.off.length)r.off=o.off;if(Object.keys(r).length)O[a.id]=r});
+  return 'ALP1:'+btoa(unescape(encodeURIComponent(JSON.stringify({v:2,OS,ORIG:O}))))}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.go){if(st.view==='item')setO(o=>o.seen=true);if(d.go==='item'&&st.view!=='item'&&st.view!=='sum'){const f=ART.findIndex(a=>!info(a).done);st.i=f<0?0:f}return go(d.go)}
+  if(d.next!==undefined){setO(o=>o.seen=true);if(st.i<ART.length-1){st.i++;save();render();window.scrollTo(0,0)}else go('sum');return}
+  if(d.prev!==undefined){if(st.i>0){st.i--;save();render();window.scrollTo(0,0)}else go('sizes');return}
+  if(d.jump!==undefined){st.i=+d.jump;return go('item')}
+  if(d.sh){const a=ART[st.i];setO(o=>{if(d.sh===a.sh)delete o.sh;else o.sh=d.sh});return render()}
+  if(d.add!==undefined){st.OS.push({g:d.add||'rect',w:null,h:null,p:null});save();return render()}
+  if(d.del!==undefined){st.OS.splice(+d.del,1);save();return render()}
+  if(d.send!==undefined){const c=code();const msg=`מחירי מקורים מאלברט 🎨\nלהדביק באפליקציה: הגדרות ← סנכרון ← טעינת הקוד\n\n${c}`;
+    try{navigator.clipboard.writeText(c).catch(()=>{})}catch(err){}
+    const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(msg);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();toast('נפתח וואטסאפ. הקוד גם הועתק')}});
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.id==='offer'){setO(o=>o.nfs=!t.checked);render()}
+  if(t.dataset.on){const k=t.dataset.on;setO(o=>{const off=new Set(o.off||[]);t.checked?off.delete(k):off.add(k);o.off=[...off]});render()}});
+document.addEventListener('input',e=>{const t=e.target,num=v=>parseFloat(String(v).replace(/[^\d.]/g,''))||null;
+  if(t.dataset.w){st.OS[+t.dataset.w].w=num(t.value);save()}
+  if(t.dataset.h){st.OS[+t.dataset.h].h=num(t.value);save()}
+  if(t.dataset.p){st.OS[+t.dataset.p].p=parseInt(t.value.replace(/[^\d]/g,''),10)||null;save()}
+  if(t.dataset.ov){const k=t.dataset.ov,v=parseInt(t.value.replace(/[^\d]/g,''),10)||null;setO(o=>{o.ovr=Object.assign({},o.ovr||{});if(v)o.ovr[k]=v;else delete o.ovr[k]})}});
+render();
+})();
+</script>
+</body></html>
