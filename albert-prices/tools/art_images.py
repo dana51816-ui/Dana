@@ -42,8 +42,9 @@ def save(im,path,mx,q):
 arts=json.load(open('tools/art-handles.json'));rep=[]
 # hand-picked fixes where the automatic crop cannot find the painting (room-only photos, unusual frames)
 NOASP={'calm-sunset','family-stride','flowers-in-the-hair','natural-tree-of-life'}
-MANUAL={'above-and-within':(0,(.30,.04,.70,.80)),'infinite-power':(1,(.18,.15,.82,.53)),'magic-in-nature':(2,(.60,.08,.92,.60)),
-        'rooted-in-the-heavens':(0,(.33,.05,.68,.80)),'star-of-hope':(2,None),'calm-sunset':(1,(.05,.04,.955,.635))}
+MANUAL={'above-and-within':(0,(.30,.04,.70,.80)),'infinite-power':(1,(.18,.15,.82,.53)),'magic-in-nature':(4,(.277,.142,.582,.582)),
+        'rooted-in-the-heavens':(3,(.198,.104,.553,.773)),'dynamic-monochrome-ride':(2,(.205,.195,.78,.595)),'israel-hamsa':(0,(.063,.071,.934,.474)),
+        'luminous-tree':(3,(.133,.078,.588,.812)),'deer-in-the-forest':(0,(.06,.205,.94,.785)),'star-of-hope':(2,None),'calm-sunset':(1,(.05,.04,.955,.635))}
 _d=json.load(open(sys.argv[2])) if len(sys.argv)>2 else {'art':[]}
 ASP={}
 for x in _d['art']:
