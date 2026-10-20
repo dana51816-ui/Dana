@@ -16,18 +16,18 @@ open(preview,'w').write(body.replace('__QR_SRC__','https://cdnjs.cloudflare.com/
 body=body.replace('__QR_SRC__','vendor/qrcode.js')
 head='''<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f6f5f1">
+<meta name="theme-color" content="#14120f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="מחירון אלברט">
+<meta name="apple-mobile-web-app-title" content="Albert Levi">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head><body>'''
 open(outdir+'/index.html','w').write(head+body+'</body></html>')
-json.dump({"name":"מחירון אלברט לוי","short_name":"מחירון אלברט","start_url":"./","scope":"./","display":"standalone","background_color":"#f6f5f1","theme_color":"#f6f5f1","dir":"rtl","lang":"he",
+json.dump({"name":"Albert Levi · Price Guide","short_name":"Albert Levi","start_url":"./","scope":"./","display":"standalone","background_color":"#14120f","theme_color":"#14120f","dir":"rtl","lang":"he",
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]},open(outdir+'/manifest.webmanifest','w'),ensure_ascii=False,indent=1)
 import hashlib
 ver=hashlib.sha1((head+body).encode()).hexdigest()[:10]

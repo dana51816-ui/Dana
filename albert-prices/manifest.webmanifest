@@ -1,11 +1,11 @@
 {
- "name": "מחירון אלברט לוי",
- "short_name": "מחירון אלברט",
+ "name": "Albert Levi · Price Guide",
+ "short_name": "Albert Levi",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
- "background_color": "#f6f5f1",
- "theme_color": "#f6f5f1",
+ "background_color": "#14120f",
+ "theme_color": "#14120f",
  "dir": "rtl",
  "lang": "he",
  "icons": [
