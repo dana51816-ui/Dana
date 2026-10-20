@@ -54,7 +54,7 @@ self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET')return;
   if(u.origin===location.origin){
     // network first for the page (to pick up price updates), cache as fallback offline
-    if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{const cp=r.clone();caches.open(V).then(c=>c.put(e.request,cp));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html'))));return}
+    if(e.request.mode==='navigate'){e.respondWith(fetch(e.request.url,{cache:'no-cache'}).then(r=>{const cp=r.clone();caches.open(V).then(c=>c.put(e.request,cp));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html'))));return}
     // paintings and room photos are cached the first time they are seen
     e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(n=>{if(n.ok&&/\\/(art|views)\\//.test(u.pathname)){const cp=n.clone();caches.open(V).then(c=>c.put(e.request,cp))}return n})));return}
   if(/fonts\\.(googleapis|gstatic)\\.com$/.test(u.hostname)){
