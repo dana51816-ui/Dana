@@ -671,6 +671,71 @@ body{font-family:var(--body);font-size:16px}
 .vr-cta .gold{background:var(--acc)!important;color:var(--on-acc)!important}
 .pval{font-size:2rem}
 .toast{bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+
+/* ===================== v3: opening, price list, summary ===================== */
+/* The opening is one full-bleed room photograph with the name set on it; the work page states every price at once
+   as a clean price list (sizes down, finishes across) and spells out the chosen line like a receipt. */
+.promo{display:none!important}
+#home .hero{position:relative;padding-top:0}
+#home .topline{position:absolute;inset:0 0 auto 0;z-index:4;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 0;background:none!important;border:0!important}
+#home .topline .brandlogo,#home .topline .brandlogo *{color:#fff!important}
+#home .topline .brandlogo small{opacity:.8}
+#home .topline #setBtn{color:#fff;background:transparent!important}
+.exhibit{height:min(78vh,640px);min-height:440px;margin:0 calc(-1*var(--gut,16px));width:auto}
+.exhibit::before{content:"";position:absolute;inset:0 0 auto 0;height:140px;z-index:2;background:linear-gradient(180deg,rgba(15,13,11,.55),rgba(15,13,11,0));pointer-events:none}
+.exhibit .excap{padding:0 22px 34px}
+.exhibit .excap .n{font-size:clamp(2rem,9vw,2.8rem);line-height:1.05;margin:6px 0 10px}
+.exhibit .excap .p{display:flex;gap:16px;font-size:.85rem}
+.exhibit .dots{bottom:16px;top:auto}
+.exhibit .count{top:auto;bottom:12px}
+.qa{display:grid!important;grid-template-columns:repeat(3,1fr);gap:0;margin:22px 0 6px;border:0!important;background:none!important}
+.qa button{background:none!important;border:0!important;border-inline-start:1px solid var(--line)!important;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 4px;min-height:84px;color:var(--ink);border-radius:0!important;box-shadow:none!important}
+.qa button:first-child{border-inline-start:0!important}
+.qa .ic{display:block!important;background:none!important;width:auto;height:auto;color:var(--ink);margin-bottom:2px}
+.qa .ic .ico{width:22px;height:22px}
+.qa b{font-weight:600;font-size:.8rem;color:var(--muted)}
+.qa small{font-family:var(--serif);font-size:1.15rem;color:var(--ink)}
+.tile{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.tile:active{transform:scale(.975)}
+/* work page */
+.eyebrow{margin:20px 16px 0;font-size:.68rem;letter-spacing:.24em;color:var(--muted);text-transform:uppercase}
+.dtitle{margin-top:6px!important}
+.kind{grid-auto-columns:1fr;gap:8px!important;border:0!important;margin:18px 16px 0!important}
+.kind button{border:1px solid var(--line)!important;background:var(--card)!important;color:var(--ink)!important;display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 6px!important;min-height:84px}
+.kind button b{font-weight:600;font-size:.92rem}
+.kind button small{display:block!important;font-size:.7rem;color:var(--muted);opacity:1}
+.kind button em{font-style:normal;font-family:var(--serif);font-size:1.12rem;margin-top:4px}
+.kind button[aria-pressed="true"]{background:var(--ink)!important;color:var(--wall)!important;border-color:var(--ink)!important}
+.kind button[aria-pressed="true"] small{color:color-mix(in srgb,var(--wall) 70%,transparent)}
+.plist{display:grid;gap:10px}
+.plist h3{margin:6px 0 0;font-family:var(--serif);font-weight:400;font-size:1.45rem}
+.plist .note{margin:0}
+.pm{border-top:1.5px solid var(--ink)}
+.pmr{display:grid;grid-template-columns:minmax(92px,1.25fr) repeat(var(--n),minmax(0,1fr));align-items:stretch;border-bottom:1px solid var(--line)}
+.pmh{font-size:.72rem;color:var(--muted);font-weight:600}
+.pmh>span{padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;line-height:1.2}
+.pmh>span:first-child{align-items:flex-start;justify-content:flex-end}
+.pmh i{width:16px;height:16px;border:1px solid var(--line);display:block}
+.pmr .s{padding:12px 0;padding-left:10px;font-family:var(--serif);font-size:1.1rem;direction:ltr;text-align:right;line-height:1.1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.pmr .s small{font-family:var(--body);font-size:.7rem;color:var(--muted);margin-top:3px}
+.pmr button,.pmr .na{border:0;background:transparent;font-family:var(--serif);font-size:1.08rem;color:var(--ink);min-height:56px;margin:4px 2px;display:grid;place-items:center;transition:background .2s,color .2s}
+.pmr .na{color:var(--line)}
+.pmr button[aria-pressed="true"]{background:var(--ink);color:var(--wall)}
+.pmr.on{background:var(--soft)}
+.pmr button.w{color:var(--warn);outline:1px dashed var(--warn);outline-offset:-5px}
+.legend{font-size:.72rem;color:var(--muted);display:flex;gap:6px;align-items:center}
+.legend i{width:14px;height:10px;outline:1px dashed var(--warn);display:inline-block}
+.sum{border:1px solid var(--line);background:var(--card);padding:18px 18px 16px;display:grid;gap:0}
+.sum .h{font-size:.68rem;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.sum dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:0}
+.sum dt,.sum dd{padding:9px 0;border-bottom:1px solid var(--line);margin:0;font-size:.92rem}
+.sum dt{color:var(--muted)}
+.sum dd{text-align:left;direction:ltr;font-weight:600;unicode-bidi:plaintext}
+.sum dd.off{color:var(--bronze)}
+.sum .tot{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px}
+.sum .tot span{font-size:.9rem;font-weight:600}
+.sum .tot b{font-family:var(--serif);font-weight:400;font-size:2.1rem;letter-spacing:-.01em}
+.sum .rates{margin-top:10px;font-size:.72rem;color:var(--muted)}
 </style>
 
 <div class="promo" id="promo"></div>
@@ -688,7 +753,7 @@ body{font-family:var(--body);font-size:16px}
     </div></div>
   </section>
   <div class="qa" id="qa"></div>
-  <div id="tourWrap"><div class="sec"><h2>⭐ בטור</h2><span id="tourCount"></span></div><div class="tourrow" id="tour"></div></div>
+  <div id="tourWrap"><div class="sec"><h2>בטור</h2><span id="tourCount"></span></div><div class="tourrow" id="tour"></div></div>
   <div class="themes" id="themes" style="margin-top:14px"></div>
   <div class="sec"><h2 id="gridTitle">כל היצירות</h2><span id="count"></span></div>
   <div class="grid" id="grid"></div>
@@ -801,9 +866,9 @@ function renderHome(){if(!renderHome.ex){renderHome.ex=1;setTimeout(renderExhibi
   $('count').textContent=items.length+' יצירות';
   $('grid').innerHTML=items.length?items.map(tileHTML).join(''):`<div class="empty">לא מצאנו יצירה כזאת.<br>נסו חלק מהשם, למשל "tree" או "hamsa".</div>`;
   const td=dayKey(Date.now()),tt=SALES.filter(s=>dayKey(s.ts)===td).reduce((s,x)=>s+x.total,0);
-  $('qa').innerHTML=`<button type="button" data-qa="quick"><span class="ic">$</span><b>מחירון מהיר</b><small>כל הגדלים</small></button>
-  <button type="button" data-qa="sales"><span class="ic" style="background:color-mix(in srgb,var(--ok) 25%,transparent)">✓</span><b>מכירות היום</b><small>${$f(tt)}</small></button>
-  <button type="button" data-qa="pkg"><span class="ic" style="background:color-mix(in srgb,var(--cobalt) 22%,transparent)">◫</span><b>חבילה</b><small>${pkg.length?$f(pkgCalc().fin):'—'}</small></button>`;
+  $('qa').innerHTML=`<button type="button" data-qa="quick"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><b>מחירון מהיר</b><small>כל הגדלים</small></button>
+  <button type="button" data-qa="sales"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><b>מכירות היום</b><small>${$f(tt)}</small></button>
+  <button type="button" data-qa="pkg"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13"/><path d="M8 7V4h8v3"/></svg></span><b>חבילה</b><small>${pkg.length?$f(pkgCalc().fin):'—'}</small></button>`;
   renderFab();
 }
 $('qa').addEventListener('click',e=>{const b=e.target.closest('[data-qa]');if(!b)return;const k=b.dataset.qa;if(k==='quick')openQuick();else if(k==='sales')openSales();else{$('pkg').hidden=false;renderPkg();renderFab();history.pushState({d:1},'')}});
@@ -848,12 +913,12 @@ window.addEventListener('popstate',()=>{if(!$('close').hidden){$('close').hidden
 function back(){if(history.state&&history.state.d)history.back();else closeAll()}
 
 function tableHTML(f){const F=cur.f[f],ss=Object.keys(F).sort((x,y)=>area(x)-area(y)),cols=FRO.filter(fr=>ss.some(s=>F[s][fr]!==undefined));
-  const fr0=(sel&&sel.f===f&&!sel.custom&&cols.includes(sel.fr))?sel.fr:cols[0];
   const sw={stretch:'linear-gradient(135deg,#e4dfd6,#bdb6aa)',black:'#1a1814',white:'#ffffff',rolled:'repeating-linear-gradient(90deg,#f1ede5 0 3px,#ddd6ca 3px 6px)',espresso:'#3d271c',natural:'#c39a66'};
-  let h=`<section class="cfg"><p class="note">${FMT[f].d}</p>`;
-  if(cols.length>1)h+=`<h4>גימור</h4><div class="fins" role="group" aria-label="גימור">${cols.map(c=>`<button type="button" data-fin="${f}|${c}" aria-pressed="${c===fr0}"><i style="background:${sw[c]||'var(--soft)'}"></i>${FR[c].he}</button>`).join('')}</div>`;
-  h+=`<h4>גודל · מחיר</h4><div class="tiles">${ss.filter(s=>F[s][fr0]!==undefined).map(s=>{const c=cell(cur,f,s,fr0);const on=sel&&!sel.custom&&sel.f===f&&sel.s===s&&sel.fr===fr0;
-    return `<button type="button" class="sz2${c.w?' w':''}" aria-pressed="${!!on}" data-c="${f}|${s}|${fr0}"><span class="s">${sz(s,S.unit)}<small>${sz(s,S.unit==='cm'?'in':'cm')}</small></span><span class="p">${$f(usd(c.ils))}</span></button>`}).join('')}</div>`;
+  let h=`<section class="plist"><h3>מחירון · ${f==='canvas'?'קנבס':f==='emb'?'Embellished':'מסגרת צפה'}</h3><p class="note">${FMT[f].d}. נוגעים במחיר כדי לבחור.</p>
+  <div class="pm" style="--n:${cols.length}"><div class="pmr pmh"><span>מידה</span>${cols.map(c=>`<span><i style="background:${sw[c]||'var(--soft)'}"></i>${FR[c].he}</span>`).join('')}</div>
+  ${ss.map(s=>{const rowOn=sel&&!sel.custom&&sel.f===f&&sel.s===s;return `<div class="pmr${rowOn?' on':''}"><span class="s">${sz(s,S.unit)}<small>${sz(s,S.unit==='cm'?'in':'cm')}</small></span>${cols.map(fr=>{const c=cell(cur,f,s,fr);if(!c)return '<span class="na">—</span>';const on=rowOn&&sel.fr===fr;
+    return `<button type="button" class="${c.w?'w':''}" aria-pressed="${!!on}" aria-label="${sz(s,'in')} ${FR[fr].he} ${$f(usd(c.ils))}" data-c="${f}|${s}|${fr}">${$f(usd(c.ils))}</button>`}).join('')}</div>`}).join('')}</div>
+  ${ss.some(s=>cols.some(fr=>{const c=cell(cur,f,s,fr);return c&&c.w}))?`<p class="legend"><i></i>מחיר חריג באתר. בודקים לפני שאומרים ללקוח</p>`:''}`;
   if(f!=='float'){const fr=FRO.filter(x=>Object.values(STD[f]).some(v=>v[x]));const w=parseFloat(custom.w),hh=parseFloat(custom.h);const k=S.unit==='cm'?1/2.54:1;
     let res='';if(w>0&&hh>0&&custom.f===f){res=`<div class="res">${fr.map(x=>{const p=customILS(f,x,w*k,hh*k);if(!p)return '';const on=sel&&sel.custom&&sel.f===f&&sel.fr===x;return `<button type="button" class="${on?'on':''}" data-cu="${f}|${x}">${FR[x].he} · <b>${$f(usd(p))}</b></button>`}).join('')}</div><p class="note">הערכה לפי מחירי הגדלים הסטנדרטיים. כדאי לאשר מול אלברט.</p>`}
     h+=`<details class="custom"${custom.f===f?' open':''}><summary>גודל מיוחד שלא ברשימה</summary><div class="row"><label>גודל</label><input inputmode="decimal" aria-label="רוחב" data-cw="${f}" value="${custom.f===f?esc(custom.w):''}" placeholder="רוחב"><span>×</span><input inputmode="decimal" aria-label="גובה" data-ch="${f}" value="${custom.f===f?esc(custom.h):''}" placeholder="גובה"><span class="note">${S.unit==='cm'?'ס״מ':'אינץ׳'}</span></div>${res}</details>`}
@@ -879,24 +944,34 @@ function roomSVG(a,w,h,fr,opt){opt=opt||{};const W=Math.max(380,w+150),floor=16,
   ${fs?`<rect x="${ax-fw/2}" y="${ay-fw/2}" width="${w+fw}" height="${h+fw}" fill="none" stroke="${fs}" stroke-width="${fw}"/>`:''}${fr==='rolled'?`<rect x="${ax}" y="${ay}" width="${w}" height="${h}" fill="none" stroke="#fff" stroke-dasharray="5 4" stroke-width="1.4"/>`:''}</g>
   ${opt.label!==false?`<g transform="translate(${W/2},${ay-14})"><rect x="-58" y="-11" width="116" height="20" rx="10" fill="#14215e" opacity=".9"/><text y="3.5" text-anchor="middle" font-size="10" fill="#fff" font-family="Archivo, sans-serif" font-weight="700" style="direction:ltr;unicode-bidi:plaintext">${sz(w+'x'+h,'in')} · ${w}×${h} cm</text></g>`:''}
   </svg>`}
+function fmtMin(a,f){let m=Infinity;for(const s in a.f[f])for(const fr in a.f[f][s]){const c=cell(a,f,s,fr);if(c&&!c.w&&c.ils<m)m=c.ils}return isFinite(m)?usd(m):null}
+function sumHTML(){const it=current();if(!it)return '<div id="sumcard"></div>';const p=single(it);
+  const fmt=it.orig?'ציור מקורי':sel.f==='canvas'?'הדפס על קנבס':sel.f==='emb'?'Embellished Edition':'מסגרת צפה';
+  const size=it.orig?osel:sel.custom?sel.w+'x'+sel.h:sel.s;
+  const rows=[['יצירה',esc(it.n)],['סוג',fmt],['מידה',`${sz(size,'in')} · ${sz(size,'cm')}`]];
+  if(!it.orig)rows.push(['גימור',FR[sel.fr].he+(sel.custom?' · גודל מיוחד':'')]);
+  rows.push(['מחיר מחירון',$f(it.list)]);
+  return `<div class="sum" id="sumcard"><div class="h">הבחירה שלך</div><dl>${rows.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}${p.pct?`<dt>${p.coll?'Collector\'s Rate':'הנחה'} ${p.pct}%</dt><dd class="off">−${$f(it.list-p.fin)}</dd>`:''}</dl>
+  <div class="tot"><span>מחיר ללקוח</span><b>${$f(p.fin)}</b></div>${S.coll&&!it.orig?`<p class="rates">Collector's Rate אוטומטי: 10% · 15% מעל $300 · 20% מעל $500. משנים בכפתור ההנחה למטה.</p>`:''}</div>`}
 function wallSVG(){if(!sel&&!osel)return '';return `<div class="wallbox"><canvas id="mini" aria-label="הדמיה בגלריה בקנה מידה"></canvas><p>הדמיה בקנה מידה · ב"הצג ללקוח" אפשר להחליף סביבה ותאורה</p></div>`}
 function origHTML(){const o=origInfo(cur);
   if(o.nfs)return `<section class="ocard"><p class="note">אלברט סימן שהציור הזה לא מוצע כמקור.</p></section>`;
   if(!o.sizes.length)return `<section class="ocard"><div class="warn">עוד אין מחירי מקורים. אלברט ממלא אותם בטופס, ואחר כך מדביקים את הקוד בהגדרות ← סנכרון.</div></section>`;
-  return `<section class="cfg"><p class="note">ציור מקורי בעבודת יד, בגודל שהלקוח בוחר</p><h4>גודל · מחיר</h4><div class="tiles">${o.sizes.map(r=>`<button type="button" class="sz2" aria-pressed="${osel===r.s}" data-os="${r.s}"><span class="s">${sz(r.s,S.unit)}<small>${sz(r.s,S.unit==='cm'?'in':'cm')}</small></span><span class="p">${$f(r.p)}</span></button>`).join('')}</div></section>`}
+  return `<section class="plist"><h3>מחירון · ציור מקורי</h3><p class="note">אלברט מצייר את היצירה מחדש בגודל שהלקוח בוחר. נוגעים במחיר כדי לבחור.</p>
+  <div class="pm" style="--n:1"><div class="pmr pmh"><span>מידה</span><span>מחיר</span></div>${o.sizes.map(r=>`<div class="pmr${osel===r.s?' on':''}"><span class="s">${sz(r.s,S.unit)}<small>${sz(r.s,S.unit==='cm'?'in':'cm')}</small></span><button type="button" aria-pressed="${osel===r.s}" data-os="${r.s}">${$f(r.p)}</button></div>`).join('')}</div></section>`}
 function renderDetail(){const a=cur,hasP=Object.keys(a.f).length>0;
   let h=`<header class="dhero"><div class="bg" style="background:${artBg(a,135)}"><img src="${img(a)}" alt="" onerror="this.remove()"></div><div class="wrap">
     <div class="navrow"><button class="iconbtn" type="button" data-act="back"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>חזרה</button><span class="navt" id="navt">${esc(a.n)}</span><div class="r"><button class="iconbtn" type="button" data-act="tour" aria-pressed="${tour.includes(a.id)}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg>${tour.includes(a.id)?'בטור':'לטור'}</button>${a.h?`<a class="iconbtn" href="https://www.albertlevi.com/products/${esc(a.h)}" target="_blank" rel="noopener" aria-label="באתר"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>`:''}</div></div>
     <div class="hgal" id="hgal">${[`<figure class="g0"><img class="heroimg" src="${artL(a)}" alt="${esc(a.n)}"></figure>`].concat(views(a).map(v=>`<figure class="gv"><img src="${v}" alt="${esc(a.n)} on a wall" loading="lazy"></figure>`)).join('')}</div>
     ${views(a).length?`<div class="gdots" id="gdots">${[0].concat(views(a).map((_,i)=>i+1)).map(i=>`<i class="${i?'':'on'}"></i>`).join('')}</div><div class="gnote">החליקו לראות את היצירה בחדר</div>`:''}
-    <h2 class="dtitle">${esc(a.n)}</h2>
-    <div class="kind" role="tablist">${[['canvas','קנבס','הדפס'],['emb','Embellished','עבודת יד'],['float','מסגרת צפה','הדפס'],['orig','מקור','ציור מקורי']].filter(([f])=>f==='orig'?a.o:a.f[f]).map(([f,l,s])=>`<button type="button" role="tab" data-tab="${f}" aria-pressed="${ftab===f}">${l}<small>${s}</small></button>`).join('')}</div>
+    <p class="eyebrow">Albert Levi · ${a.o?'Original & Editions':'Editions'}</p><h2 class="dtitle">${esc(a.n)}</h2>
+    <div class="kind" role="tablist">${[['canvas','קנבס','הדפס'],['emb','Embellished','הדפס + עבודת יד'],['float','מסגרת צפה','הדפס'],['orig','מקור','ציור מקורי']].filter(([f])=>f==='orig'?a.o:a.f[f]).map(([f,l,s])=>{const m=f==='orig'?origInfo(a).min:fmtMin(a,f);return `<button type="button" role="tab" data-tab="${f}" aria-pressed="${ftab===f}"><b>${l}</b><small>${s}</small><em>${m!=null?'מ־'+$f(m):'—'}</em></button>`}).join('')}</div>
   </div></header><div class="wrap dbody">`;
-  if(kind==='orig'){h+=origHTML();if(osel)h+=wallSVG()}
+  if(kind==='orig'){h+=origHTML();h+=sumHTML();if(osel)h+=wallSVG()}
   else{h+=a.f[ftab]?tableHTML(ftab):'';
     const c=sel&&!sel.custom?cell(a,sel.f,sel.s,sel.fr):null;
     if(c&&c.w)h+=`<div class="warn"><b>כדאי לבדוק לפני שאומרים ללקוח.</b> במחירון באתר: ${esc(c.w)}.</div>`;
-    h+=wallSVG()}
+    h+=sumHTML();h+=wallSVG()}
   $('detail').innerHTML=h+'</div>';renderBar();drawMini()}
 function selIn(){if(kind==='orig'&&osel){let [w,h]=dims(osel);const im=getImg(cur);if(im.complete&&im.naturalWidth){const land=im.naturalWidth>im.naturalHeight*1.05,port=im.naturalHeight>im.naturalWidth*1.05;if((land&&w<h)||(port&&w>h))[w,h]=[h,w]}return [w,h]}return sel.custom?[sel.w,sel.h]:dims(sel.s)}
 function inLabel(a,b){return `${a}″ × ${b}″  ·  ${toCm(a)} × ${toCm(b)} cm`}
@@ -916,7 +991,7 @@ function renderBar(){const it=current();if(!it){$('pbar').hidden=true;renderFab(
     <button class="dtog" type="button" data-act="dtog" aria-expanded="${discOpen}">${p.coll?'Collector\'s ':'הנחה: '}${dl} ${discOpen?'▴':'▾'}</button></div>
   <div class="pbtns"><button class="line" type="button" data-act="add" aria-label="הוספה לחבילה">+ חבילה</button><button class="gold" type="button" data-act="cust">הצג ללקוח</button></div></div>
   ${discOpen?`<div class="disc">${opts.map(d=>`<button type="button" data-disc="${d}" aria-pressed="${disc===d||(d===0&&disc==='auto'&&!opts.includes('auto'))}">${d==='auto'?'אוטומטי':d?d+'%':'בלי'}</button>`).join('')}</div>`:''}</div>`;
-  $('pbar').hidden=false;roll($('pbar'));renderBar.last=p.fin;renderFab()}
+  $('pbar').hidden=false;roll($('pbar'));renderBar.last=p.fin;const sc=$('sumcard');if(sc&&!$('detail').hidden)sc.outerHTML=sumHTML();renderFab()}
 function roll(root){root.querySelectorAll('[data-roll]').forEach(el=>{const to=+el.dataset.roll,from=parseFloat(el.textContent.replace(/[^\d.]/g,''))||to;
   if(from===to||matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=$f(to);return}
   const t0=performance.now(),d=420;(function step(t){const k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=$f(from+(to-from)*e);if(k<1)requestAnimationFrame(step)})(t0)})}
