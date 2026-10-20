@@ -6,9 +6,10 @@ R("ART.forEach(a=>{a.id=a.k.replace(/[^a-z0-9]+/g,'-');","ART.forEach(a=>{a.id=a
 # the tour list ships with the app; a newer list is merged in on each device, keeping anything starred by hand
 R("let ftab='canvas',discOpen=false;","""const TOURP={};(D.TOUR0||[]).forEach(r=>TOURP[r.id]=r);
 let TOURV=L.TOURV||null;
-if(D.TOURV&&TOURV!==D.TOURV){tour=(D.TOUR0||[]).map(r=>r.id).concat(tour.filter(id=>!TOURP[id]));TOURV=D.TOURV}
+let TOURIDS=L.TOURIDS||(L.TOURV?['together-we-will-win']:[]);
+if(D.TOURV&&TOURV!==D.TOURV){tour=(D.TOUR0||[]).map(r=>r.id).concat(tour.filter(id=>!TOURP[id]&&!TOURIDS.includes(id)));TOURV=D.TOURV;TOURIDS=(D.TOUR0||[]).map(r=>r.id)}
 let ftab='canvas',discOpen=false;""")
-R("localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,tour,pkg,SALES}))","localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,TOURV,tour,pkg,SALES}))")
+R("localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,tour,pkg,SALES}))","localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,TOURV,TOURIDS,tour,pkg,SALES}))")
 R("let ORIG=L.ORIG||{}, T=L.T||{}, OS=L.OS||[], osel=null, tour=L.tour||[], pkg=L.pkg||[], SALES=L.SALES||[];","let ORIG=L.ORIG||{}, T=L.T||{}, OS=L.OS||[], osel=null, tour=L.tour||[], pkg=L.pkg||[], SALES=L.SALES||[];")
 # the piece on tour comes first among the original sizes; its row key is 'tour' so it never collides with a commission size
 R("function origSizes(a){const o=ORIG[a.id]||{};if(o.nfs)return [];","function origSizes(a){const tp=TOURP[a.id],tr=tp?[{s:tp.s,p:tp.p,k:'tour',tour:true}]:[];return tr.concat(commSizes(a))}\nfunction commSizes(a){const o=ORIG[a.id]||{};if(o.nfs)return [];")
@@ -62,4 +63,8 @@ css=r"""
 R("</style>",css+"</style>")
 R("const m=f==='orig'?origInfo(a).min:fmtMin(a,f);return `<button type=\"button\" role=\"tab\" data-tab=\"${f}\" aria-pressed=\"${ftab===f}\"><b>${l}</b><small>${s}</small><em>${m!=null?'מ־'+$f(m):'—'}</em></button>`",
   "const tp=f==='orig'&&TOURP[a.id];const m=f==='orig'?origInfo(a).min:fmtMin(a,f);return `<button type=\"button\" role=\"tab\" data-tab=\"${f}\" aria-pressed=\"${ftab===f}\"><b>${l}</b><small>${tp?'★ בטור':s}</small><em>${tp?$f(tp.p):m!=null?'מ־'+$f(m):'—'}</em></button>`")
+R("סנכרון בין אלברט לעירש","סנכרון בין אלברט להירש")
+t=t.replace("'עירש'","'הירש'")
+# the salesperson is Hirsh; carry over devices that already saved the old spelling
+R("let ftab='canvas',discOpen=false;","if(S.me==='עירש')S.me='הירש';SALES.forEach(s=>{if(s.by==='עירש')s.by='הירש'});\nlet ftab='canvas',discOpen=false;")
 open('tpl16.html','w').write(t);print('ok')

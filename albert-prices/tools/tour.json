@@ -68,9 +68,14 @@
    "d": "The Western Wall is a place where generations have come to pray, remember, and feel connected. This work captures a moment of faith and reflection at one of the most sacred places in Jewish life."
   },
   {
-   "id": "together-we-will-win",
-   "new": null,
-   "rename": "United in Strength",
+   "id": "united-in-strength",
+   "new": {
+    "n": "United in Strength",
+    "t": [
+     "jw"
+    ]
+   },
+   "rename": null,
    "s": "40x30",
    "p": 4800,
    "d": "A tribute to the bond between Israel and the United States. The 2 flags come together as a symbol of friendship, solidarity, shared values, and the strength that comes from standing together."

@@ -13,7 +13,7 @@ if os.path.exists(_tp):
     for r in _t['list']:
         if r['new'] and r['id'] not in _ids:
             n=r['new']['n'];w,h=map(int,r['s'].split('x'));q=max(w,h)/min(w,h)
-            _dd['art'].append({'k':n.lower().replace(',',''),'n':n,'f':{},'o':True,'os':True,'t':r['new']['t'],'sh':'sq' if q<1.15 else 'rect' if q<1.75 else 'pano','h':None,'img':None,'land':w>h})
+            _dd['art'].append({'k':n.lower().replace(',',''),'n':n,'f':{},'o':True,'os':True,'t':r['new']['t'],'sh':'sq' if q<1.15 else 'rect' if q<1.75 else 'pano','h':None,'img':(r['id'] if os.path.exists(os.path.join(outdir,'art',r['id']+'.webp')) else None),'land':w>h})
             _ids[r['id']]=_dd['art'][-1]
         a=_ids.get(r['id'])
         if a is None:raise SystemExit('tour work not found: '+r['id'])

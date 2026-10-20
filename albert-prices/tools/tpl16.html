@@ -839,7 +839,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const LSK='alp3';
 function load(){try{return JSON.parse(localStorage.getItem(LSK))||{}}catch(e){return {}}}
-function persist(){try{localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,TOURV,tour,pkg,SALES}))}catch(e){}}
+function persist(){try{localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,TOURV,TOURIDS,tour,pkg,SALES}))}catch(e){}}
 
 /* ---------- palette per work (decorative) ---------- */
 const PAL={cobalt:'#2f4be0',magenta:'#e0337a',sun:'#f5b70a',teal:'#11a198',tang:'#f26b2a',violet:'#7b3fe4',pink:'#ff7eb6',sky:'#41b6ff',leaf:'#3fae5a',earth:'#a8683a',sand:'#e8c48a',navy:'#1b2a6b',ruby:'#c81d3f',lime:'#b6e33b',ink:'#20212b',gold:'#d9a21b',coral:'#ff6f61',mint:'#7ee0c3'};
@@ -875,7 +875,9 @@ let OSV=L.OSV||null;
 if(D.OSV&&OSV!==D.OSV){OS=(D.OS0||[]).map(r=>Object.assign({},r));Object.entries(D.ORIG0||{}).forEach(([id,v])=>{ORIG[id]=Object.assign({},ORIG[id]||{},v)});OSV=D.OSV}
 const TOURP={};(D.TOUR0||[]).forEach(r=>TOURP[r.id]=r);
 let TOURV=L.TOURV||null;
-if(D.TOURV&&TOURV!==D.TOURV){tour=(D.TOUR0||[]).map(r=>r.id).concat(tour.filter(id=>!TOURP[id]));TOURV=D.TOURV}
+let TOURIDS=L.TOURIDS||(L.TOURV?['together-we-will-win']:[]);
+if(D.TOURV&&TOURV!==D.TOURV){tour=(D.TOUR0||[]).map(r=>r.id).concat(tour.filter(id=>!TOURP[id]&&!TOURIDS.includes(id)));TOURV=D.TOURV;TOURIDS=(D.TOUR0||[]).map(r=>r.id)}
+if(S.me==='עירש')S.me='הירש';SALES.forEach(s=>{if(s.by==='עירש')s.by='הירש'});
 let ftab='canvas',discOpen=false;
 let theme='all',cur=null,kind='print',sel=null,disc='auto',custom={w:'',h:''};
 
@@ -1315,8 +1317,8 @@ function flags(){const out=[];for(const f in STD)for(const k in STD[f])for(const
 function syncCode(){const {me,...shared}=S;const json=JSON.stringify({v:1,S:shared,ORIG,OS,tour,SALES});return 'ALP1:'+btoa(unescape(encodeURIComponent(json)))}
 function renderSettings(){const fl=flags();
   $('settings').innerHTML=`<div class="wrap sbody"><div class="shead"><h2>הגדרות</h2><button class="back" type="button" data-act="back">סיום</button></div>
-  <div class="panel"><h3>מי משתמש במכשיר הזה?</h3><div class="seg">${['אלברט','עירש'].map(n=>`<button type="button" data-me="${n}" aria-pressed="${S.me===n}">${n}</button>`).join('')}</div><p class="note">כך כל מכירה נרשמת על שם מי שסגר אותה.</p></div>
-  <div class="panel"><h3>סנכרון בין אלברט לעירש</h3><p class="note">כדי ששניכם תדברו באותו קול: מי שמעדכן מחירים מעתיק את הקוד ושולח בוואטסאפ, והשני מדביק כאן. הקוד כולל את ההנחות, מחירי המקורים לפי גודל, רשימת הטור ויומן המכירות. מכירות משני המכשירים מתאחדות.</p>
+  <div class="panel"><h3>מי משתמש במכשיר הזה?</h3><div class="seg">${['אלברט','הירש'].map(n=>`<button type="button" data-me="${n}" aria-pressed="${S.me===n}">${n}</button>`).join('')}</div><p class="note">כך כל מכירה נרשמת על שם מי שסגר אותה.</p></div>
+  <div class="panel"><h3>סנכרון בין אלברט להירש</h3><p class="note">כדי ששניכם תדברו באותו קול: מי שמעדכן מחירים מעתיק את הקוד ושולח בוואטסאפ, והשני מדביק כאן. הקוד כולל את ההנחות, מחירי המקורים לפי גודל, רשימת הטור ויומן המכירות. מכירות משני המכשירים מתאחדות.</p>
     <div class="seg"><button class="primary" type="button" data-act="exp">העתקת קוד סנכרון</button></div>
     <textarea id="imp" placeholder="להדביק כאן קוד שמתחיל ב־ALP1:" aria-label="קוד סנכרון"></textarea><div class="seg"><button class="ghost" type="button" data-act="imp">טעינת הקוד</button></div></div>
   <div class="panel"><h3>מחירי מקורים לפי גודל ($)</h3><p class="note">אלברט ממלא בטופס ושולח קוד. אפשר גם לערוך כאן. מידה באינצ׳ים, למשל 30x40.</p>
