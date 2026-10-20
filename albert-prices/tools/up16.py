@@ -6,7 +6,7 @@ R("ART.forEach(a=>{a.id=a.k.replace(/[^a-z0-9]+/g,'-');","ART.forEach(a=>{a.id=a
 # the tour list ships with the app; a newer list is merged in on each device, keeping anything starred by hand
 R("let ftab='canvas',discOpen=false;","""const TOURP={};(D.TOUR0||[]).forEach(r=>TOURP[r.id]=r);
 let TOURV=L.TOURV||null;
-let TOURIDS=L.TOURIDS||(L.TOURV?['together-we-will-win']:[]);
+let TOURIDS=L.TOURIDS||(L.TOURV?['together-we-will-win','peace-will-return']:[]);
 if(D.TOURV&&TOURV!==D.TOURV){tour=(D.TOUR0||[]).map(r=>r.id).concat(tour.filter(id=>!TOURP[id]&&!TOURIDS.includes(id)));TOURV=D.TOURV;TOURIDS=(D.TOUR0||[]).map(r=>r.id)}
 let ftab='canvas',discOpen=false;""")
 R("localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,tour,pkg,SALES}))","localStorage.setItem(LSK,JSON.stringify({S,ORIG,OS,OSV,TOURV,TOURIDS,tour,pkg,SALES}))")

@@ -875,7 +875,7 @@ let OSV=L.OSV||null;
 if(D.OSV&&OSV!==D.OSV){OS=(D.OS0||[]).map(r=>Object.assign({},r));Object.entries(D.ORIG0||{}).forEach(([id,v])=>{ORIG[id]=Object.assign({},ORIG[id]||{},v)});OSV=D.OSV}
 const TOURP={};(D.TOUR0||[]).forEach(r=>TOURP[r.id]=r);
 let TOURV=L.TOURV||null;
-let TOURIDS=L.TOURIDS||(L.TOURV?['together-we-will-win']:[]);
+let TOURIDS=L.TOURIDS||(L.TOURV?['together-we-will-win','peace-will-return']:[]);
 if(D.TOURV&&TOURV!==D.TOURV){tour=(D.TOUR0||[]).map(r=>r.id).concat(tour.filter(id=>!TOURP[id]&&!TOURIDS.includes(id)));TOURV=D.TOURV;TOURIDS=(D.TOUR0||[]).map(r=>r.id)}
 if(S.me==='עירש')S.me='הירש';SALES.forEach(s=>{if(s.by==='עירש')s.by='הירש'});
 let ftab='canvas',discOpen=false;
