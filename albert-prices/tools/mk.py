@@ -21,6 +21,14 @@ if os.path.exists(_tp):
         if r['rename']:a['aka']=a['n'];a['n']=r['rename'];a['k']=a['k']+' '+r['rename'].lower()
     _dd['TOUR0']=[{'id':r['id'],'s':r['s'],'p':r['p'],'d':r['d']} for r in _t['list']];_dd['TOURC']=_t['care']
     _dd['TOURV']=_h2.sha1(json.dumps(_t,sort_keys=True).encode()).hexdigest()[:8]
+for _a in _dd['art']:
+    _c=(_a.get('f') or {}).get('canvas')
+    if _c:
+        for _k in list(_c):
+            _c[_k].pop('rolled',None)
+            if not _c[_k]:del _c[_k]
+        if not _c:del _a['f']['canvas']
+for _s in _dd['std'].get('canvas',{}).values():_s.pop('rolled',None)
 _vc={}
 for _f in os.listdir(os.path.join(outdir,'views')) if os.path.isdir(os.path.join(outdir,'views')) else []:
     _id,_,_n=_f.rpartition('-');_vc[_id]=max(_vc.get(_id,0),int(_n.split('.')[0])+1)
@@ -48,7 +56,7 @@ import hashlib
 ver=hashlib.sha1((head+body).encode()).hexdigest()[:10]
 open(outdir+'/sw.js','w').write('''// Offline cache for the price guide. Bump happens automatically: the version is a hash of index.html.
 const V='alp-%s';
-const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','vendor/qrcode.js','originals.html'].concat(%s);
+const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','vendor/qrcode.js','originals.html','logo-mark.webp','logo-wide.webp'].concat(%s);
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k.startsWith('alp-')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET')return;
