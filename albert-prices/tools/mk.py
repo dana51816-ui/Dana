@@ -29,6 +29,36 @@ for _a in _dd['art']:
             if not _c[_k]:del _c[_k]
         if not _c:del _a['f']['canvas']
 for _s in _dd['std'].get('canvas',{}).values():_s.pop('rolled',None)
+# Prints are priced by size and finish alone, the same for every work, so works the store lists with gaps
+# (no canvas, no frames, no Embellished) get the standard set for their shape. 0 = use the standard price.
+STDSET={('rect',True):{'canvas':['12x9','18x12','30x20','40x30','48x32','60x40','75x56'],'emb':['40x28','48x32','60x40','67x46','80x60']},
+        ('sq',None):{'canvas':['10x10','16x16','20x20','24x24','30x30','32x32','36x36','50x50'],'emb':['36x36','40x40','50x50','55x55','60x60']},
+        ('pano',True):{'canvas':['20x10','30x15','40x20','60x30'],'emb':['40x20','60x30','70x35','80x40']}}
+def _flip(s):w,h=s.split('x');return h+'x'+w
+def _key(s):w,h=map(int,s.split('x'));return f"{min(w,h)}x{max(w,h)}"
+_filled=0
+try:
+    from PIL import Image as _Im
+except Exception:_Im=None
+for _a in _dd['art']:
+    _id=_a.get('id') or __import__('re').sub(r'[^a-z0-9]+','-',_a['k']);_sh=_a.get('sh') or 'rect'
+    _land=True
+    _ip=os.path.join(outdir,'art',_id+'.webp')
+    if _Im and os.path.exists(_ip):
+        _w,_h=_Im.open(_ip).size;_land=_w>=_h
+    _set=STDSET[(_sh,None)] if _sh=='sq' else STDSET[(_sh,True)]
+    for _f in ('canvas','emb'):
+        _F=_a['f'].setdefault(_f,{})
+        _sizes=_set[_f] if (_sh=='sq' or _land) else [_flip(s) for s in _set[_f]]
+        if not _F:
+            for _s in _sizes:_F[_s]={}
+        for _s,_v in _F.items():
+            _std=_dd['std'][_f].get(_key(_s),{})
+            for _fr in _std:
+                if _fr not in _v and not (_f=='canvas' and _fr=='rolled'):_v[_fr]=0;_filled+=1
+        for _s in [s for s,v in _F.items() if not v]:del _F[_s]
+        if not _F:del _a['f'][_f]
+print('standard prices filled',_filled)
 _vc={}
 for _f in os.listdir(os.path.join(outdir,'views')) if os.path.isdir(os.path.join(outdir,'views')) else []:
     _id,_,_n=_f.rpartition('-');_vc[_id]=max(_vc.get(_id,0),int(_n.split('.')[0])+1)
