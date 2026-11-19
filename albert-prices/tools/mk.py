@@ -20,7 +20,7 @@ if os.path.exists(_tp):
         a['id']=r['id']
         if r['rename']:a['aka']=a['n'];a['n']=r['rename'];a['k']=a['k']+' '+r['rename'].lower()
     _dd['TOUR0']=[{'id':r['id'],'s':r['s'],'p':r['p'],'d':r['d']} for r in _t['list']];_dd['TOURC']=_t['care']
-    _dd['TOURV']=_h2.sha1(json.dumps(_t,sort_keys=True).encode()).hexdigest()[:8]
+    _dd['TOURV']=_h2.sha1(json.dumps([r['id'] for r in _t['list']]).encode()).hexdigest()[:8]  # the starred list, not its prices
 for _a in _dd['art']:
     _c=(_a.get('f') or {}).get('canvas')
     if _c:
