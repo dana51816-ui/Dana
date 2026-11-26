@@ -4,9 +4,10 @@ def R(a,b,n=1):
     c=t.count(a);assert c>=1,('MISSING',a[:120]);t=t.replace(a,b,n if n else c)
 # --- Currency: the store's US dollar prices, shown in Canadian dollars at an editable rate ---
 R("let S=Object.assign({rate:3.7,round:'5',unit:'in',verified:false,coll:true,second:25,me:''},L.S||{});",
-"""let S=Object.assign({rate:3.7,round:'5',unit:'in',verified:false,coll:true,second:25,me:'',cur:'CAD',fx:1.4},L.S||{});
+"""let S=Object.assign({rate:3.7,round:'5',unit:'in',verified:false,coll:true,second:25,me:'',cur:'CAD',fx:1.4235},L.S||{});
+if(S.fx===1.4)S.fx=1.4235; // the first Canadian build guessed 1.40; Dana checked the rate on 26 Nov 2026
 // prices are kept in US dollars; in Canada they are converted once at load: prints end in 9, originals round up to the hundred
-const CUR=S.cur==='CAD'?'CAD':'USD',FX=CUR==='CAD'?(+S.fx||1.4):1;
+const CUR=S.cur==='CAD'?'CAD':'USD',FX=CUR==='CAD'?(+S.fx||1.4235):1;
 const pr=v=>FX===1?v:Math.ceil((v*FX+1)/10)*10-1, oc=v=>FX===1?v:Math.ceil(v*FX/100)*100;
 if(FX!==1){for(const f in STD)for(const k in STD[f])for(const fr in STD[f][k]){const o=STD[f][k][fr];if(o&&o.p)o.p=pr(o.p)}
   ART.forEach(a=>{for(const f in a.f)for(const s in a.f[f])for(const fr in a.f[f][s]){const v=a.f[f][s][fr];if(v>0)a.f[f][s][fr]=pr(v)}})}
